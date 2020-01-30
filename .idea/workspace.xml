@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,26 +174,26 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373098191" />
-    <state width="1878" height="313" key="GridCell.Tab.0.bottom" timestamp="1580383275941">
+    <state width="960" height="988" key="GridCell.Tab.0.bottom" timestamp="1580383283594">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
-    <state width="1878" height="313" key="GridCell.Tab.0.bottom/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275941" />
-    <state width="1878" height="313" key="GridCell.Tab.0.center" timestamp="1580383275939">
+    <state width="960" height="988" key="GridCell.Tab.0.bottom/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283594" />
+    <state width="960" height="988" key="GridCell.Tab.0.center" timestamp="1580383283591">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092016" />
-    <state width="1878" height="313" key="GridCell.Tab.0.center/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275939" />
-    <state width="1878" height="313" key="GridCell.Tab.0.left" timestamp="1580383275937">
+    <state width="960" height="988" key="GridCell.Tab.0.center/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283591" />
+    <state width="960" height="988" key="GridCell.Tab.0.left" timestamp="1580383283591">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092015" />
-    <state width="1878" height="313" key="GridCell.Tab.0.left/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275937" />
-    <state width="1878" height="313" key="GridCell.Tab.0.right" timestamp="1580383275940">
+    <state width="960" height="988" key="GridCell.Tab.0.left/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283591" />
+    <state width="960" height="988" key="GridCell.Tab.0.right" timestamp="1580383283592">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
-    <state width="1878" height="313" key="GridCell.Tab.0.right/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275940" />
+    <state width="960" height="988" key="GridCell.Tab.0.right/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283592" />
     <state width="1878" height="387" key="GridCell.Tab.1.bottom" timestamp="1580381902503">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -241,9 +235,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="624" y="236" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1580378066225" />
-    <state x="943" y="492" width="672" height="678" key="search.everywhere.popup" timestamp="1580370937662">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580383484639">
+      <screen x="0" y="27" width="1920" height="2133" />
     </state>
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup/0.27.1920.2133@0.27.1920.2133" timestamp="1580383484639" />
     <state x="943" y="492" width="672" height="678" key="search.everywhere.popup/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370937662" />
   </component>
   <component name="XDebuggerManager">
