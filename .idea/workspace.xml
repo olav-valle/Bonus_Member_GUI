@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/abstraction_assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/abstraction_assignment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
       <updated>1580370051920</updated>
       <workItem from="1580370053153" duration="2235000" />
       <workItem from="1580372296991" duration="63000" />
-      <workItem from="1580372368983" duration="659000" />
+      <workItem from="1580372368983" duration="1166000" />
     </task>
     <servers />
   </component>
@@ -103,10 +101,10 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1079" y="673" width="392" height="446" key="chooseDestDirectoryDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371016604" />
-    <state x="959" y="752" key="com.intellij.ide.util.TipDialog" timestamp="1580372368929">
+    <state x="959" y="752" key="com.intellij.ide.util.TipDialog" timestamp="1580373544655">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
-    <state x="959" y="752" key="com.intellij.ide.util.TipDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372368929" />
+    <state x="959" y="752" key="com.intellij.ide.util.TipDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373544655" />
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1580371043100">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
