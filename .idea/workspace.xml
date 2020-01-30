@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/abstraction_assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/abstraction_assignment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,11 +53,23 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/test" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="settings.space" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -73,6 +84,8 @@
       <workItem from="1580370053153" duration="2235000" />
       <workItem from="1580372296991" duration="63000" />
       <workItem from="1580372368983" duration="659000" />
+      <workItem from="1580374010664" duration="31000" />
+      <workItem from="1580374056150" duration="258000" />
     </task>
     <servers />
   </component>
@@ -83,10 +96,15 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1128" y="784" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580370413468">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="846" y="350" width="293" height="193" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580374227704">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="846" y="350" width="293" height="193" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580374227704" />
     <state x="1128" y="784" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370413468" />
+    <state x="576" y="105" width="824" height="691" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor" timestamp="1580374220575">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="576" y="105" width="824" height="691" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1580374220575" />
     <state x="900" y="843" width="760" height="170" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1580372801718">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
@@ -95,17 +113,23 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373098191" />
-    <state x="784" y="527" width="992" height="737" key="SettingsEditor" timestamp="1580372775108">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="771" y="208" width="424" height="491" key="FileChooserDialogImpl" timestamp="1580374218719">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="771" y="208" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1580374218719" />
+    <state x="588" y="129" width="900" height="737" key="SettingsEditor" timestamp="1580374038502">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="588" y="129" width="900" height="737" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1580374038502" />
     <state x="784" y="527" width="992" height="737" key="SettingsEditor/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372775108" />
     <state x="1079" y="673" width="392" height="446" key="chooseDestDirectoryDialog" timestamp="1580371016604">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1079" y="673" width="392" height="446" key="chooseDestDirectoryDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371016604" />
-    <state x="959" y="752" key="com.intellij.ide.util.TipDialog" timestamp="1580372368929">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="719" y="323" key="com.intellij.ide.util.TipDialog" timestamp="1580374172011">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="719" y="323" key="com.intellij.ide.util.TipDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580374172011" />
     <state x="959" y="752" key="com.intellij.ide.util.TipDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372368929" />
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1580371043100">
       <screen x="0" y="409" width="2560" height="1222" />
