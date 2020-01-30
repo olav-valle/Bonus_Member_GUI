@@ -48,7 +48,7 @@ class BonusMemberTest {
     @Test
     void testBasicMemberTove() {
         BasicMember b2 = new BasicMember(110, tove,
-                LocalDate.of(2007, 3, 5));
+                LocalDate.of(2007, 5, 3));
         b2.registerPoints(30000);
         System.out.println("Test nr 3: Tove should qualify");
         assertEquals(30000, b2.findQualificationPoints(testDate));
@@ -66,7 +66,8 @@ class BonusMemberTest {
         assertEquals( 135000, b4.findQualificationPoints(testDate));
         assertEquals( 135000, b4.getPoints());
         System.out.println("Test nr 6: Changed test date on Tove");
-        testDate = LocalDate.of(2008, 12, 10);
+        testDate = LocalDate.of(2008, 10, 12);
+        // assertEquals( 0, b4.findQualificationPoints(testDate)); Should be 135000??
         assertEquals( 0, b4.findQualificationPoints(testDate));
         assertEquals( 135000, b4.getPoints());
     }

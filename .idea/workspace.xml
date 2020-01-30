@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +64,74 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.space" />
   </component>
+  <component name="RunManager" selected="JUnit.BonusMemberTest">
+    <configuration name="BonusMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abstraction_assignment" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.ntnu.iir.olavval.oblig2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.ntnu.iir.olavval.oblig2" />
+      <option name="MAIN_CLASS_NAME" value="no.ntnu.iir.olavval.oblig2.BonusMemberTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BonusMemberTest.testBasicMemberOle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abstraction_assignment" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.ntnu.iir.olavval.oblig2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.ntnu.iir.olavval.oblig2" />
+      <option name="MAIN_CLASS_NAME" value="no.ntnu.iir.olavval.oblig2.BonusMemberTest" />
+      <option name="METHOD_NAME" value="testBasicMemberOle" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BonusMemberTest.testBasicMemberTove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="abstraction_assignment" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.ntnu.iir.olavval.oblig2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.ntnu.iir.olavval.oblig2" />
+      <option name="MAIN_CLASS_NAME" value="no.ntnu.iir.olavval.oblig2.BonusMemberTest" />
+      <option name="METHOD_NAME" value="testBasicMemberTove" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.BonusMemberTest" />
+        <item itemvalue="JUnit.BonusMemberTest.testBasicMemberTove" />
+        <item itemvalue="JUnit.BonusMemberTest.testBasicMemberOle" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -81,9 +155,22 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1128" y="784" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580370413468">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="418" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580379801896">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="418" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580379801896" />
+    <state x="100" y="63" width="1720" height="917" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1580378360794">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="100" y="63" width="1720" height="917" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580378360794" />
+    <state x="768" y="234" width="374" height="582" key="#com.intellij.ide.util.MemberChooser" timestamp="1580379313866">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="768" y="234" width="374" height="582" key="#com.intellij.ide.util.MemberChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1580379313866" />
+    <state x="846" y="350" width="293" height="193" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580376289865">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="846" y="350" width="293" height="193" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580376289865" />
     <state x="1128" y="784" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370413468" />
     <state x="900" y="843" width="760" height="170" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1580372801718">
       <screen x="0" y="409" width="2560" height="1222" />
@@ -93,6 +180,42 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373098191" />
+    <state width="1878" height="313" key="GridCell.Tab.0.bottom" timestamp="1580383275941">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state width="1878" height="313" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
+    <state width="1878" height="313" key="GridCell.Tab.0.bottom/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275941" />
+    <state width="1878" height="313" key="GridCell.Tab.0.center" timestamp="1580383275939">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state width="1878" height="313" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092016" />
+    <state width="1878" height="313" key="GridCell.Tab.0.center/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275939" />
+    <state width="1878" height="313" key="GridCell.Tab.0.left" timestamp="1580383275937">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state width="1878" height="313" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092015" />
+    <state width="1878" height="313" key="GridCell.Tab.0.left/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275937" />
+    <state width="1878" height="313" key="GridCell.Tab.0.right" timestamp="1580383275940">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state width="1878" height="313" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
+    <state width="1878" height="313" key="GridCell.Tab.0.right/0.27.1920.2133@0.27.1920.2133" timestamp="1580383275940" />
+    <state width="1878" height="387" key="GridCell.Tab.1.bottom" timestamp="1580381902503">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1878" height="387" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1580381902503" />
+    <state width="1878" height="387" key="GridCell.Tab.1.center" timestamp="1580381902502">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1878" height="387" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1580381902502" />
+    <state width="1878" height="387" key="GridCell.Tab.1.left" timestamp="1580381902501">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1878" height="387" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1580381902501" />
+    <state width="1878" height="387" key="GridCell.Tab.1.right" timestamp="1580381902502">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1878" height="387" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1580381902502" />
     <state x="784" y="527" width="992" height="737" key="SettingsEditor" timestamp="1580372775108">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
@@ -109,13 +232,34 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371043100" />
-    <state x="1025" y="513" width="500" height="766" key="refactoring.ChangeSignatureDialog" timestamp="1580371540584">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="769" y="117" width="426" height="661" key="refactoring.ChangeSignatureDialog" timestamp="1580376357734">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="769" y="117" width="426" height="661" key="refactoring.ChangeSignatureDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580376357734" />
     <state x="1025" y="513" width="500" height="766" key="refactoring.ChangeSignatureDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371540584" />
+    <state x="624" y="236" key="run.anything.popup" timestamp="1580378066225">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="624" y="236" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1580378066225" />
     <state x="943" y="492" width="672" height="678" key="search.everywhere.popup" timestamp="1580370937662">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="943" y="492" width="672" height="678" key="search.everywhere.popup/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370937662" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
