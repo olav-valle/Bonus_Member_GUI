@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +59,25 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/test" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.space" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="no.ntnu.iir.olavval.oblig2" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="no.ntnu.iir.olavval.oblig2" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
   </component>
   <component name="RunManager" selected="JUnit.BonusMemberTest">
     <configuration name="BonusMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -170,6 +191,10 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="900" y="843" width="760" height="170" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372801718" />
+    <state x="739" y="1463" width="441" height="294" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1580387369752">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state x="739" y="1463" width="441" height="294" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.27.1920.2133@0.27.1920.2133" timestamp="1580387369752" />
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2" timestamp="1580373098191">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
@@ -226,6 +251,10 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371043100" />
+    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1580387427715">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.27.1920.2133@0.27.1920.2133" timestamp="1580387427715" />
     <state x="769" y="117" width="426" height="661" key="refactoring.ChangeSignatureDialog" timestamp="1580376357734">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -235,26 +264,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="624" y="236" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1580378066225" />
-    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580383484639">
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580387350634">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
-    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup/0.27.1920.2133@0.27.1920.2133" timestamp="1580383484639" />
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup/0.27.1920.2133@0.27.1920.2133" timestamp="1580387350634" />
     <state x="943" y="492" width="672" height="678" key="search.everywhere.popup/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370937662" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
