@@ -1,11 +1,10 @@
-import
-import
-import
-import
-        org.junit.jupiter.api.BeforeEach;
-org.junit.jupiter.api.Test;
-        java.time.LocalDate;
-static org.junit.jupiter.api.Assertions.*;
+package no.ntnu.iir.olavval.oblig2;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+
 /**
  * Test class used to test the calculation of bonus points in the different classes
  * representing the different memberships.
@@ -60,3 +59,25 @@ class BonusMemberTest {
         b3.registerPoints(50000);
         assertEquals( 90000, b3.findQualificationPoints(testDate));
         assertEquals( 90000, b3.getPoints());
+        System.out.println("Test nr 5: Tove as gold member");
+        GoldMember b4 = new GoldMember(b3.getMemberNo(), b3.getPersonals(),
+                b3.getEnrolledDate(), b3.getPoints());
+        b4.registerPoints(30000);
+        assertEquals( 135000, b4.findQualificationPoints(testDate));
+        assertEquals( 135000, b4.getPoints());
+        System.out.println("Test nr 6: Changed test date on Tove");
+        testDate = LocalDate.of(2008, 12, 10);
+        assertEquals( 0, b4.findQualificationPoints(testDate));
+        assertEquals( 135000, b4.getPoints());
+    }
+    /**
+     * Tests the passwords of both members.
+     */
+    @Test
+    void testPasswords() {
+        System.out.println("Test nr 7: Trying wrong password on Ole");
+        assertFalse(ole.okPassword("000"));
+        System.out.println("Test nr 8: Trying correct password on Tove.");
+        assertTrue(tove.okPassword("tove"));
+    }
+}
