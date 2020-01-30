@@ -68,7 +68,7 @@ class Personals {
      */
     public boolean okPassword(String password) {
 
-        if(password == null || this.password == null) return false;
+       if(password == null || this.password == null) return false;
 
         return this.password.equalsIgnoreCase(password);
     }

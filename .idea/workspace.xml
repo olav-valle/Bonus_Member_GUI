@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BasicMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/BonusMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/GoldMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BasicMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BasicMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BonusMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BonusMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/GoldMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/GoldMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/Personals.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/Personals.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/SilverMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/SilverMember.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/SilverMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/BonusMemberTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
   <component name="RunManager" selected="JUnit.BonusMemberTest">
     <configuration name="BonusMemberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="abstraction_assignment" />
-      <extension name="coverage">
+      <extension name="coverage" track_test_folders="true">
         <pattern>
           <option name="PATTERN" value="no.ntnu.iir.olavval.oblig2.*" />
           <option name="ENABLED" value="true" />
@@ -90,7 +89,9 @@
       </extension>
       <option name="PACKAGE_NAME" value="no.ntnu.iir.olavval.oblig2" />
       <option name="MAIN_CLASS_NAME" value="no.ntnu.iir.olavval.oblig2.BonusMemberTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -127,6 +128,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.BonusMemberTest" />
+      <item itemvalue="JUnit.BonusMemberTest.testBasicMemberOle" />
+      <item itemvalue="JUnit.BonusMemberTest.testBasicMemberTove" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.BonusMemberTest" />
@@ -170,10 +176,11 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="418" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580379801896">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="336" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580389904078">
+      <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state x="418" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580379801896" />
+    <state x="336" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.2133@0.27.1920.2133" timestamp="1580389904078" />
     <state x="100" y="63" width="1720" height="917" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1580378360794">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -199,26 +206,30 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373098191" />
-    <state width="960" height="988" key="GridCell.Tab.0.bottom" timestamp="1580383283594">
+    <state x="1160" y="312" width="424" height="491" key="FileChooserDialogImpl" timestamp="1580389795595">
+      <screen x="0" y="27" width="1920" height="2133" />
+    </state>
+    <state x="1160" y="312" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.2133@0.27.1920.2133" timestamp="1580389795595" />
+    <state width="960" height="988" key="GridCell.Tab.0.bottom" timestamp="1580389922518">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
-    <state width="960" height="988" key="GridCell.Tab.0.bottom/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283594" />
-    <state width="960" height="988" key="GridCell.Tab.0.center" timestamp="1580383283591">
+    <state width="960" height="988" key="GridCell.Tab.0.bottom/0.27.1920.2133@0.27.1920.2133" timestamp="1580389922518" />
+    <state width="960" height="988" key="GridCell.Tab.0.center" timestamp="1580389922517">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092016" />
-    <state width="960" height="988" key="GridCell.Tab.0.center/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283591" />
-    <state width="960" height="988" key="GridCell.Tab.0.left" timestamp="1580383283591">
+    <state width="960" height="988" key="GridCell.Tab.0.center/0.27.1920.2133@0.27.1920.2133" timestamp="1580389922517" />
+    <state width="960" height="988" key="GridCell.Tab.0.left" timestamp="1580389922516">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092015" />
-    <state width="960" height="988" key="GridCell.Tab.0.left/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283591" />
-    <state width="960" height="988" key="GridCell.Tab.0.right" timestamp="1580383283592">
+    <state width="960" height="988" key="GridCell.Tab.0.left/0.27.1920.2133@0.27.1920.2133" timestamp="1580389922516" />
+    <state width="960" height="988" key="GridCell.Tab.0.right" timestamp="1580389922518">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state width="1878" height="313" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1580382092017" />
-    <state width="960" height="988" key="GridCell.Tab.0.right/0.27.1920.2133@0.27.1920.2133" timestamp="1580383283592" />
+    <state width="960" height="988" key="GridCell.Tab.0.right/0.27.1920.2133@0.27.1920.2133" timestamp="1580389922518" />
     <state width="1878" height="387" key="GridCell.Tab.1.bottom" timestamp="1580381902503">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -251,10 +262,10 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371043100" />
-    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1580387427715">
+    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1580388737567">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
-    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.27.1920.2133@0.27.1920.2133" timestamp="1580387427715" />
+    <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.27.1920.2133@0.27.1920.2133" timestamp="1580388737567" />
     <state x="769" y="117" width="426" height="661" key="refactoring.ChangeSignatureDialog" timestamp="1580376357734">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -264,10 +275,15 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="624" y="236" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1580378066225" />
-    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580387350634">
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580387805125">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
-    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup/0.27.1920.2133@0.27.1920.2133" timestamp="1580387350634" />
+    <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup/0.27.1920.2133@0.27.1920.2133" timestamp="1580387805125" />
     <state x="943" y="492" width="672" height="678" key="search.everywhere.popup/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580370937662" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/abstraction_assignment$BonusMemberTest.ic" NAME="BonusMemberTest Coverage Results" MODIFIED="1580389922496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>no.ntnu.iir.olavval.oblig2.*</FILTER>
+    </SUITE>
   </component>
 </project>
