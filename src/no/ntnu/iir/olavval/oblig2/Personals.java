@@ -88,13 +88,13 @@ class Personals {
         if (oldPassword == null || newPassword == null) {
             return false;
         }
-        boolean changeSuccessfull = false;
+        boolean changeSuccessful;
         if (!password.equalsIgnoreCase(oldPassword.trim())) {
-            changeSuccessfull = false;
+            changeSuccessful = false;
         } else {
             password = newPassword.trim();
-            changeSuccessfull = true;
+            changeSuccessful = true;
         }
-        return changeSuccessfull;
+        return changeSuccessful;
     }
 }

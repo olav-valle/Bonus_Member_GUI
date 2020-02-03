@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BasicMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BasicMember.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BonusMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/BonusMember.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/GoldMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/GoldMember.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/Personals.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/Personals.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/SilverMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/SilverMember.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" afterDir="false" />
     </list>

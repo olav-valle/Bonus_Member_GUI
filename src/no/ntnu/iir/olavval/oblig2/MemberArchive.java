@@ -10,6 +10,7 @@ public class MemberArchive {
     private static final Random RANDOM_NUMBER = new Random();
 
     private ArrayList<BonusMember> members;
+    // TODO should this be a HashMap<int memberNo, BonusMember member>?
 
     /**
      * Member archive registry.
@@ -17,8 +18,8 @@ public class MemberArchive {
     public MemberArchive()
     {
         members = new ArrayList<>();
-
     }
+
     /**
      * Imitates a member logging in to check their point balance.
      * Requires a valid user number and password.
@@ -111,8 +112,8 @@ public class MemberArchive {
      * Main method of BonusMember program app.
      * @param args
      */
-    public static void main(String[] args){
-
+    public static void main(String[] args)
+    {
 
     }
 }
