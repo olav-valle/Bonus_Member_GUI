@@ -63,7 +63,7 @@ public class MemberArchive {
         return success;
 
 
-        //TODO add tests
+        // TODO: 03/02/2020 add tests
         // + return true for valid memberNo
         // + amount increases correctly
         // - false for invalid memberNo

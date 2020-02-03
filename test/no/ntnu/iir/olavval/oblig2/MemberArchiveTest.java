@@ -84,30 +84,58 @@ public class MemberArchiveTest {
 
     @Test
     void registerPointsTest() {
+        // add new member to archive
         int oleMemberNo = archive.addMember(ole, oleEnrollDate);
-        BasicMember b1 = archive.findMember(oleMemberNo);
-        int pointsToAdd = 10000;
+
+        // fetch newly added member from archive, so we can use it directly
+        BasicMember b1 = (BasicMember) archive.findMember(oleMemberNo);
+
+        int pointsToAdd = 10000; // number of points to add
+
+        //Basic level member tests
 
         System.out.println("Test 7: Tests successfully adding points to a member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
             //asserts that adding points is successful when a valid member number is used
+        System.out.println("Test 8: Test that basic member has gained expected number of points.");
+        assertEquals(pointsToAdd, b1.getPoints());
+            // asserts that basic member has received the correct amount of points, e.g. added == received
+        System.out.println("Test 9: Tests failure when adding points to invalid member number.");
+        assertFalse(archive.registerPoints(-1, pointsToAdd));
+            //asserts failure when member number is invalid
+        System.out.println("Test 10: Test failure when adding negative point value.");
+        assertFalse(archive.registerPoints(oleMemberNo, -1));
+            //asserts failure when points < 0
 
-        // manually add 10 000 points to Ole, bypassing registerPoints method in MemberArchive
-        System.out.println("Test 6: Check that findPoints returns correct amount when balance is not 0.");
-        assertEquals(pointsToAdd, archive.findPoints(oleMemberNo, "ole"));
-        // asserts that member has received the correct amount of points
-
-
-        // TODO: 03/02/2020 add tests for silver and gold level members
+        //Silver level member tests
 
         SilverMember s1 = new SilverMember(
                 b1.getMemberNo(),
                 b1.getPersonals(),
                 b1.getEnrolledDate(),
-                b1.getPoints());
+                0); //wipe balance to 0 to eliminate interference from basic level testing
+        archive.replaceUpgradedMember(s1); // replaces basic Ole with silver level Ole
 
-        archive.replaceUpgradedMember(s1); //
 
+        System.out.println("Test 11: Add points to silver level member.");
+        assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
+        System.out.println("Test 12: Test that Silver level member has received expected number of points.");
+        assertEquals( pointsToAdd*1.2, s1.getPoints());
+
+
+        //Gold level member tests
+
+        GoldMember g1 = new GoldMember(
+                s1.getMemberNo(),
+                s1.getPersonals(),
+                s1.getEnrolledDate(),
+                0); //wipe balance to 0, to eliminate interference from silver level testing
+        archive.replaceUpgradedMember(g1);
+
+        System.out.println("Test 13: Add points to gold level member.");
+        assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
+        System.out.println("Test 14: Test that Gold level member has received expected number of points.");
+        assertEquals(pointsToAdd*1.5, g1.getPoints());
 
         //How do we test silver and gold level members, without also using the private upgrade methods in
         // member archive? Make the putMember method public?
@@ -122,5 +150,6 @@ public class MemberArchiveTest {
 
     @Test
     void checkMembersTest() {
+        // TODO: 03/02/2020 fuuuuuuuuuuuuuuuuuuuck...
     }
 }
