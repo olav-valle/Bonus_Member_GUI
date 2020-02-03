@@ -3,6 +3,11 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * Represents a Bonus Member. A member earns bonus points from traveling with the company.
+ * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
+ *
+ */
 public class BonusMember
 {
     //
@@ -14,6 +19,12 @@ public class BonusMember
     private final LocalDate enrolledDate;
     private int point = 0;
 
+    /**
+     * Bonus member costructor.
+     * @param memberNo A unique integer representing member number.
+     * @param personals A Personals object containing details regarding the member.
+     * @param enrolledDate The date the member was first enrolled in the Bonus program.
+     */
     public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
 
         this.memberNo = memberNo;
@@ -22,29 +33,58 @@ public class BonusMember
     }
 
 
+    /**
+     * Returns the number of points this member has earned.
+     * @return the number of points this member has earned.
+     */
     public int getPoints() {
         return point;
     }
 
 
+    /**+
+     * Returns the member number.
+     * @return the member number.
+     */
     public int getMemberNo() {
         return memberNo;
     }
 
+    /**
+     * Returns the Personals object of this member.
+     * @return the Personals object of this member.
+     */
     public Personals getPersonals() {
         return personals;
     }
 
+    /**
+     * Returns a LocalDate object holding the date this member was enrolled in the Bonus program.
+     * @return the date this member was enrolled in the Bonus program.
+     */
     public LocalDate getEnrolledDate() {
         return enrolledDate;
     }
 
+    /**
+     * Adds points to this members account.
+     * @param points The number of points to be added to the member account.
+     */
     public void registerPoints(int points) {
 
         this.point += points;
 
     }
 
+    /**
+     * Checks if the member has been part of the Bonus program for less than one year, using the
+     * date passed as parameter.
+     * If membership has lasted for less than one year, it returns the number of points in the member
+     * account. Returns 0 if membership is more than one year old.
+     * @param testDate The date to compare member enrollment date to.
+     * @return 0 if membership is more than one year old, or the number of points held by the member if
+     * membership is less than one year old.
+     */
     public int findQualificationPoints(LocalDate testDate)
     {
 
@@ -57,8 +97,15 @@ public class BonusMember
 
     }
 
+    /**
+     * Tests whether the provided password matches the password registered to this member.
+     * @param passwd the password to be tested.
+     * @return True if provided and registered passwords match.
+     */
     public boolean okPassword(String passwd)
     {
+        if(passwd == null) return false; // null password is never valid
+
         return personals.okPassword(passwd);
     }
 }

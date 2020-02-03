@@ -41,7 +41,7 @@ class BonusMemberTest {
         assertEquals(45000, b1.getPoints());
     }
     /**
-     * Tests the accuracy of the calculation of points for the absic member Tove,
+     * Tests the accuracy of the calculation of points for the basic member Tove,
      * who was registered with basic membership less than 365 days before 10/2-2008,
      * and hence does qualify for an upgrade, first to Silver, then to Gold.
      */
