@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/MemberArchive.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/abstraction_assignment/no/ntnu/iir/olavval/oblig2/MemberArchive.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/abstraction_assignment/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/abstraction_assignment/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/no/ntnu/iir/olavval/oblig2/MemberArchiveTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="472" />
+    <option name="myElementSize" value="560" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -226,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580766595322</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="adds registerPoints tests">
+      <created>1580768579356</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1580768579356</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +242,8 @@
     <MESSAGE value="sign off lovelace" />
     <MESSAGE value="starts implementation of qualification check and silver/gold level upgrade methods." />
     <MESSAGE value="adds addMember and findPoints tests, starts registerPoints test." />
-    <option name="LAST_COMMIT_MESSAGE" value="adds addMember and findPoints tests, starts registerPoints test." />
+    <MESSAGE value="adds registerPoints tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds registerPoints tests" />
   </component>
   <component name="WindowStateProjectService">
     <state x="336" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580389904078">
@@ -266,10 +272,10 @@
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
     <state x="739" y="1463" width="441" height="294" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.27.1920.2133@0.27.1920.2133" timestamp="1580387369752" />
-    <state x="429" y="535" width="1055" height="816" key="CommitChangelistDialog2" timestamp="1580766595250">
+    <state x="587" y="390" width="1364" height="1155" key="CommitChangelistDialog2" timestamp="1580768579319">
       <screen x="0" y="408" width="2560" height="1255" />
     </state>
-    <state x="429" y="535" width="1055" height="816" key="CommitChangelistDialog2/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580766595250" />
+    <state x="587" y="390" width="1364" height="1155" key="CommitChangelistDialog2/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580768579319" />
     <state x="884" y="520" width="781" height="816" key="CommitChangelistDialog2/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580373098191" />
     <state x="1160" y="312" width="424" height="491" key="FileChooserDialogImpl" timestamp="1580389795595">
       <screen x="0" y="27" width="1920" height="2133" />
