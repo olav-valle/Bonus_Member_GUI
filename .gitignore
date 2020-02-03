@@ -1,0 +1,4 @@
+
+*.class
+
+out/production/abstraction_assignment/META-INF/abstraction_assignment.kotlin_module
