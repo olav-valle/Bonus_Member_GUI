@@ -32,7 +32,7 @@ public class MemberArchive {
      */
     public int findPoints(int memberNo, String passwd)
     {
-        return -1;
+        return members.get(memberNo).getPoints();
         //TODO add tests
         // + return right amount when given valid memberNo && passwd
         // - return -1 for invalid memberNo || passwd || (memberNo && passwd)
@@ -47,8 +47,22 @@ public class MemberArchive {
      */
     public boolean registerPoints(int memberNo, int points)
     {
+        boolean success = false;
 
-        return false;
+        //sanity check: does member exist in collection, or is points value negative?
+        if(members.get(memberNo) == null || points < 0) return false;
+
+        //TODO: 03/02/2020 Either add a removePoints method, or allow negative point values for when
+        // subtracting points from a balance becomes necessary.
+
+        else{ // member exists and value is positive
+                members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
+            success = true;
+        }
+
+        return success;
+
+
         //TODO add tests
         // + return true for valid memberNo
         // + amount increases correctly
@@ -58,19 +72,84 @@ public class MemberArchive {
     }
 
     /**
+     * Finds the member with the specified member number.
+     * @param memberNo the member number of the desired member
+     * @return the member with specified member number, or null if no member with that number exists.
+     */
+    public BonusMember findMember(int memberNo)
+    {
+        return members.get(memberNo);
+
+    }
+
+    /**
      * Creates a new member account using the personal details and date provided.
      * Returns the unique membership number generated for the member.
      * @param person The personal details of the member.
      * @param dateEnrolled The date of first enrollment into the program.
-     * @return the unique membership number of the member.
+     * @return the unique membership number of the member, or -1 if creation failed.
      */
     public int addMember(Personals person, LocalDate dateEnrolled)
     {
-        return findAvailableNo();
+        BonusMember newMember = null;
+
+        if(person != null && dateEnrolled != null) { // requires person and date to be non-null.
+
+            newMember = new BasicMember(findAvailableNo(), person, dateEnrolled); // inst. new BasicMember object
+
+            putMember(newMember); //put member object into collection.
+        }//if
+
+        int newMemberNo = -1; // we assume that member creation failed
+        if (newMember != null) newMemberNo = newMember.getMemberNo(); // if a new member was instantiated
+        return newMemberNo; // newMember was still null, ergo BasicMember inst. failed and we return -1.
         // TODO: 03/02/2020 how to notify caller of failed process, i.e. null parameters or otherwise invalid data?
         //  return -1?
         //TODO add tests:
         // + possible failure if
+    }
+
+    /**
+     * Puts a member into the members collection, using its member number as key.
+     * Do NOT use this method to replace a member already in the archive,
+     * e.g. during membership upgrade. This will fail if the membership number is the same
+     * for both the old and the upgraded member objects (which they should be, even after an upgrade)
+     *
+     * see replaceUpgradedMember for interactions with members already in collection.
+     * @param newMember the member to add to the list.
+     */
+    protected void putMember(BonusMember newMember)
+    {
+        // TODO: 03/02/2020 check if collection already has this specific key-value pair.
+        if(newMember != null && !(members.containsKey(newMember.getMemberNo()))) {
+            members.put( // add newly created member to collection
+                    newMember.getMemberNo(), // member number is key
+                    newMember); // member object is value
+        }
+    }
+
+    /**
+     * Replaces a member already in collection, with the parameter member object.
+     * Do NOT use this method when adding a new member to the archive, e.g. during
+     * membership creation. Should ONLY be used when upgrading a member, as it requires
+     * that an object with the same member number key is already present in the collection.
+     * Method does not allow caller to directly specify the member number of the member
+     * that is to be replaced. It will automatically fetch
+     *
+     * See putMember to add a new member.
+     *
+     * @param replacementMember the member object that will replace the old one.
+     */
+    protected void replaceUpgradedMember(BonusMember replacementMember)
+    {
+        if(replacementMember != null // non-null check
+            && members.containsKey( // check that this member is currently present in some form
+                    replacementMember.getMemberNo()))
+        {
+            members.replace(
+                    replacementMember.getMemberNo(), //memberNo of replacement should be same as original
+                    replacementMember);
+        }
     }
 
     /**
@@ -179,30 +258,30 @@ public class MemberArchive {
 
     /**
      * Upgrades the parameter member to silver member status.
-     * @param member The member who is to be upgraded to silver level.
+     * @param currentMember The member who is to be upgraded to silver level.
      * @return the newly upgraded silver level member.
      */
-    private BonusMember upgradeMemberToSilver(BonusMember member){
+    private BonusMember upgradeMemberToSilver(BonusMember currentMember){
 
         return new SilverMember( //recycles details from old BasicMember object.
-                member.getMemberNo(),
-                member.getPersonals(),
-                member.getEnrolledDate(),
-                member.getPoints());
+                currentMember.getMemberNo(),
+                currentMember.getPersonals(),
+                currentMember.getEnrolledDate(),
+                currentMember.getPoints());
     }
 
     /**
      * Upgrades the parameter member to gold member status.
-     * @param member The member who is to be upgraded to gold level.
+     * @param currentMember The member who is to be upgraded to gold level.
      * @return the newly upgraded gold level member.
      */
-    private BonusMember upgradeMemberToGold(BonusMember member){
+    private BonusMember upgradeMemberToGold(BonusMember currentMember){
 
         return new GoldMember( //recycles details from old SilverMember or BasicMember object.
-                member.getMemberNo(),
-                member.getPersonals(),
-                member.getEnrolledDate(),
-                member.getPoints());
+                currentMember.getMemberNo(),
+                currentMember.getPersonals(),
+                currentMember.getEnrolledDate(),
+                currentMember.getPoints());
     }
     /**
      * Main method of BonusMember program app.
