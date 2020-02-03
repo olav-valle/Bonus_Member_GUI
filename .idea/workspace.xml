@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="">
+    <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="sign off lovelace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/Personals.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +55,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/test" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="settings.space" />
@@ -162,6 +160,14 @@
       <workItem from="1580372296991" duration="63000" />
       <workItem from="1580372368983" duration="1166000" />
     </task>
+    <task id="LOCAL-00001" summary="sign off lovelace">
+      <created>1580734377080</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580734377080</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +175,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="sign off lovelace" />
+    <option name="LAST_COMMIT_MESSAGE" value="sign off lovelace" />
   </component>
   <component name="WindowStateProjectService">
     <state x="336" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580389904078">
@@ -241,10 +249,15 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1878" height="387" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1580381902502" />
-    <state x="784" y="527" width="992" height="737" key="SettingsEditor" timestamp="1580372775108">
-      <screen x="0" y="409" width="2560" height="1222" />
+    <state x="588" y="129" width="992" height="737" key="SettingsEditor" timestamp="1580734890568">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="588" y="129" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1580734890568" />
     <state x="784" y="527" width="992" height="737" key="SettingsEditor/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372775108" />
+    <state x="555" y="246" width="800" height="558" key="Vcs.Push.Dialog.v2" timestamp="1580734381477">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="555" y="246" width="800" height="558" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1580734381477" />
     <state x="1079" y="673" width="392" height="446" key="chooseDestDirectoryDialog" timestamp="1580371016604">
       <screen x="0" y="409" width="2560" height="1222" />
     </state>

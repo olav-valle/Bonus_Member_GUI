@@ -10,7 +10,9 @@ public class MemberArchive {
     private static final Random RANDOM_NUMBER = new Random();
 
     private ArrayList<BonusMember> members;
-    // TODO should this be a HashMap<int memberNo, BonusMember member>?
+    //TODO should this be a HashMap<int memberNo, BonusMember member>?
+    // The memberNo's should all be unique, and upgrading a member simply means storing the current memberNo,
+    // and reusing it as the key for the upgraded member object.
 
     /**
      * Member archive registry.
