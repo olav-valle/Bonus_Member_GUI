@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ebfeb0d-3b64-4657-8073-eb7f043a0f8c" name="Default Changelist" comment="sign off lovelace">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/no/ntnu/iir/olavval/oblig2/MemberArchive.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +32,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -130,9 +135,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BonusMemberTest" />
         <item itemvalue="JUnit.BonusMemberTest.testBasicMemberTove" />
         <item itemvalue="JUnit.BonusMemberTest.testBasicMemberOle" />
+        <item itemvalue="JUnit.BonusMemberTest" />
+        <item itemvalue="JUnit.BonusMemberTest" />
+        <item itemvalue="JUnit.BonusMemberTest.testBasicMemberTove" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +211,6 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="900" y="843" width="760" height="170" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372801718" />
-
     <state x="739" y="1463" width="441" height="294" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1580387369752">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
@@ -259,7 +265,6 @@
     <state x="588" y="129" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1580734890568" />
     <state x="784" y="530" key="SettingsEditor/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580737240299" />
     <state x="784" y="527" width="992" height="737" key="SettingsEditor/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580372775108" />
-
     <state x="555" y="246" width="800" height="558" key="Vcs.Push.Dialog.v2" timestamp="1580734381477">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -276,10 +281,10 @@
       <screen x="0" y="409" width="2560" height="1222" />
     </state>
     <state x="1002" y="789" width="546" height="213" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371043100" />
-    <state x="1072" y="876" width="415" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580737258259">
+    <state x="1072" y="876" width="415" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580739927834">
       <screen x="0" y="408" width="2560" height="1255" />
     </state>
-    <state x="1072" y="876" width="415" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580737258259" />
+    <state x="1072" y="876" width="415" height="167" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580739927834" />
     <state x="734" y="1322" width="442" height="565" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1580388737567">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
@@ -289,10 +294,11 @@
     </state>
     <state x="769" y="117" width="426" height="661" key="refactoring.ChangeSignatureDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1580376357734" />
     <state x="1025" y="513" width="500" height="766" key="refactoring.ChangeSignatureDialog/0.409.2560.1222/3640.382.1920.1080/2560.0.1080.1920@0.409.2560.1222" timestamp="1580371540584" />
-    <state x="624" y="236" key="run.anything.popup" timestamp="1580378066225">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="832" y="657" key="run.anything.popup" timestamp="1580744343899">
+      <screen x="0" y="408" width="2560" height="1255" />
     </state>
     <state x="624" y="236" key="run.anything.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1580378066225" />
+    <state x="832" y="657" key="run.anything.popup/0.408.2560.1255/3640.381.1920.1080/2560.0.1080.1920@0.408.2560.1255" timestamp="1580744343899" />
     <state x="707" y="172" width="672" height="1184" key="search.everywhere.popup" timestamp="1580387805125">
       <screen x="0" y="27" width="1920" height="2133" />
     </state>
