@@ -67,6 +67,9 @@ class Personals {
     <code>false</code> if password is wrong
      */
     public boolean okPassword(String password) {
+
+       if(password == null || this.password == null) return false;
+
         return this.password.equalsIgnoreCase(password);
     }
     /**
@@ -85,13 +88,13 @@ class Personals {
         if (oldPassword == null || newPassword == null) {
             return false;
         }
-        boolean changeSuccessfull = false;
+        boolean changeSuccessful;
         if (!password.equalsIgnoreCase(oldPassword.trim())) {
-            changeSuccessfull = false;
+            changeSuccessful = false;
         } else {
             password = newPassword.trim();
-            changeSuccessfull = true;
+            changeSuccessful = true;
         }
-        return changeSuccessfull;
+        return changeSuccessful;
     }
 }
