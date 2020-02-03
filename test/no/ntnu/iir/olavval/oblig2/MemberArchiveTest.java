@@ -14,8 +14,8 @@ public class MemberArchiveTest {
     private LocalDate toveEnrollDate;
     private Personals ole;
     private Personals tove;
-
     private MemberArchive archive;
+
     @BeforeEach
     void setUp() {
 
@@ -66,6 +66,12 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests positive and negative cases for the findPoints method.
+     * Bypasses MemberArchive.registerPoints() method, and calls the member object's
+     * registerPoints() method directly to avoid dependency on other MemberArchive methods.
+     * Does not test for specific member levels, as none of the subclasses override getPoints().
+     */
     @Test
     void findPointsTest() {
         int oleMemberNo = archive.addMember(ole, oleEnrollDate);
@@ -82,6 +88,24 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests positive and negative cases for the registerPoints method.
+     * This test bypasses the MemberArchive findPoints method,
+     * and calls getPoints directly on the member objects.
+     * This is done to isolate tests to the registerPoints method,
+     * and eliminate possible side effects caused by findPoints.
+     *
+     * We create a Basic level member, and tests adding points to it.
+     * Also tests for expected failure when method parameters are invalid.
+     *
+     * Further, the Basic level member is then upgraded to Silver.
+     * The points are set to 0, to avoid interference from previous tests.
+     * Tests assert that the Silver member receives the expected x1.2
+     * multiplier to points.
+     *
+     * Lastly, the Silver member is upgraded to Gold and points are again set to 0.
+     * Finally, we assert that a Gold level member receives the correct x1.5 multiplier to points.
+     */
     @Test
     void registerPointsTest() {
         // add new member to archive
@@ -115,7 +139,10 @@ public class MemberArchiveTest {
                 b1.getEnrolledDate(),
                 0); //wipe balance to 0 to eliminate interference from basic level testing
         archive.replaceUpgradedMember(s1); // replaces basic Ole with silver level Ole
-
+        assertFalse(archive.findMember(oleMemberNo) instanceof BasicMember);
+        assertTrue(archive.findMember(oleMemberNo) instanceof SilverMember);
+            //check that Ole is now Silver level, and not Basic level.
+        System.out.println("Ole is now Silver Level.");
 
         System.out.println("Test 11: Add points to silver level member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
@@ -131,6 +158,11 @@ public class MemberArchiveTest {
                 s1.getEnrolledDate(),
                 0); //wipe balance to 0, to eliminate interference from silver level testing
         archive.replaceUpgradedMember(g1);
+        assertFalse(archive.findMember(oleMemberNo) instanceof SilverMember);
+        assertTrue(archive.findMember(oleMemberNo) instanceof GoldMember);
+        //check that Ole is now Gold level, and not Silver level.
+        System.out.println("Ole is now Gold Level.");
+
 
         System.out.println("Test 13: Add points to gold level member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
