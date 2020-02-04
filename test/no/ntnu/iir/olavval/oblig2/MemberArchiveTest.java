@@ -12,10 +12,20 @@ public class MemberArchiveTest {
     private LocalDate testDate;
     private LocalDate oleEnrollDate;
     private LocalDate toveEnrollDate;
+    private LocalDate liseEnrollDate;
+    private LocalDate jonasEnrollDate;
+    private LocalDate erikEnrollDate;
+
     private Personals ole;
     private Personals tove;
+    private Personals lise;
+    private Personals jonas;
+    private Personals erik;
 
     private MemberArchive archive;
+
+    // TODO: 04/02/2020 add verbose prints of object status to all tests
+
     @BeforeEach
     void setUp() {
 
@@ -30,6 +40,19 @@ public class MemberArchiveTest {
         this.toveEnrollDate = LocalDate.of(2007, 5, 3);
         this.tove = new Personals("Hansen", "Tove",
                 "tove.hansen@dot.com", "tove");
+
+        this.liseEnrollDate = testDate; //Same date as test date
+        this.lise = new Personals("Lisand", "Lise",
+                "lise@lisand.no", "lise");
+
+        this.jonasEnrollDate = oleEnrollDate; //same date as Ole
+        this.jonas = new Personals("Johnsen", "Jonas",
+                "jon@johnsen.no", "jonny");
+
+        this.erikEnrollDate = LocalDate.of(2007, 3, 1);
+        this.erik = new Personals("Eriksen", "Erik",
+                "rikken@eriksen.no", "rikkenrules");
+
     }
 
     /**
@@ -66,6 +89,12 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests positive and negative cases for the findPoints method.
+     * Bypasses MemberArchive.registerPoints() method, and calls the member object's
+     * registerPoints() method directly to avoid dependency on other MemberArchive methods.
+     * Does not test for specific member levels, as none of the subclasses override getPoints().
+     */
     @Test
     void findPointsTest() {
         int oleMemberNo = archive.addMember(ole, oleEnrollDate);
@@ -82,6 +111,24 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests positive and negative cases for the registerPoints method.
+     * This test bypasses the MemberArchive findPoints method,
+     * and calls getPoints directly on the member objects.
+     * This is done to isolate tests to the registerPoints method,
+     * and eliminate possible side effects caused by findPoints.
+     *
+     * We create a Basic level member, and tests adding points to it.
+     * Also tests for expected failure when method parameters are invalid.
+     *
+     * Further, the Basic level member is then upgraded to Silver.
+     * The points are set to 0, to avoid interference from previous tests.
+     * Tests assert that the Silver member receives the expected x1.2
+     * multiplier to points.
+     *
+     * Lastly, the Silver member is upgraded to Gold and points are again set to 0.
+     * Finally, we assert that a Gold level member receives the correct x1.5 multiplier to points.
+     */
     @Test
     void registerPointsTest() {
         // add new member to archive
@@ -92,8 +139,7 @@ public class MemberArchiveTest {
 
         int pointsToAdd = 10000; // number of points to add
 
-        //Basic level member tests
-
+    //Basic level member tests
         System.out.println("Test 7: Tests successfully adding points to a member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
             //asserts that adding points is successful when a valid member number is used
@@ -107,15 +153,20 @@ public class MemberArchiveTest {
         assertFalse(archive.registerPoints(oleMemberNo, -1));
             //asserts failure when points < 0
 
-        //Silver level member tests
-
-        SilverMember s1 = new SilverMember(
-                b1.getMemberNo(),
-                b1.getPersonals(),
-                b1.getEnrolledDate(),
+    //Silver level member tests
+        SilverMember s1 = new SilverMember( //upgrade Ole from Basic to Silver level
+                b1.getMemberNo(), //same number
+                b1.getPersonals(), //same 'hood
+                b1.getEnrolledDate(),//it's all good
                 0); //wipe balance to 0 to eliminate interference from basic level testing
+
         archive.replaceUpgradedMember(s1); // replaces basic Ole with silver level Ole
 
+        assertFalse(archive.findMember(oleMemberNo) instanceof BasicMember);
+            //assert that Ole is not Basic
+        assertTrue(archive.findMember(oleMemberNo) instanceof SilverMember);
+            //assert that Ole is now Silver
+        System.out.println("Ole is now Silver Level.");
 
         System.out.println("Test 11: Add points to silver level member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
@@ -123,7 +174,7 @@ public class MemberArchiveTest {
         assertEquals( pointsToAdd*1.2, s1.getPoints());
 
 
-        //Gold level member tests
+    //Gold level member tests
 
         GoldMember g1 = new GoldMember(
                 s1.getMemberNo(),
@@ -131,6 +182,11 @@ public class MemberArchiveTest {
                 s1.getEnrolledDate(),
                 0); //wipe balance to 0, to eliminate interference from silver level testing
         archive.replaceUpgradedMember(g1);
+        assertFalse(archive.findMember(oleMemberNo) instanceof SilverMember);
+        assertTrue(archive.findMember(oleMemberNo) instanceof GoldMember);
+        //check that Ole is now Gold level, and not Silver level.
+        System.out.println("Ole is now Gold Level.");
+
 
         System.out.println("Test 13: Add points to gold level member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
@@ -148,8 +204,93 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests the process of checking members for membership level upgrade eligibility,
+     * and the upgrade process itself. The tests are combined because
+     */
     @Test
     void checkMembersTest() {
-        // TODO: 03/02/2020 fuuuuuuuuuuuuuuuuuuuck...
+        // adds members to archive for testing
+        int b1 = archive.addMember(ole, oleEnrollDate);
+        int b2 = archive.addMember(tove, toveEnrollDate);
+        int b3 = archive.addMember(lise, liseEnrollDate);
+        int b4 = archive.addMember(jonas, jonasEnrollDate);
+        int b5 = archive.addMember(erik, erikEnrollDate);
+        System.out.println("Ole, Tove, Lise, Jonas and Erik added as basic level members.");
+
+        assertEquals(5, archive.getArchiveSize());
+        System.out.println("Archive size is: " + archive.getArchiveSize());
+
+        // adds points to member accounts and asserts successful adding
+        assertTrue(archive.registerPoints(b1, 10000)); // few points and wrong date
+        assertTrue(archive.registerPoints(b2, 25000)); // at silver limit
+        assertTrue(archive.registerPoints(b3, 74999)); // just below gold limit
+        assertTrue(archive.registerPoints(b4, 80000)); // above gold limit, but wrong date.
+        assertTrue(archive.registerPoints(b5, 75000)); // at gold limit
+        // TODO: 04/02/2020 make profile with correct date, but too few points?
+
+        // runs the upgrade process on member archive
+        System.out.println("Test 15: Upgrading qualified members.");
+        archive.checkMembers(testDate);
+        System.out.println("Upgrade complete. Member status should now be \n" +
+                "Ole: Basic\n" +
+                "Tove: Silver\n" +
+                "Lise: Silver\n" +
+                "Jonas: Basic\n" +
+                "Erik: Gold");
+
+        System.out.println("Test 16: Asserts that each member now has expected membership level.");
+        assertTrue(archive.findMember(b1) instanceof BasicMember,
+                "Ole is not a basic member.");
+        assertTrue(archive.findMember(b2) instanceof SilverMember,
+                "Tove is not a silver member.");
+        assertTrue(archive.findMember(b3) instanceof SilverMember,
+                "Lise is not a silver member.");
+        assertTrue(archive.findMember(b4) instanceof BasicMember,
+                "Jonas is not a basic member.");
+        assertTrue(archive.findMember(b5) instanceof GoldMember,
+                "Erik is not a gold member");
+
+        // TODO: 04/02/2020 add tests for a second round of adding points
+        //  and checking for upgrades
+
+        // new round of adding points and checking for qualified upgrades
+        System.out.println("Adding more points to members.");
+        assertTrue(archive.registerPoints(b1, 10000));
+            // too few points and wrong date
+        assertTrue(archive.registerPoints(b2, 25000));
+            // is silver, so this should add 25k*1.2 = 30k, for a 55k total
+        assertTrue(archive.registerPoints(b3, 1200));
+            // is silver so this should add 1000 * 1.2 = 1200, for a 76199 total
+        assertTrue(archive.registerPoints(b4, 80000));
+            // is basic, total should be 160k, way above gold limit but date is still invalid.
+
+        // Erik (b5) is already gold level, and should not be affected by upgrade process.
+        // Therefore, we will not register additional points, as it would not add
+        // anything meaningful to the testing since registerPoints has its own test method
+
+        System.out.println("Test 17: Second round of upgrades.");
+        archive.checkMembers(testDate);
+        System.out.println("Upgrade complete. Member status should now be \n" +
+                "Ole: Still Basic\n" +
+                "Tove: Still Silver\n" +
+                "Lise: Gold, was Silver\n" +
+                "Jonas: Still Basic\n" +
+                "Erik: Still Gold (cannot be upgraded)");
+
+        System.out.println("Test 18: Asserts that each member is " +
+                "the expected level after second round of upgrades.");
+        assertTrue(archive.findMember(b1) instanceof BasicMember,
+                "Ole is not a basic member.");
+        assertTrue(archive.findMember(b2) instanceof SilverMember,
+                "Tove is not a silver member.");
+        assertTrue(archive.findMember(b3) instanceof GoldMember,
+                "Lise is not a silver member.");
+        assertTrue(archive.findMember(b4) instanceof BasicMember,
+                "Jonas is not a basic member.");
+        assertTrue(archive.findMember(b5) instanceof GoldMember,
+                "Erik is not a gold member");
+
+
     }
 }

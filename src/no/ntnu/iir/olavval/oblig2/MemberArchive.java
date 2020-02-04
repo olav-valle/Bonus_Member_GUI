@@ -1,7 +1,6 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -21,6 +20,14 @@ public class MemberArchive {
     public MemberArchive()
     {
         members = new HashMap<>();
+    }
+
+    /**
+     * Rerturns the number of elements in the archive.
+     * @return the number of elements in the archive.
+     */
+    public int getArchiveSize(){
+        return members.size();
     }
 
     /**
@@ -47,9 +54,9 @@ public class MemberArchive {
      */
     public boolean registerPoints(int memberNo, int points)
     {
-        boolean success = false;
+        boolean success; // boolean default is false
 
-        //sanity check: does member exist in collection, or is points value negative?
+        //sanity check: does member exist in collection, or is points a negative number?
         if(members.get(memberNo) == null || points < 0) return false;
 
         //TODO: 03/02/2020 Either add a removePoints method, or allow negative point values for when
@@ -143,7 +150,7 @@ public class MemberArchive {
     protected void replaceUpgradedMember(BonusMember replacementMember)
     {
         if(replacementMember != null // non-null check
-            && members.containsKey( // check that this member is currently present in some form
+            && members.containsKey( // confirm that this key-value pair is not new
                     replacementMember.getMemberNo()))
         {
             members.replace(
@@ -158,25 +165,44 @@ public class MemberArchive {
      */
     public void checkMembers(LocalDate testDate)
     {
-        for(BonusMember member : members.values()) {
+        //TODO: 04/02/2020 filter values through checkGold first, and then checkSilver.
+        // Collect each filter result underway, into separate Gold and Silver qualified collections.
+        // The main challenge here will be to collect only the qualified members,
+        // while sending the unqualified remainders on to the next step.
+/*
+        Set<BonusMember> qualifiedMembers = // filters out
+                members
+                .values()
+                .stream()
+                .filter(m -> !(m instanceof GoldMember))
+                .collect(Collectors.toSet());
+
+        members.values()
+                .stream()
+                .filter(m -> !(m instanceof GoldMember) )
+                .filter(m -> checkGoldQualification(m, testDate))
+                .map(m -> upgradeMemberToGold(m))
+                .forEach(g -> replaceUpgradedMember(g));*/
+        for ( BonusMember member : members.values() ) {
+            //iterates over all values objects (i.e. members) in collection
 
             // member cannot be upgraded past gold, so we check for that first.
-            if (!(member instanceof GoldMember)) {
+            if ( !(member instanceof GoldMember) ) { // if not already gold
 
-                // check for gold level qualification
-                if (checkGoldQualification(member, testDate)) {
-                    members.replace( //replaces value of original member object with upgraded member object
-                            member.getMemberNo(), //keeps the same member number as original member object
-                            upgradeMemberToGold(member)); // updates member to gold level
+                // check for gold level qualification first,
+                // since gold level eligibility overrides silver level.
+                // this saves us checking for, and then upgrading to, silver only to
+                // realise later that the member should have been upgraded straight to gold.
+
+                if (checkGoldQualification(member, testDate)) { //if qualified for gold
+                    replaceUpgradedMember(upgradeMemberToGold(member));
+                    // replace member in HashMap with upgraded member.
                 }// gold upgrade
 
                 //check for silver level qualification
                 else if (checkSilverQualification(member, testDate)) {
-                    members.replace( //replaces value of original member object with upgraded member object
-                            member.getMemberNo(), //keeps the same member number as original member object
-                            upgradeMemberToSilver(member)); // updates member to silver level
+                    replaceUpgradedMember(upgradeMemberToSilver(member));
                 }// silver upgrade
-
             }// if !gold member
         }// for each
         //TODO implement instanceof check for basic, silver and gold members,
@@ -195,6 +221,7 @@ public class MemberArchive {
         }
         else return findAvailableNo(); //newNo was already used, run trying again.
         // TODO: 03/02/2020 Is this dangerously recursive?
+        // TODO: 04/02/2020 Add a test that loops the addMember method until this thing fails?
 
     }
 
@@ -229,32 +256,6 @@ public class MemberArchive {
         // + return true for member with >= 75000 points
         // - return false for null parameters, and members with < 75000 points
     }
-    /**
-     * Checks if a member is eligible for upgrade to silver level.
-     * @param memberNo the number of the member to be checked.
-     * @param testDate the date to test the members enrollment date with.
-     * @return New silver level member object if member was upgradeable,
-     * or the unchanged member if it was not.
-     */
-    private BonusMember checkSilverQualification(int memberNo, LocalDate testDate)
-    {
-        return null;
-        //TODO Basically just check if member.findQualificationPoints returns more than SILVER_LIMIT?
-    }
-
-    /**
-     * Checks if a member is eligible for upgrade to gold level.
-     * @param memberNo the number of the member to be checked.
-     * @param testDate the date to test the members enrollment date with.
-     * @return New gold level member object if member was upgradeable,
-     * or the unchanged member if it was not.
-     */
-    private BonusMember checkGoldQualification(int memberNo, LocalDate testDate)
-    {
-        return null;
-        //TODO Basically just check if member.findQualificationPoints returns more than GOLD_LIMIT?
-
-    }
 
     /**
      * Upgrades the parameter member to silver member status.
@@ -285,7 +286,7 @@ public class MemberArchive {
     }
     /**
      * Main method of BonusMember program app.
-     * @param args
+     * @param args No arguments.
      */
     public static void main(String[] args)
     {
