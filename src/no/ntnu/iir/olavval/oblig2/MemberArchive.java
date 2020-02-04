@@ -1,11 +1,8 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MemberArchive {
     public static final int SILVER_LIMIT = 25000;
