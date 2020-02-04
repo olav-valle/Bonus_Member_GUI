@@ -57,9 +57,9 @@ public class MemberArchive {
      */
     public boolean registerPoints(int memberNo, int points)
     {
-        boolean success = false;
+        boolean success; // boolean default is false
 
-        //sanity check: does member exist in collection, or is points value negative?
+        //sanity check: does member exist in collection, or is points a negative number?
         if(members.get(memberNo) == null || points < 0) return false;
 
         //TODO: 03/02/2020 Either add a removePoints method, or allow negative point values for when
@@ -224,6 +224,7 @@ public class MemberArchive {
         }
         else return findAvailableNo(); //newNo was already used, run trying again.
         // TODO: 03/02/2020 Is this dangerously recursive?
+        // TODO: 04/02/2020 Add a test that loops the addMember method until this thing fails?
 
     }
 
@@ -258,32 +259,6 @@ public class MemberArchive {
         // + return true for member with >= 75000 points
         // - return false for null parameters, and members with < 75000 points
     }
-    /**
-     * Checks if a member is eligible for upgrade to silver level.
-     * @param memberNo the number of the member to be checked.
-     * @param testDate the date to test the members enrollment date with.
-     * @return New silver level member object if member was upgradeable,
-     * or the unchanged member if it was not.
-     */
-    private BonusMember checkSilverQualification(int memberNo, LocalDate testDate)
-    {
-        return null;
-        //TODO Basically just check if member.findQualificationPoints returns more than SILVER_LIMIT?
-    }
-
-    /**
-     * Checks if a member is eligible for upgrade to gold level.
-     * @param memberNo the number of the member to be checked.
-     * @param testDate the date to test the members enrollment date with.
-     * @return New gold level member object if member was upgradeable,
-     * or the unchanged member if it was not.
-     */
-    private BonusMember checkGoldQualification(int memberNo, LocalDate testDate)
-    {
-        return null;
-        //TODO Basically just check if member.findQualificationPoints returns more than GOLD_LIMIT?
-
-    }
 
     /**
      * Upgrades the parameter member to silver member status.
@@ -314,7 +289,7 @@ public class MemberArchive {
     }
     /**
      * Main method of BonusMember program app.
-     * @param args
+     * @param args No arguments.
      */
     public static void main(String[] args)
     {

@@ -24,6 +24,8 @@ public class MemberArchiveTest {
 
     private MemberArchive archive;
 
+    // TODO: 04/02/2020 add verbose prints of object status to all tests
+
     @BeforeEach
     void setUp() {
 
@@ -232,9 +234,9 @@ public class MemberArchiveTest {
         archive.checkMembers(testDate);
         System.out.println("Upgrade complete. Member status should now be \n" +
                 "Ole: Basic\n" +
-                "Jonas: Basic\n" +
                 "Tove: Silver\n" +
                 "Lise: Silver\n" +
+                "Jonas: Basic\n" +
                 "Erik: Gold");
 
         System.out.println("Test 16: Asserts that each member now has expected membership level.");
@@ -249,17 +251,46 @@ public class MemberArchiveTest {
         assertTrue(archive.findMember(b5) instanceof GoldMember,
                 "Erik is not a gold member");
 
+        // TODO: 04/02/2020 add tests for a second round of adding points
+        //  and checking for upgrades
+
         // new round of adding points and checking for qualified upgrades
-        assertTrue(archive.registerPoints(b1, 10000)); // few points and wrong date
+        System.out.println("Adding more points to members.");
+        assertTrue(archive.registerPoints(b1, 10000));
+            // too few points and wrong date
         assertTrue(archive.registerPoints(b2, 25000));
             // is silver, so this should add 25k*1.2 = 30k, for a 55k total
         assertTrue(archive.registerPoints(b3, 1200));
             // is silver so this should add 1000 * 1.2 = 1200, for a 76199 total
         assertTrue(archive.registerPoints(b4, 80000));
             // is basic, total should be 160k, way above gold limit but date is still invalid.
-        // Erik (b5) is already gold level, and should not be affected by upgrade process.
 
+        // Erik (b5) is already gold level, and should not be affected by upgrade process.
+        // Therefore, we will not register additional points, as it would not add
+        // anything meaningful to the testing since registerPoints has its own test method
+
+        System.out.println("Test 17: Second round of upgrades.");
         archive.checkMembers(testDate);
-// TODO: 04/02/2020 add tests for a second round of adding points and checking for upgrades
+        System.out.println("Upgrade complete. Member status should now be \n" +
+                "Ole: Still Basic\n" +
+                "Tove: Still Silver\n" +
+                "Lise: Gold, was Silver\n" +
+                "Jonas: Still Basic\n" +
+                "Erik: Still Gold (cannot be upgraded)");
+
+        System.out.println("Test 18: Asserts that each member is " +
+                "the expected level after second round of upgrades.");
+        assertTrue(archive.findMember(b1) instanceof BasicMember,
+                "Ole is not a basic member.");
+        assertTrue(archive.findMember(b2) instanceof SilverMember,
+                "Tove is not a silver member.");
+        assertTrue(archive.findMember(b3) instanceof GoldMember,
+                "Lise is not a silver member.");
+        assertTrue(archive.findMember(b4) instanceof BasicMember,
+                "Jonas is not a basic member.");
+        assertTrue(archive.findMember(b5) instanceof GoldMember,
+                "Erik is not a gold member");
+
+
     }
 }
