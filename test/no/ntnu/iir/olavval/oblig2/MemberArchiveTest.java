@@ -206,10 +206,18 @@ public class MemberArchiveTest {
 
     /**
      * Tests the process of checking members for membership level upgrade eligibility,
-     * and the upgrade process itself. The tests are combined because
+     * and the upgrade process itself. The tests are combined because the methods that upgrade
+     * member objects, and the methods that check members for upgrade eligibility are all private.
+     *
+     * Every method that is relevant to the check and upgrade process is called by the
+     * checkAndUpgradeMembers method, and code coverage analysis will show that all relevant methods
+     * are tested.
      */
+    // TODO: 04/02/2020 Check test thoroughness. Have doubts regarding veracity of negative tests.
+    // What are some good negative tests?
+    //  - upgrade should fail if date object is null.
     @Test
-    void checkMembersTest() {
+    void checkAndUpgradeMembersTest() {
         // adds members to archive for testing
         int b1 = archive.addMember(ole, oleEnrollDate);
         int b2 = archive.addMember(tove, toveEnrollDate);
@@ -231,7 +239,7 @@ public class MemberArchiveTest {
 
         // runs the upgrade process on member archive
         System.out.println("Test 15: Upgrading qualified members.");
-        archive.checkMembers(testDate);
+        archive.checkAndUpgradeMembers(testDate);
         System.out.println("Upgrade complete. Member status should now be \n" +
                 "Ole: Basic\n" +
                 "Tove: Silver\n" +
@@ -251,10 +259,7 @@ public class MemberArchiveTest {
         assertTrue(archive.findMember(b5) instanceof GoldMember,
                 "Erik is not a gold member");
 
-        // TODO: 04/02/2020 add tests for a second round of adding points
-        //  and checking for upgrades
-
-        // new round of adding points and checking for qualified upgrades
+    // new round of adding points and checking for qualified upgrades
         System.out.println("Adding more points to members.");
         assertTrue(archive.registerPoints(b1, 10000));
             // too few points and wrong date
@@ -270,7 +275,7 @@ public class MemberArchiveTest {
         // anything meaningful to the testing since registerPoints has its own test method
 
         System.out.println("Test 17: Second round of upgrades.");
-        archive.checkMembers(testDate);
+        archive.checkAndUpgradeMembers(testDate);
         System.out.println("Upgrade complete. Member status should now be \n" +
                 "Ole: Still Basic\n" +
                 "Tove: Still Silver\n" +

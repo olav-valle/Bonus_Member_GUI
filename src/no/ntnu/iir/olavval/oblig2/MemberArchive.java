@@ -39,7 +39,8 @@ public class MemberArchive {
      */
     public int findPoints(int memberNo, String passwd)
     {
-        return members.get(memberNo).getPoints();
+        BonusMember member = members.get(memberNo);
+        return member.okPassword(passwd) ? member.getPoints() : -1;
         //TODO add tests
         // + return right amount when given valid memberNo && passwd
         // - return -1 for invalid memberNo || passwd || (memberNo && passwd)
@@ -163,7 +164,7 @@ public class MemberArchive {
      * Checks member registry for members that are eligible for upgrade to silver or gold level.
      * @param testDate Date to test member enrollment date with.
      */
-    public void checkMembers(LocalDate testDate)
+    public void checkAndUpgradeMembers(LocalDate testDate)
     {
         //TODO: 04/02/2020 filter values through checkGold first, and then checkSilver.
         // Collect each filter result underway, into separate Gold and Silver qualified collections.
@@ -183,6 +184,7 @@ public class MemberArchive {
                 .filter(m -> checkGoldQualification(m, testDate))
                 .map(m -> upgradeMemberToGold(m))
                 .forEach(g -> replaceUpgradedMember(g));*/
+
         for ( BonusMember member : members.values() ) {
             //iterates over all values objects (i.e. members) in collection
 
