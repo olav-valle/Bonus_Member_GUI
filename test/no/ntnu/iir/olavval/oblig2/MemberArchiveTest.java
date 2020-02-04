@@ -12,8 +12,16 @@ public class MemberArchiveTest {
     private LocalDate testDate;
     private LocalDate oleEnrollDate;
     private LocalDate toveEnrollDate;
+    private LocalDate liseEnrollDate;
+    private LocalDate jonasEnrollDate;
+    private LocalDate erikEnrollDate;
+
     private Personals ole;
     private Personals tove;
+    private Personals lise;
+    private Personals jonas;
+    private Personals erik;
+
     private MemberArchive archive;
 
     @BeforeEach
@@ -30,6 +38,19 @@ public class MemberArchiveTest {
         this.toveEnrollDate = LocalDate.of(2007, 5, 3);
         this.tove = new Personals("Hansen", "Tove",
                 "tove.hansen@dot.com", "tove");
+
+        this.liseEnrollDate = testDate; //Same date as test date
+        this.lise = new Personals("Lisand", "Lise",
+                "lise@lisand.no", "lise");
+
+        this.jonasEnrollDate = oleEnrollDate; //same date as Ole
+        this.jonas = new Personals("Johnsen", "Jonas",
+                "jon@johnsen.no", "jonny");
+
+        this.erikEnrollDate = LocalDate.of(2007, 3, 1);
+        this.erik = new Personals("Eriksen", "Erik",
+                "rikken@eriksen.no", "rikkenrules");
+
     }
 
     /**
@@ -188,7 +209,57 @@ public class MemberArchiveTest {
     @Test
     void checkMembersTest() {
         // adds members to archive for testing
+        int b1 = archive.addMember(ole, oleEnrollDate);
+        int b2 = archive.addMember(tove, toveEnrollDate);
+        int b3 = archive.addMember(lise, liseEnrollDate);
+        int b4 = archive.addMember(jonas, jonasEnrollDate);
+        int b5 = archive.addMember(erik, erikEnrollDate);
+        System.out.println("Ole, Tove, Lise, Jonas and Erik added as basic level members.");
 
+        assertEquals(5, archive.getArchiveSize());
+        System.out.println("Archive size is: " + archive.getArchiveSize());
 
+        // adds points to member accounts and asserts successful adding
+        assertTrue(archive.registerPoints(b1, 10000)); // few points and wrong date
+        assertTrue(archive.registerPoints(b2, 25000)); // at silver limit
+        assertTrue(archive.registerPoints(b3, 74999)); // just below gold limit
+        assertTrue(archive.registerPoints(b4, 80000)); // above gold limit, but wrong date.
+        assertTrue(archive.registerPoints(b5, 75000)); // at gold limit
+        // TODO: 04/02/2020 make profile with correct date, but too few points?
+
+        // runs the upgrade process on member archive
+        System.out.println("Test 15: Upgrading qualified members.");
+        archive.checkMembers(testDate);
+        System.out.println("Upgrade complete. Member status should now be \n" +
+                "Ole: Basic\n" +
+                "Jonas: Basic\n" +
+                "Tove: Silver\n" +
+                "Lise: Silver\n" +
+                "Erik: Gold");
+
+        System.out.println("Test 16: Asserts that each member now has expected membership level.");
+        assertTrue(archive.findMember(b1) instanceof BasicMember,
+                "Ole is not a basic member.");
+        assertTrue(archive.findMember(b2) instanceof SilverMember,
+                "Tove is not a silver member.");
+        assertTrue(archive.findMember(b3) instanceof SilverMember,
+                "Lise is not a silver member.");
+        assertTrue(archive.findMember(b4) instanceof BasicMember,
+                "Jonas is not a basic member.");
+        assertTrue(archive.findMember(b5) instanceof GoldMember,
+                "Erik is not a gold member");
+
+        // new round of adding points and checking for qualified upgrades
+        assertTrue(archive.registerPoints(b1, 10000)); // few points and wrong date
+        assertTrue(archive.registerPoints(b2, 25000));
+            // is silver, so this should add 25k*1.2 = 30k, for a 55k total
+        assertTrue(archive.registerPoints(b3, 1200));
+            // is silver so this should add 1000 * 1.2 = 1200, for a 76199 total
+        assertTrue(archive.registerPoints(b4, 80000));
+            // is basic, total should be 160k, way above gold limit but date is still invalid.
+        // Erik (b5) is already gold level, and should not be affected by upgrade process.
+
+        archive.checkMembers(testDate);
+// TODO: 04/02/2020 add tests for a second round of adding points and checking for upgrades
     }
 }

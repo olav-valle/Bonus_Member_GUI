@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MemberArchive {
     public static final int SILVER_LIMIT = 25000;
@@ -21,6 +23,14 @@ public class MemberArchive {
     public MemberArchive()
     {
         members = new HashMap<>();
+    }
+
+    /**
+     * Rerturns the number of elements in the archive.
+     * @return the number of elements in the archive.
+     */
+    public int getArchiveSize(){
+        return members.size();
     }
 
     /**
@@ -162,14 +172,20 @@ public class MemberArchive {
         // Collect each filter result underway, into separate Gold and Silver qualified collections.
         // The main challenge here will be to collect only the qualified members,
         // while sending the unqualified remainders on to the next step.
+/*
+        Set<BonusMember> qualifiedMembers = // filters out
+                members
+                .values()
+                .stream()
+                .filter(m -> !(m instanceof GoldMember))
+                .collect(Collectors.toSet());
 
         members.values()
                 .stream()
                 .filter(m -> !(m instanceof GoldMember) )
                 .filter(m -> checkGoldQualification(m, testDate))
                 .map(m -> upgradeMemberToGold(m))
-                .forEach(g -> replaceUpgradedMember(g));
-
+                .forEach(g -> replaceUpgradedMember(g));*/
         for ( BonusMember member : members.values() ) {
             //iterates over all values objects (i.e. members) in collection
 
@@ -178,33 +194,18 @@ public class MemberArchive {
 
                 // check for gold level qualification first,
                 // since gold level eligibility overrides silver level.
-                // this saves us checking for, and then upgrading to silver, only to
+                // this saves us checking for, and then upgrading to, silver only to
                 // realise later that the member should have been upgraded straight to gold.
-                // TODO: 04/02/2020 Unsure if this is best implementation?
-                //  Perhaps collect qualified members and iterate forEachRemaining?
+
                 if (checkGoldQualification(member, testDate)) { //if qualified for gold
                     replaceUpgradedMember(upgradeMemberToGold(member));
                     // replace member in HashMap with upgraded member.
-
-                /*  //replaces original member object with upgraded member object
-                    members.replace(
-                            member.getMemberNo(),
-                            //keeps the same member number as original member object
-                            upgradeMemberToGold(member));
-                            // creates gold level member with same details.*/
                 }// gold upgrade
 
                 //check for silver level qualification
                 else if (checkSilverQualification(member, testDate)) {
                     replaceUpgradedMember(upgradeMemberToSilver(member));
-
-                /*  members.replace( //replaces value of original member object with upgraded member object
-                            member.getMemberNo(), //keeps the same member number as original member object
-                            upgradeMemberToSilver(member)); // updates member to silver level
-                */
-
                 }// silver upgrade
-
             }// if !gold member
         }// for each
         //TODO implement instanceof check for basic, silver and gold members,
