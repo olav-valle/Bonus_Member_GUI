@@ -291,6 +291,8 @@ public class MemberArchiveTest {
         assertTrue(archive.findMember(b5) instanceof GoldMember,
                 "Erik is not a gold member");
 
+        // TODO: 04/02/2020 find some more negative tests?  
+
 
     }
 }
