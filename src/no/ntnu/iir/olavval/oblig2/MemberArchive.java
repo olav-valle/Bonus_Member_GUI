@@ -143,7 +143,7 @@ public class MemberArchive {
     protected void replaceUpgradedMember(BonusMember replacementMember)
     {
         if(replacementMember != null // non-null check
-            && members.containsKey( // check that this member is currently present in some form
+            && members.containsKey( // confirm that this key-value pair is not new
                     replacementMember.getMemberNo()))
         {
             members.replace(
@@ -158,23 +158,51 @@ public class MemberArchive {
      */
     public void checkMembers(LocalDate testDate)
     {
-        for(BonusMember member : members.values()) {
+        //TODO: 04/02/2020 filter values through checkGold first, and then checkSilver.
+        // Collect each filter result underway, into separate Gold and Silver qualified collections.
+        // The main challenge here will be to collect only the qualified members,
+        // while sending the unqualified remainders on to the next step.
+
+        members.values()
+                .stream()
+                .filter(m -> !(m instanceof GoldMember) )
+                .filter(m -> checkGoldQualification(m, testDate))
+                .map(m -> upgradeMemberToGold(m))
+                .forEach(g -> replaceUpgradedMember(g));
+
+        for ( BonusMember member : members.values() ) {
+            //iterates over all values objects (i.e. members) in collection
 
             // member cannot be upgraded past gold, so we check for that first.
-            if (!(member instanceof GoldMember)) {
+            if ( !(member instanceof GoldMember) ) { // if not already gold
 
-                // check for gold level qualification
-                if (checkGoldQualification(member, testDate)) {
-                    members.replace( //replaces value of original member object with upgraded member object
-                            member.getMemberNo(), //keeps the same member number as original member object
-                            upgradeMemberToGold(member)); // updates member to gold level
+                // check for gold level qualification first,
+                // since gold level eligibility overrides silver level.
+                // this saves us checking for, and then upgrading to silver, only to
+                // realise later that the member should have been upgraded straight to gold.
+                // TODO: 04/02/2020 Unsure if this is best implementation?
+                //  Perhaps collect qualified members and iterate forEachRemaining?
+                if (checkGoldQualification(member, testDate)) { //if qualified for gold
+                    replaceUpgradedMember(upgradeMemberToGold(member));
+                    // replace member in HashMap with upgraded member.
+
+                /*  //replaces original member object with upgraded member object
+                    members.replace(
+                            member.getMemberNo(),
+                            //keeps the same member number as original member object
+                            upgradeMemberToGold(member));
+                            // creates gold level member with same details.*/
                 }// gold upgrade
 
                 //check for silver level qualification
                 else if (checkSilverQualification(member, testDate)) {
-                    members.replace( //replaces value of original member object with upgraded member object
+                    replaceUpgradedMember(upgradeMemberToSilver(member));
+
+                /*  members.replace( //replaces value of original member object with upgraded member object
                             member.getMemberNo(), //keeps the same member number as original member object
                             upgradeMemberToSilver(member)); // updates member to silver level
+                */
+
                 }// silver upgrade
 
             }// if !gold member

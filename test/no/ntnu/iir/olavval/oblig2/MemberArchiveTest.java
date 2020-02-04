@@ -116,8 +116,7 @@ public class MemberArchiveTest {
 
         int pointsToAdd = 10000; // number of points to add
 
-        //Basic level member tests
-
+    //Basic level member tests
         System.out.println("Test 7: Tests successfully adding points to a member.");
         assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
             //asserts that adding points is successful when a valid member number is used
@@ -131,17 +130,19 @@ public class MemberArchiveTest {
         assertFalse(archive.registerPoints(oleMemberNo, -1));
             //asserts failure when points < 0
 
-        //Silver level member tests
-
-        SilverMember s1 = new SilverMember(
-                b1.getMemberNo(),
-                b1.getPersonals(),
-                b1.getEnrolledDate(),
+    //Silver level member tests
+        SilverMember s1 = new SilverMember( //upgrade Ole from Basic to Silver level
+                b1.getMemberNo(), //same number
+                b1.getPersonals(), //same 'hood
+                b1.getEnrolledDate(),//it's all good
                 0); //wipe balance to 0 to eliminate interference from basic level testing
+
         archive.replaceUpgradedMember(s1); // replaces basic Ole with silver level Ole
+
         assertFalse(archive.findMember(oleMemberNo) instanceof BasicMember);
+            //assert that Ole is not Basic
         assertTrue(archive.findMember(oleMemberNo) instanceof SilverMember);
-            //check that Ole is now Silver level, and not Basic level.
+            //assert that Ole is now Silver
         System.out.println("Ole is now Silver Level.");
 
         System.out.println("Test 11: Add points to silver level member.");
@@ -150,7 +151,7 @@ public class MemberArchiveTest {
         assertEquals( pointsToAdd*1.2, s1.getPoints());
 
 
-        //Gold level member tests
+    //Gold level member tests
 
         GoldMember g1 = new GoldMember(
                 s1.getMemberNo(),
@@ -180,8 +181,14 @@ public class MemberArchiveTest {
 
     }
 
+    /**
+     * Tests the process of checking members for membership level upgrade eligibility,
+     * and the upgrade process itself. The tests are combined because
+     */
     @Test
     void checkMembersTest() {
-        // TODO: 03/02/2020 fuuuuuuuuuuuuuuuuuuuck...
+        // adds members to archive for testing
+
+
     }
 }
