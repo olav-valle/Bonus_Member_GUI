@@ -20,9 +20,9 @@ class BonusMemberTest {
   @BeforeEach
   void setUp() {
     this.testDate = LocalDate.of(2008, 2, 10);
-    this.ole = new Personals("Olsen", "Ole",
+    this.ole = new Personals("Ole", "Olsen",
             "ole.olsen@dot.com", "ole");
-    this.tove = new Personals("Hansen", "Tove",
+    this.tove = new Personals("Tove", "Hansen",
             "tove.hansen@dot.com", "tove");
   }
 
@@ -89,6 +89,7 @@ class BonusMemberTest {
   }
 
   @Test
+    // TODO: 09/02/2020 Remove this when BonusMember.okPassword() is refactored.
   void okPassword() {
     BonusMember b1 = new BonusMember(100, ole,
             LocalDate.of(2006, 2, 15));

@@ -34,24 +34,24 @@ public class MemberArchiveTest {
     this.testDate = LocalDate.of(2008, 2, 10);
 
     this.oleEnrollDate = LocalDate.of(2006, 2, 15);
-    this.ole = new Personals("Olsen", "Ole",
+    this.ole = new Personals("Ole", "Olsen",
             "ole.olsen@dot.com", "ole");
 
     this.toveEnrollDate = LocalDate.of(2007, 5, 3);
-    this.tove = new Personals("Hansen", "Tove",
+    this.tove = new Personals("Tove", "Hansen",
             "tove.hansen@dot.com", "tove");
 
     this.liseEnrollDate = testDate; //Same date as test date
-    this.lise = new Personals("Lisand", "Lise",
-            "lise@lisand.no", "lise");
+    this.lise = new Personals("Lise", "Lisand",
+        "lise@lisand.no", "lise");
 
     this.jonasEnrollDate = oleEnrollDate; //same date as Ole
-    this.jonas = new Personals("Johnsen", "Jonas",
+    this.jonas = new Personals("Jonas", "Johnsen",
             "jon@johnsen.no", "jonny");
 
     this.erikEnrollDate = LocalDate.of(2007, 3, 1);
-    this.erik = new Personals("Eriksen", "Erik",
-            "rikken@eriksen.no", "rikkenrules");
+    this.erik = new Personals("Erik", "Eriksen",
+        "rikken@eriksen.no", "rikkenrules");
 
   }
 

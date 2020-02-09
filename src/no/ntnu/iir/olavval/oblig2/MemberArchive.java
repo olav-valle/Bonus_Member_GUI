@@ -89,7 +89,7 @@ public class MemberArchive {
       newMemberNo = findAvailableNo();
 
       // inst. new BasicMember object
-      BonusMember newMember = new BasicMember(newMemberNo , person, dateEnrolled);
+      BonusMember newMember = new BasicMember(newMemberNo, person, dateEnrolled);
 
       //put member object into collection.
       putMember(newMember);
@@ -113,8 +113,8 @@ public class MemberArchive {
   protected void putMember(BonusMember newMember) {
     if (newMember != null && !(members.containsKey(newMember.getMemberNo()))) {
       members.put(// add newly created member to collection
-            newMember.getMemberNo(), // member number is key
-            newMember); // member object is value
+          newMember.getMemberNo(), // member number is key
+          newMember); // member object is value
     }
   }
 
@@ -134,11 +134,11 @@ public class MemberArchive {
    */
   protected void replaceUpgradedMember(BonusMember oldMember, BonusMember replacementMember) {
     if (replacementMember != null     // confirm that this key-value pair is NOT new
-          && (oldMember.getMemberNo() == replacementMember.getMemberNo())
-          && members.containsKey(replacementMember.getMemberNo())) {
+        && (oldMember.getMemberNo() == replacementMember.getMemberNo())
+        && members.containsKey(replacementMember.getMemberNo())) {
       members.replace(
-            oldMember.getMemberNo(), //memberNo of replacement and old are the same
-            replacementMember);
+          oldMember.getMemberNo(), //memberNo of replacement and old are the same
+          replacementMember);
     }
   }
 
@@ -148,7 +148,7 @@ public class MemberArchive {
    * @param testDate Date to test member enrollment date with.
    */
   public void checkAndUpgradeMembers(LocalDate testDate) {
-    if (testDate == null) {// sanity check
+    if (testDate == null) { // sanity check
       return;
     }
 
@@ -184,8 +184,8 @@ public class MemberArchive {
    */
   private int findAvailableNo() {
     boolean unique = false;
-    int newNo;
-    while(!unique) {
+    int newNo = -1;
+    while (!unique) {
       newNo = RANDOM_NUMBER.nextInt();
 
       if (!members.containsKey(newNo)) {
@@ -194,9 +194,7 @@ public class MemberArchive {
       }
     }
 
-    // TODO: 03/02/2020 Is this dangerously recursive?
-    // TODO: 04/02/2020 Add a test that loops the addMember method until this thing fails?
-
+    return newNo;
   }
 
   /**
@@ -232,10 +230,10 @@ public class MemberArchive {
   private BonusMember upgradeMemberToSilver(BonusMember currentMember) {
 
     return new SilverMember(//recycles details from old BasicMember object.
-          currentMember.getMemberNo(),
-          currentMember.getPersonals(),
-          currentMember.getEnrolledDate(),
-          currentMember.getPoints());
+        currentMember.getMemberNo(),
+        currentMember.getPersonals(),
+        currentMember.getEnrolledDate(),
+        currentMember.getPoints());
   }
 
   /**
@@ -247,19 +245,9 @@ public class MemberArchive {
   private BonusMember upgradeMemberToGold(BonusMember currentMember) {
 
     return new GoldMember(//recycles details from old SilverMember or BasicMember object.
-          currentMember.getMemberNo(),
-          currentMember.getPersonals(),
-          currentMember.getEnrolledDate(),
-          currentMember.getPoints());
-  }
-
-  /**
-   * Main method of BonusMember program app.
-   *
-   * @param args No arguments.
-   */
-  public static void main(String[] args) {
-    //not used
-
+        currentMember.getMemberNo(),
+        currentMember.getPersonals(),
+        currentMember.getEnrolledDate(),
+        currentMember.getPoints());
   }
 }
