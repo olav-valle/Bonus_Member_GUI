@@ -39,6 +39,8 @@ public class Main {
 
     private final Scanner input = new Scanner(System.in);
 
+    // TODO: 09/02/2020 Write tests for all methods in UserInterfaceMenu
+
     private UserInterfaceMenu() {
     }
 
