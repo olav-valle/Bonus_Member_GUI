@@ -59,8 +59,8 @@ public class MemberArchiveTest {
    * Tests positive and negative cases for the addMember method.
    * Asserts failure when either parameter is null.
    * Asserts successfully adding a member by asserting that member number returned by addMember is
-   * indeed used as a key for a member object in the collection, and that this member object returns the same
-   * number as the one used as its key.
+   * indeed used as a key for a member object in the collection, and that this member object
+   * returns the same number as the one used as its key.
    */
   @Test
   void addMemberTest() {
@@ -71,17 +71,20 @@ public class MemberArchiveTest {
     assertEquals(-1, archive.addMember(null, oleEnrollDate));
 
     // positive test for correctly adding ole as new Bonus member
-    // asserts that the member number returned by addMember is the same as the one stored in the "Ole"
+    // asserts that the member number returned by addMember
+    //  is the same as the one stored in the "Ole"
     // member object created by addMember.
     System.out.println("Test 3: Adds Ole correctly as new Basic level member.");
     int oleNumber = archive.addMember(ole, oleEnrollDate);
     //add Ole to archive, and store member number.
     assertNotEquals(-1, oleNumber, "Ole number was not -1.");
     // assert that addMember did not fail
-    assertEquals(oleNumber, archive.findMember(oleNumber).getMemberNo(), "Ole number was " + oleNumber);
+    assertEquals(oleNumber, archive.findMember(oleNumber).getMemberNo(),
+        "Ole number was " + oleNumber);
     // assert that a member is found in members HashSet with the memberNo returned by addMember
 
-    System.out.println("Test 4: Adds Tove as silver member to list, and tests for conflicts with the Ole member.");
+    System.out.println("Test 4: Adds Tove as silver member to list, " +
+        "and tests for conflicts with the Ole member.");
     assertNotEquals(-1, archive.addMember(tove, toveEnrollDate));
     // adds tove to archive
 
@@ -103,7 +106,8 @@ public class MemberArchiveTest {
     int pointsToAdd = 10000;
     archive.findMember(oleMemberNo).registerPoints(pointsToAdd);
     // manually add 10 000 points to Ole, bypassing registerPoints method in MemberArchive
-    System.out.println("Test 6: Check that findPoints returns correct amount when balance is not 0.");
+    System.out.println("Test 6: Check that findPoints returns " +
+        "correct amount when balance is not 0.");
     assertEquals(pointsToAdd, archive.findPoints(oleMemberNo, "ole"));
     // asserts that member has received the correct amount of points
 
@@ -169,7 +173,8 @@ public class MemberArchiveTest {
 
     System.out.println("Test 11: Add points to silver level member.");
     assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
-    System.out.println("Test 12: Test that Silver level member has received expected number of points.");
+    System.out.println("Test 12: Test that Silver level member " +
+        "has received expected number of points.");
     assertEquals(pointsToAdd * 1.2, s1.getPoints());
 
 
@@ -189,17 +194,9 @@ public class MemberArchiveTest {
 
     System.out.println("Test 13: Add points to gold level member.");
     assertTrue(archive.registerPoints(oleMemberNo, pointsToAdd));
-    System.out.println("Test 14: Test that Gold level member has received expected number of points.");
+    System.out.println("Test 14: Test that Gold level member " +
+        "has received expected number of points.");
     assertEquals(pointsToAdd * 1.5, g1.getPoints());
-
-    //How do we test silver and gold level members, without also using the private upgrade methods in
-    // member archive? Make the putMember method public?
-
-    //Is testing silver/gold required? Silver and gold members have been tested in BonusMemberTest,
-    // so by induction MemberArchive.registerPoints() also works, iff it is calling the appropriate
-    // subclass' method, rather than the BonusMember superclass.
-
-    //That might be a big iff.. Should it be tested?
 
   }
 

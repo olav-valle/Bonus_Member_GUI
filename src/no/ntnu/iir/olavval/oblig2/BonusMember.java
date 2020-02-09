@@ -9,7 +9,7 @@ import java.time.Period;
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
  */
-public class BonusMember {
+public abstract class BonusMember {
   //
   protected static final double FACTOR_SILVER = 1.2;
   protected static final double FACTOR_GOLD = 1.5;
@@ -71,6 +71,8 @@ public class BonusMember {
   public LocalDate getEnrolledDate() {
     return enrolledDate;
   }
+
+  public abstract String getMembershipLevel();
 
   /**
    * Adds points to this members account.

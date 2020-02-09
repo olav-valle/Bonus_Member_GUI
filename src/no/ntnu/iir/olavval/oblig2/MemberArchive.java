@@ -2,7 +2,11 @@ package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
+
+// TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
+// TODO: 09/02/2020 Refactor member creation to new class?
 
 public class MemberArchive {
   public static final int SILVER_LIMIT = 25000;
@@ -18,12 +22,20 @@ public class MemberArchive {
   }
 
   /**
-   * Rerturns the number of elements in the archive.
+   * Returns the number of elements in the archive.
    *
    * @return the number of elements in the archive.
    */
   public int getArchiveSize() {
     return members.size();
+  }
+
+  /**
+   * Returns an iterator of all member objects in archive.
+   * @return Iterator of all members in archive.
+   */
+  public Iterator<BonusMember> getArchiveIterator() {
+    return members.values().iterator();
   }
 
   /**
@@ -46,19 +58,18 @@ public class MemberArchive {
    *
    * @param memberNo the membership number of the member.
    * @param points   the number of points to be added to the member.
-   * @return True if points were succesfully added to member account, false if memberNo was invalid.
+   * @return True if points were successfully added to member account,
+   *        false if memberNo was invalid.
    */
   public boolean registerPoints(int memberNo, int points) {
-    boolean success; // boolean default is false
 
     //sanity check: does member exist in collection, or is points a negative number?
     if (members.get(memberNo) == null || points < 0) {
       return false;
     } else { // member exists and value is positive
       members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
-      success = true;
     }
-    return success;
+    return true;
   }
 
   /**
@@ -186,7 +197,7 @@ public class MemberArchive {
     boolean unique = false;
     int newNo = -1;
     while (!unique) {
-      newNo = RANDOM_NUMBER.nextInt();
+      newNo = RANDOM_NUMBER.nextInt((1000000));
 
       if (!members.containsKey(newNo)) {
         unique = true;

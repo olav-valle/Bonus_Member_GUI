@@ -24,6 +24,11 @@ public class GoldMember extends BonusMember {
 
   }
 
+  @Override
+  public String getMembershipLevel() {
+    return "Gold";
+  }
+
   /**
    * Adds points to this Gold level Bonus member, factoring in the Gold level bonus multiplier.
    *
