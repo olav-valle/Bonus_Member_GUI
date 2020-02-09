@@ -1,5 +1,6 @@
 package no.ntnu.iir.olavval.oblig2;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -55,8 +56,11 @@ public class Main {
             listAllMembers(archive.getArchiveIterator());
             break;
           case UPGRADE_MEMBERS: // user wants all members to be upgraded.
+            // TODO: 09/02/2020 Add user date input request. System is still dumb, though...
+            archive.checkAndUpgradeMembers(LocalDate.of(2008, 2, 10));
             break;
           case REGISTER_POINTS: // user wants to register points to a member account.
+            registerPoints();
             break;
           case ADD_TEST_MEMBERS:
             System.out.println("Adding test members to archive.");
@@ -72,6 +76,19 @@ public class Main {
       }
     }
 
+    private void registerPoints() {
+      System.out.println("Enter membership number: ");
+      int memberNo = input.nextInt();
+      System.out.println("Enter number of points to add: ");
+      int points = input.nextInt();
+      if (archive.registerPoints(memberNo, points)) {
+        System.out.println("Points added successfully.");
+      } else {
+        System.out.println("Points registration aborted: invalid member number or point value.");
+      }
+
+    }
+
     private void printMainMenu() {
       System.out.println(String.format("Please select option 1 through %1$d.", QUIT));
       System.out.println(String.format("%1$d. Add a new member.", ADD_MEMBER));
@@ -85,6 +102,7 @@ public class Main {
 
     private void listAllMembers(Iterator<BonusMember> members) {
 
+      // TODO: 09/02/2020 should this be refactored into separate methods for each member level?
       members
           .forEachRemaining(m ->
               System.out.println(
