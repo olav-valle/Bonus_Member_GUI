@@ -25,6 +25,11 @@ public class SilverMember extends BonusMember {
   }
 
 
+  @Override
+  public String getMembershipLevel() {
+    return "Silver";
+  }
+
   /**
    * Adds points to this Silver level Bonus member, factoring in the Silver level bonus multiplier.
    *

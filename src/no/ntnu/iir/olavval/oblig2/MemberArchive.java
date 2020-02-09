@@ -2,7 +2,11 @@ package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
+
+// TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
+// TODO: 09/02/2020 Refactor member creation to new class?
 
 public class MemberArchive {
   public static final int SILVER_LIMIT = 25000;
@@ -18,12 +22,20 @@ public class MemberArchive {
   }
 
   /**
-   * Rerturns the number of elements in the archive.
+   * Returns the number of elements in the archive.
    *
    * @return the number of elements in the archive.
    */
   public int getArchiveSize() {
     return members.size();
+  }
+
+  /**
+   * Returns an iterator of all member objects in archive.
+   * @return Iterator of all members in archive.
+   */
+  public Iterator<BonusMember> getArchiveIterator() {
+    return members.values().iterator();
   }
 
   /**
@@ -46,19 +58,18 @@ public class MemberArchive {
    *
    * @param memberNo the membership number of the member.
    * @param points   the number of points to be added to the member.
-   * @return True if points were succesfully added to member account, false if memberNo was invalid.
+   * @return True if points were successfully added to member account,
+   *        false if memberNo was invalid.
    */
   public boolean registerPoints(int memberNo, int points) {
-    boolean success; // boolean default is false
 
     //sanity check: does member exist in collection, or is points a negative number?
     if (members.get(memberNo) == null || points < 0) {
       return false;
     } else { // member exists and value is positive
       members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
-      success = true;
     }
-    return success;
+    return true;
   }
 
   /**
@@ -89,7 +100,7 @@ public class MemberArchive {
       newMemberNo = findAvailableNo();
 
       // inst. new BasicMember object
-      BonusMember newMember = new BasicMember(newMemberNo , person, dateEnrolled);
+      BonusMember newMember = new BasicMember(newMemberNo, person, dateEnrolled);
 
       //put member object into collection.
       putMember(newMember);
@@ -113,8 +124,8 @@ public class MemberArchive {
   protected void putMember(BonusMember newMember) {
     if (newMember != null && !(members.containsKey(newMember.getMemberNo()))) {
       members.put(// add newly created member to collection
-            newMember.getMemberNo(), // member number is key
-            newMember); // member object is value
+          newMember.getMemberNo(), // member number is key
+          newMember); // member object is value
     }
   }
 
@@ -134,11 +145,11 @@ public class MemberArchive {
    */
   protected void replaceUpgradedMember(BonusMember oldMember, BonusMember replacementMember) {
     if (replacementMember != null     // confirm that this key-value pair is NOT new
-          && (oldMember.getMemberNo() == replacementMember.getMemberNo())
-          && members.containsKey(replacementMember.getMemberNo())) {
+        && (oldMember.getMemberNo() == replacementMember.getMemberNo())
+        && members.containsKey(replacementMember.getMemberNo())) {
       members.replace(
-            oldMember.getMemberNo(), //memberNo of replacement and old are the same
-            replacementMember);
+          oldMember.getMemberNo(), //memberNo of replacement and old are the same
+          replacementMember);
     }
   }
 
@@ -148,7 +159,7 @@ public class MemberArchive {
    * @param testDate Date to test member enrollment date with.
    */
   public void checkAndUpgradeMembers(LocalDate testDate) {
-    if (testDate == null) {// sanity check
+    if (testDate == null) { // sanity check
       return;
     }
 
@@ -184,9 +195,9 @@ public class MemberArchive {
    */
   private int findAvailableNo() {
     boolean unique = false;
-    int newNo;
-    while(!unique) {
-      newNo = RANDOM_NUMBER.nextInt();
+    int newNo = -1;
+    while (!unique) {
+      newNo = RANDOM_NUMBER.nextInt((1000000));
 
       if (!members.containsKey(newNo)) {
         unique = true;
@@ -194,9 +205,7 @@ public class MemberArchive {
       }
     }
 
-    // TODO: 03/02/2020 Is this dangerously recursive?
-    // TODO: 04/02/2020 Add a test that loops the addMember method until this thing fails?
-
+    return newNo;
   }
 
   /**
@@ -232,10 +241,10 @@ public class MemberArchive {
   private BonusMember upgradeMemberToSilver(BonusMember currentMember) {
 
     return new SilverMember(//recycles details from old BasicMember object.
-          currentMember.getMemberNo(),
-          currentMember.getPersonals(),
-          currentMember.getEnrolledDate(),
-          currentMember.getPoints());
+        currentMember.getMemberNo(),
+        currentMember.getPersonals(),
+        currentMember.getEnrolledDate(),
+        currentMember.getPoints());
   }
 
   /**
@@ -247,19 +256,9 @@ public class MemberArchive {
   private BonusMember upgradeMemberToGold(BonusMember currentMember) {
 
     return new GoldMember(//recycles details from old SilverMember or BasicMember object.
-          currentMember.getMemberNo(),
-          currentMember.getPersonals(),
-          currentMember.getEnrolledDate(),
-          currentMember.getPoints());
-  }
-
-  /**
-   * Main method of BonusMember program app.
-   *
-   * @param args No arguments.
-   */
-  public static void main(String[] args) {
-    //not used
-
+        currentMember.getMemberNo(),
+        currentMember.getPersonals(),
+        currentMember.getEnrolledDate(),
+        currentMember.getPoints());
   }
 }

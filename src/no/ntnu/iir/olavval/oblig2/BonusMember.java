@@ -3,11 +3,13 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.time.Period;
 
+// TODO: 09/02/2020 Refactor into an abstract class. 
+// TODO: 09/02/2020 Ensure all usages are refactored to allow for abstraction. 
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
  */
-public class BonusMember {
+public abstract class BonusMember {
   //
   protected static final double FACTOR_SILVER = 1.2;
   protected static final double FACTOR_GOLD = 1.5;
@@ -70,6 +72,8 @@ public class BonusMember {
     return enrolledDate;
   }
 
+  public abstract String getMembershipLevel();
+
   /**
    * Adds points to this members account.
    *
@@ -111,6 +115,7 @@ public class BonusMember {
    * @param passwd the password to be tested.
    * @return True if provided and registered passwords match.
    */
+  // TODO: 09/02/2020 Refactor/remove this. It is already present in Personals class.
   public boolean okPassword(String passwd) {
     if (passwd == null) {
       return false;

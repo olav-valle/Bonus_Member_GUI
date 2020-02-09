@@ -20,9 +20,9 @@ class BonusMemberTest {
   @BeforeEach
   void setUp() {
     this.testDate = LocalDate.of(2008, 2, 10);
-    this.ole = new Personals("Olsen", "Ole",
+    this.ole = new Personals("Ole", "Olsen",
             "ole.olsen@dot.com", "ole");
-    this.tove = new Personals("Hansen", "Tove",
+    this.tove = new Personals("Tove", "Hansen",
             "tove.hansen@dot.com", "tove");
   }
 
@@ -88,17 +88,5 @@ class BonusMemberTest {
     assertTrue(tove.okPassword("tove"));
   }
 
-  @Test
-  void okPassword() {
-    BonusMember b1 = new BonusMember(100, ole,
-            LocalDate.of(2006, 2, 15));
-    System.out.println("Test nr 9: Trying wrong password on Ole via BonusMember class");
-    assertFalse(b1.okPassword("000"));
 
-    BonusMember b2 = new BonusMember(110, tove,
-            LocalDate.of(2007, 5, 3));
-    System.out.println("Test nr 10: Trying correct password on Tove via BonusMember class");
-    assertTrue(b2.okPassword("tove"));
-
-  }
 }

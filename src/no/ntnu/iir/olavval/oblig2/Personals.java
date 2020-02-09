@@ -11,7 +11,7 @@ package no.ntnu.iir.olavval.oblig2;
 class Personals {
   private final String surname;
   private final String firstname;
-  private final String eMailAddress;
+  private final String emailaddress;
   private String password;
 
   /**
@@ -24,18 +24,18 @@ class Personals {
    */
   public Personals(String firstname, String surname, String emailAddress, String password) {
     if (firstname == null
-            || surname == null
-            || emailAddress == null
-            || password == null
-            || firstname.trim().equals("")
-            || surname.trim().equals("")
-            || emailAddress.trim().equals("")
-            || password.trim().equals("")) {
+        || surname == null
+        || emailAddress == null
+        || password == null
+        || firstname.trim().equals("")
+        || surname.trim().equals("")
+        || emailAddress.trim().equals("")
+        || password.trim().equals("")) {
       throw new IllegalArgumentException("One or more of the parameters are invalid.");
     }
     this.firstname = firstname.trim();
     this.surname = surname.trim();
-    this.eMailAddress = emailAddress.trim();
+    this.emailaddress = emailAddress.trim();
     this.password = password.trim();
   }
 
@@ -63,7 +63,7 @@ class Personals {
    * @return the persons e-mail address.
    */
   public String getEMailAddress() {
-    return eMailAddress;
+    return emailaddress;
   }
 
   /**
@@ -98,8 +98,10 @@ class Personals {
    * <code>false</code> if not.
    */
   public boolean changePassword(String oldPassword, String newPassword) {
-    // A Guard claus, hence return is alloowed
-    if (oldPassword == null || newPassword == null) {
+    // A Guard clause, hence return is allowed
+    if (oldPassword == null
+        || newPassword == null
+        || password.equalsIgnoreCase(newPassword.trim())) {
       return false;
     }
     boolean changeSuccessful;

@@ -15,3 +15,13 @@ _
 /src/no/ntnu/iir/olavval/oblig2/BasicMember.java,1/7/17e5088684584a43b02f513c83db67f5bf529943
 `
 0src/no/ntnu/iir/olavval/oblig2/SilverMember.java,f/e/fe229d139358452b97e5fc3fdaf80610be4b0ed0
+T
+$.idea/codeStyles/codeStyleConfig.xml,d/d/dd7b3350c29c49497756c7f32c69a3bed18b1cba
+X
+(src/no/ntnu/iir/olavval/oblig2/Main.java,b/7/b75dd9a812f534a374c284701d4643ab13dad308
+b
+2test/no/ntnu/iir/olavval/oblig2/PersonalsTest.java,6/c/6c569fb5243fb39dc6477f5805082b12e69c3d11
+e
+5src/no/ntnu/iir/olavval/oblig2/UserInterfaceMenu.java,a/d/ad7616e7d767d1476c273b88fd50975eaf50adf2
+X
+(src/no/ntnu/iir/olavval/oblig2/test.puml,e/7/e750bea8d09d76406acee340806c5d63a2d9b8c7
