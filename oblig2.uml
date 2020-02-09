@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>no.ntnu.iir.olavval.oblig2</OriginalElement>
+  <nodes>
+    <node x="460.0" y="675.0">no.ntnu.iir.olavval.oblig2.Main.UserInterfaceMenu</node>
+    <node x="0.0" y="402.0">no.ntnu.iir.olavval.oblig2.SilverMember</node>
+    <node x="164.0" y="0.0">no.ntnu.iir.olavval.oblig2.BonusMember</node>
+    <node x="0.0" y="503.0">no.ntnu.iir.olavval.oblig2.MemberArchive</node>
+    <node x="208.0" y="402.0">no.ntnu.iir.olavval.oblig2.GoldMember</node>
+    <node x="693.0" y="503.0">no.ntnu.iir.olavval.oblig2.UserInterfaceMenu</node>
+    <node x="416.0" y="414.5">no.ntnu.iir.olavval.oblig2.BasicMember</node>
+    <node x="461.0" y="503.0">no.ntnu.iir.olavval.oblig2.Main</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="no.ntnu.iir.olavval.oblig2.BasicMember" target="no.ntnu.iir.olavval.oblig2.BonusMember">
+      <point x="0.0" y="-15.5" />
+      <point x="484.0" y="377.0" />
+      <point x="394.0" y="377.0" />
+      <point x="92.0" y="176.0" />
+    </edge>
+    <edge source="no.ntnu.iir.olavval.oblig2.GoldMember" target="no.ntnu.iir.olavval.oblig2.BonusMember">
+      <point x="0.0" y="-28.0" />
+      <point x="0.0" y="176.0" />
+    </edge>
+    <edge source="no.ntnu.iir.olavval.oblig2.SilverMember" target="no.ntnu.iir.olavval.oblig2.BonusMember">
+      <point x="0.0" y="-28.0" />
+      <point x="94.0" y="377.0" />
+      <point x="210.0" y="377.0" />
+      <point x="-92.0" y="176.0" />
+    </edge>
+    <edge source="no.ntnu.iir.olavval.oblig2.Main.UserInterfaceMenu" target="no.ntnu.iir.olavval.oblig2.Main">
+      <point x="0.0" y="-74.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="412.5" y="572.0" />
+  <SelectedNodes>
+    <node>no.ntnu.iir.olavval.oblig2.SilverMember</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
