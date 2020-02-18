@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import javax.management.openmbean.InvalidOpenTypeException;
 
 // TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
 // TODO: 09/02/2020 Refactor member creation to new class?
