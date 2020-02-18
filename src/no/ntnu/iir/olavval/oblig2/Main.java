@@ -50,7 +50,7 @@ public class Main {
             break;
           case LIST_MEMBERS: // user wants to see list of all members.
             System.out.println("Displaying all registered members.");
-            listAllMembers(archive.iterator());
+            listAllMembers();
             break;
           case UPGRADE_MEMBERS: // user wants all members to be upgraded.
             // TODO: 09/02/2020 Add user date input request. System is still dumb, though...
@@ -100,9 +100,9 @@ public class Main {
 
     }
 
-    private void listAllMembers(Iterator<BonusMember> members) {
+    private void listAllMembers() {
 // TODO: 18/02/2020 refactor this after MemberArchive implements a forEach() method
-      members
+      archive.iterator()
           .forEachRemaining(m ->
               System.out.println(
                   m.getMemberNo() + ": \t "
@@ -115,6 +115,8 @@ public class Main {
     private void streamTest(){
       archive.stream().forEach(m -> System.out.println(m.getPersonals().getFirstname()));
     }
+
+
 
     private Personals newPersona() {
 
