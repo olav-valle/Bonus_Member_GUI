@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PersonalsTest {
 
   private Personals ole;
-  private Personals tove;
 
   @BeforeEach
   void setUp()

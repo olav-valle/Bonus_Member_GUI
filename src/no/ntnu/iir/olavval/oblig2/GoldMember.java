@@ -7,6 +7,8 @@ import java.time.LocalDate;
  */
 public class GoldMember extends BonusMember {
 
+  static final double FACTOR_GOLD = 1.5;
+
   /**
    * Gold level member constructor.
    *
@@ -20,7 +22,7 @@ public class GoldMember extends BonusMember {
 
     // Transfers existing points from old member to the new member.
     // Direct call to super.registerPoints avoids factoring by FACTOR_GOLD.
-    super.registerPoints(points);
+    super.point = points;
 
   }
 
@@ -36,6 +38,6 @@ public class GoldMember extends BonusMember {
    **/
   @Override
   public void registerPoints(int points) {
-    super.registerPoints((int) (FACTOR_GOLD * points));
+    super.point += ((int) (FACTOR_GOLD * points));
   }
 }
