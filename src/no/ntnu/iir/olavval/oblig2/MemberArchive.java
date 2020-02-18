@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
 // QUESTION: Refactor member creation to new class?
-// TODO: 18/02/2020 Implement a forEach(Consumer<? super BonusMember> action) method for lambdas
+
 
 public class MemberArchive implements Iterable<BonusMember>{
   public static final int SILVER_LIMIT = 25000;
@@ -39,7 +39,6 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   @Override
   public Iterator<BonusMember> iterator() {
-    // TODO: 18/02/2020 rename method to iterator() when class implements Iterable<T>
     return members.values().iterator();
   }
 
@@ -48,11 +47,11 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return Stream of the elements in the member archive collection.
    */
   public Stream<BonusMember> stream() {
-    // TODO: 18/02/2020 Does this act as an "override" of sorts on stream()
+    // QUESTION: Does this act as an "override" of sorts on stream()
     //  from the Collections interface? We're not implementing Collections,
     //  simply importing java.util.stream.Streams.
 
-    // TODO: 18/02/2020 What is the difference between importing it, and
+    // QUESTION: What is the difference between importing it, and
     //  implementing Stream<E> as an interface? I think the main diff
     //  would be that we are not actually overriding any methods in the
     //  Stream interface?
@@ -69,10 +68,10 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   public int findPoints(int memberNo, String passwd) {
     BonusMember member = members.get(memberNo);
-    // TODO: 18/02/2020 test if member exists.
-    //  get() returns null if members does not hold an object with the specified memberNo,
-    //  so we should return -1 in this case.
-    
+
+    // Guard clause: if member == null, no member matching memberNo exists in collection.
+    if (member == null) return -1;
+
     //returns points if password is valid, else -1.
     return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 

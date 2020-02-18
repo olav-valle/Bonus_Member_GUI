@@ -3,13 +3,13 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.time.Period;
 
-
+// TODO: 18/02/2020 Implement hashCode() override 
 // TODO: 18/02/2020 implement an abstract getDescriptionString() method
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
  */
-public abstract class BonusMember {
+public abstract class BonusMember implements Comparable<BonusMember> {
 
   private final int memberNo;
   private final Personals personals;
@@ -30,6 +30,35 @@ public abstract class BonusMember {
     this.enrolledDate = enrolledDate;
   }
 
+  /**
+   * Compares this object with the specified object for order.
+   *
+   * @param otherMember the object to be compared
+   * @return     a negative integer, zero, or a positive integer as this object is less than,
+   *        equal to, or greater than the specified object.
+   */
+  public int compareTo(BonusMember otherMember){
+    return Integer.compare(this.point, otherMember.point);
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this object.
+   * More specifically, it checks if two members have the same member number.
+   * @param obj the object to compare to.
+   * @return True if objects are equal.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    // Guard clause,
+    if (!(obj instanceof BonusMember)) {
+      return false;
+    } else {
+      BonusMember other = (BonusMember) obj;
+      // Only requirement for equality is to have same member number.
+      return this.memberNo == other.memberNo;
+    }
+
+  }
 
   /**
    * Returns the number of points this member has earned.

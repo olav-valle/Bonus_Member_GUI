@@ -1,7 +1,6 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -28,8 +27,8 @@ public class Main {
     private static final int UPGRADE_MEMBERS = 3;
     private static final int REGISTER_POINTS = 4;
     private static final int ADD_TEST_MEMBERS = 5;
-    private static final int TEST = 9;
-    private static final int QUIT = 6;
+    private static final int SORT_BY_POINTS = 6;
+    private static final int QUIT = 9;
 
 
     private final Scanner input = new Scanner(System.in);
@@ -63,8 +62,9 @@ public class Main {
             System.out.println("Adding test members to archive.");
             addTestMembers();
             break;
-          case TEST:
-            streamTest();
+          case SORT_BY_POINTS:
+            System.out.println("Listing all members, sorting by points held.");
+            printSortedByPoints();
             break;
           case QUIT: // user has called exit command.
             run = false;
@@ -96,14 +96,14 @@ public class Main {
       System.out.println(String.format("%1$d. Upgrade all qualified members.", UPGRADE_MEMBERS));
       System.out.println(String.format("%1$d. Add points to a member account.", REGISTER_POINTS));
       System.out.println(String.format("%1$d. Add test members.", ADD_TEST_MEMBERS));
+      System.out.println(String.format("%1$d. List members sorted by points held.", SORT_BY_POINTS));
       System.out.println(String.format("%1$d. Quit program.", QUIT));
 
     }
 
     private void listAllMembers() {
-// TODO: 18/02/2020 refactor this after MemberArchive implements a forEach() method
-      archive.iterator()
-          .forEachRemaining(m ->
+      archive
+          .forEach(m ->
               System.out.println(
                   m.getMemberNo() + ": \t "
                       + m.getPersonals().getSurname() + ", "
@@ -112,8 +112,17 @@ public class Main {
                   + m.getPoints() + " points."));
     }
 
-    private void streamTest(){
-      archive.stream().forEach(m -> System.out.println(m.getPersonals().getFirstname()));
+    private void printSortedByPoints(){
+      archive
+          .stream()
+          .sorted()
+          .forEachOrdered(m ->
+          System.out.println(
+              m.getMemberNo() + ": \t "
+                  + m.getPersonals().getSurname() + ", "
+                  + m.getPersonals().getFirstname() + "\t "
+                  + m.getMembershipLevel() + " level member: "
+                  + m.getPoints() + " points."));
     }
 
 
