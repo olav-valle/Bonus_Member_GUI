@@ -71,18 +71,18 @@ class Personals {
    * registered on the person. Returns <code>true</code> if password is
    * correct <code>false</code> if password is wrong.
    *
-   * @param password the password to test for
+   * @param passwd the password to test for
    * @return <code>true</code> if password is correct
    *
    * <code>false</code> if password is wrong
    */
-  public boolean okPassword(String password) {
-
-    if (password == null || this.password == null) {
+  public boolean okPassword(String passwd) {
+    // Guard clause for null objects
+    if (passwd == null || this.password == null) {
       return false;
     }
 
-    return this.password.equalsIgnoreCase(password);
+    return this.password.equalsIgnoreCase(passwd);
   }
 
   /**

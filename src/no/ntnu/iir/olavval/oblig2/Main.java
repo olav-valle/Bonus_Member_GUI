@@ -19,13 +19,9 @@ public class Main {
 
     ui = new UserInterfaceMenu();
     archive = new MemberArchive();
-
-    run();
-  }
-
-  private static void run() {
     ui.showMenu();
   }
+
 
   private static class UserInterfaceMenu {
 
@@ -103,8 +99,7 @@ public class Main {
     }
 
     private void listAllMembers(Iterator<BonusMember> members) {
-
-      // TODO: 09/02/2020 should this be refactored into separate methods for each member level?
+// TODO: 18/02/2020 refactor this after MemberArchive implements a forEach() method
       members
           .forEachRemaining(m ->
               System.out.println(
@@ -129,7 +124,7 @@ public class Main {
       String password = input.next();
 
       return new Personals(firstName, surname, emailAddress, password);
-
+// TODO: 18/02/2020 should this try to catch the exception that the Personals constructor can throw?
     }
 
     private LocalDate newDate() {

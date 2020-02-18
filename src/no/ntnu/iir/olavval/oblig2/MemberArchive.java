@@ -7,6 +7,7 @@ import java.util.Random;
 
 // TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
 // TODO: 09/02/2020 Refactor member creation to new class?
+// TODO: 18/02/2020 Implement a forEach(Consumer<? super BonusMember> action) method for lambdas
 
 public class MemberArchive {
   public static final int SILVER_LIMIT = 25000;
@@ -35,6 +36,7 @@ public class MemberArchive {
    * @return Iterator of all members in archive.
    */
   public Iterator<BonusMember> getArchiveIterator() {
+    // TODO: 18/02/2020 rename method to iterator() when class implements Iterable<T>
     return members.values().iterator();
   }
 
@@ -48,9 +50,15 @@ public class MemberArchive {
    */
   public int findPoints(int memberNo, String passwd) {
     BonusMember member = members.get(memberNo);
-    return member.okPassword(passwd) ? member.getPoints() : -1;
+    // TODO: 18/02/2020 test if member exists.
+    //  get() returns null if members does not hold an object with the specified memberNo,
+    //  so we should return -1 in this case.
+    
+    //returns points if password is valid, else -1.
+    return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 
   }
+  
 
   /**
    * Adds the specified number of points to a member.
