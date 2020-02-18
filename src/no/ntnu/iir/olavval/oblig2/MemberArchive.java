@@ -34,6 +34,15 @@ public class MemberArchive implements Iterable<BonusMember>{
   }
 
   /**
+   * Performs the given action for each element in the member archive.
+   * @param action The action to be performed for each element.
+   */
+  @Override
+  public void forEach(Consumer<? super BonusMember> action) {
+    this.members.values().forEach(action);
+  }
+
+  /**
    * Returns an iterator of all member objects in archive.
    * @return Iterator of all members in archive.
    */
@@ -76,7 +85,7 @@ public class MemberArchive implements Iterable<BonusMember>{
     return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 
   }
-  
+
 
   /**
    * Adds the specified number of points to a member.
@@ -286,14 +295,5 @@ public class MemberArchive implements Iterable<BonusMember>{
         currentMember.getPersonals(),
         currentMember.getEnrolledDate(),
         currentMember.getPoints());
-  }
-
-  /**
-   * Performs the given action for each element in the member archive.
-   * @param action The action to be performed for each element.
-   */
-  @Override
-  public void forEach(Consumer<? super BonusMember> action) {
-    this.members.values().forEach(action);
   }
 }
