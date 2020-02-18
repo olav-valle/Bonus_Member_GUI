@@ -7,6 +7,8 @@ import java.time.LocalDate;
  */
 public class SilverMember extends BonusMember {
 
+  static final double FACTOR_SILVER = 1.2;
+
   /**
    * Silver level member constructor.
    *
@@ -20,7 +22,7 @@ public class SilverMember extends BonusMember {
 
     // Transfers existing points from old member to the new member.
     // Direct call to super.registerPoints avoids factoring by FACTOR_SILVER
-    super.registerPoints(points);
+    super.point = points;
 
   }
 
@@ -37,6 +39,6 @@ public class SilverMember extends BonusMember {
    */
   @Override
   public void registerPoints(int points) {
-    super.registerPoints((int) (FACTOR_SILVER * points));
+    super.point += ( (int) (FACTOR_SILVER * points) );
   }
 }

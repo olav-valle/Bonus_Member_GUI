@@ -1,13 +1,11 @@
 package no.ntnu.iir.olavval.oblig2;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
 
-  private static UserInterfaceMenu ui;
   private static MemberArchive archive;
 
   /**
@@ -17,7 +15,7 @@ public class Main {
    */
   public static void main(String[] args) {
 
-    ui = new UserInterfaceMenu();
+    UserInterfaceMenu ui = new UserInterfaceMenu();
     archive = new MemberArchive();
     ui.showMenu();
   }

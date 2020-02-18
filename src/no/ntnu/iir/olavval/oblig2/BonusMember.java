@@ -3,23 +3,18 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.time.Period;
 
-// TODO: 09/02/2020 Refactor into an abstract class. 
-// TODO: 09/02/2020 Ensure all usages are refactored to allow for abstraction.
+
 // TODO: 18/02/2020 implement an abstract getDescriptionString() method
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
  */
 public abstract class BonusMember {
-  //
-  protected static final double FACTOR_SILVER = 1.2;
-  protected static final double FACTOR_GOLD = 1.5;
-  // TODO: 18/02/2020 refactor the multipliers to their respective classes.
 
   private final int memberNo;
   private final Personals personals;
   private final LocalDate enrolledDate;
-  private int point = 0;
+  protected int point = 0;
 
   /**
    * Bonus member costructor.
@@ -29,7 +24,7 @@ public abstract class BonusMember {
    * @param enrolledDate The date the member was first enrolled in the Bonus program.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
-    // TODO: 18/02/2020 Should an abstact class still have a constructor that subclasses can use?
+    // QUESTION: Should an abstact class still have a constructor that subclasses can use?
     this.memberNo = memberNo;
     this.personals = personals;
     this.enrolledDate = enrolledDate;
@@ -81,12 +76,7 @@ public abstract class BonusMember {
    *
    * @param points The number of points to be added to the member account.
    */
-  public void registerPoints(int points) {
-
-    // TODO: 18/02/2020 make abstract and implement in all subclasses
-    this.point += points;
-
-  }
+  public abstract void registerPoints(int points);
 
   /**
    * Checks if the member has been part of the Bonus program for less than one year, using the
@@ -110,20 +100,5 @@ public abstract class BonusMember {
 
     return qualifiedPoints;
 
-  }
-
-  /**
-   * Tests whether the provided password matches the password registered to this member.
-   *
-   * @param passwd the password to be tested.
-   * @return True if provided and registered passwords match.
-   */
-  // TODO: 09/02/2020 Refactor/remove this. It is already present in Personals class.
-  public boolean okPassword(String passwd) {
-    if (passwd == null) {
-      return false;
-    } // null password is never valid
-
-    return personals.okPassword(passwd);
   }
 }

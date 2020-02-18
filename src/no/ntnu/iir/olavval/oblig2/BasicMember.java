@@ -15,4 +15,9 @@ public class BasicMember extends BonusMember {
   public String getMembershipLevel() {
     return "Basic";
   }
+
+  @Override
+  public void registerPoints(int points) {
+    super.point += points;
+  }
 }

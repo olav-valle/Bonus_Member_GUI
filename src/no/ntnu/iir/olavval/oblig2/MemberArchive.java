@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
-// TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
-// TODO: 09/02/2020 Refactor member creation to new class?
+// QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
+// QUESTION: Refactor member creation to new class?
 // TODO: 18/02/2020 Implement a forEach(Consumer<? super BonusMember> action) method for lambdas
 
 public class MemberArchive {
