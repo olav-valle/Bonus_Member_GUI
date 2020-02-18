@@ -1,6 +1,5 @@
 package no.ntnu.iir.olavval.oblig2;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -19,13 +18,9 @@ public class Main {
 
     ui = new UserInterfaceMenu();
     archive = new MemberArchive();
-
-    run();
-  }
-
-  private static void run() {
     ui.showMenu();
   }
+
 
   private static class UserInterfaceMenu {
 
@@ -34,6 +29,7 @@ public class Main {
     private static final int UPGRADE_MEMBERS = 3;
     private static final int REGISTER_POINTS = 4;
     private static final int ADD_TEST_MEMBERS = 5;
+    private static final int TEST = 9;
     private static final int QUIT = 6;
 
 
@@ -55,7 +51,7 @@ public class Main {
             break;
           case LIST_MEMBERS: // user wants to see list of all members.
             System.out.println("Displaying all registered members.");
-            listAllMembers(archive.getArchiveIterator());
+            listAllMembers(archive.iterator());
             break;
           case UPGRADE_MEMBERS: // user wants all members to be upgraded.
             // TODO: 09/02/2020 Add user date input request. System is still dumb, though...
@@ -67,6 +63,9 @@ public class Main {
           case ADD_TEST_MEMBERS:
             System.out.println("Adding test members to archive.");
             addTestMembers();
+            break;
+          case TEST:
+            streamTest();
             break;
           case QUIT: // user has called exit command.
             run = false;
@@ -103,8 +102,7 @@ public class Main {
     }
 
     private void listAllMembers(Iterator<BonusMember> members) {
-
-      // TODO: 09/02/2020 should this be refactored into separate methods for each member level?
+// TODO: 18/02/2020 refactor this after MemberArchive implements a forEach() method
       members
           .forEachRemaining(m ->
               System.out.println(
@@ -113,6 +111,10 @@ public class Main {
                       + m.getPersonals().getFirstname() + "\t "
                   + m.getMembershipLevel() + " level member: "
                   + m.getPoints() + " points."));
+    }
+
+    private void streamTest(){
+      archive.stream().forEach(m -> System.out.println(m.getPersonals().getFirstname()));
     }
 
     private Personals newPersona() {
@@ -129,7 +131,7 @@ public class Main {
       String password = input.next();
 
       return new Personals(firstName, surname, emailAddress, password);
-
+// TODO: 18/02/2020 should this try to catch the exception that the Personals constructor can throw?
     }
 
     private LocalDate newDate() {

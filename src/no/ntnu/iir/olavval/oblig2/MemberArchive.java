@@ -4,11 +4,15 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+import javax.management.openmbean.InvalidOpenTypeException;
 
 // TODO: 09/02/2020 Refactor upgrade related methods to new UpgradeMembers class?
 // TODO: 09/02/2020 Refactor member creation to new class?
+// TODO: 18/02/2020 Implement a forEach(Consumer<? super BonusMember> action) method for lambdas
 
-public class MemberArchive {
+public class MemberArchive implements Iterable<BonusMember>{
   public static final int SILVER_LIMIT = 25000;
   public static final int GOLD_LIMIT = 75000;
   private static final Random RANDOM_NUMBER = new Random();
@@ -34,8 +38,26 @@ public class MemberArchive {
    * Returns an iterator of all member objects in archive.
    * @return Iterator of all members in archive.
    */
-  public Iterator<BonusMember> getArchiveIterator() {
+  @Override
+  public Iterator<BonusMember> iterator() {
+    // TODO: 18/02/2020 rename method to iterator() when class implements Iterable<T>
     return members.values().iterator();
+  }
+
+  /**
+   * Returns a Stream of the elements in the member archive collection.
+   * @return Stream of the elements in the member archive collection.
+   */
+  public Stream<BonusMember> stream() {
+    // TODO: 18/02/2020 Does this act as an "override" of sorts on stream()
+    //  from the Collections interface? We're not implementing Collections,
+    //  simply importing java.util.stream.Streams.
+
+    // TODO: 18/02/2020 What is the difference between importing it, and
+    //  implementing Stream<E> as an interface? I think the main diff
+    //  would be that we are not actually overriding any methods in the
+    //  Stream interface?
+    return members.values().stream();
   }
 
   /**
@@ -48,9 +70,15 @@ public class MemberArchive {
    */
   public int findPoints(int memberNo, String passwd) {
     BonusMember member = members.get(memberNo);
-    return member.okPassword(passwd) ? member.getPoints() : -1;
+    // TODO: 18/02/2020 test if member exists.
+    //  get() returns null if members does not hold an object with the specified memberNo,
+    //  so we should return -1 in this case.
+    
+    //returns points if password is valid, else -1.
+    return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 
   }
+  
 
   /**
    * Adds the specified number of points to a member.
@@ -260,5 +288,14 @@ public class MemberArchive {
         currentMember.getPersonals(),
         currentMember.getEnrolledDate(),
         currentMember.getPoints());
+  }
+
+  /**
+   * Performs the given action for each element in the member archive.
+   * @param action The action to be performed for each element.
+   */
+  @Override
+  public void forEach(Consumer<? super BonusMember> action) {
+    this.members.values().forEach(action);
   }
 }
