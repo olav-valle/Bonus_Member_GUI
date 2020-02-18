@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 /**
  * Represents a Silver level Bonus member.
+ * @author mort
  */
 public class SilverMember extends BonusMember {
 

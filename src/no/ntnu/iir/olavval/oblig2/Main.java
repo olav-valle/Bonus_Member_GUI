@@ -3,6 +3,10 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Main class for Bonus Member app.
+ * @author mort
+ */
 public class Main {
 
   private static MemberArchive archive;

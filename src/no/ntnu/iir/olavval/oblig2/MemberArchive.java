@@ -10,7 +10,10 @@ import java.util.stream.Stream;
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
 // QUESTION: Refactor member creation to new class?
 
-
+/**
+ * The archive that holds the collection of all members in the Bonus Member programme.
+ * @author mort
+ */
 public class MemberArchive implements Iterable<BonusMember>{
   public static final int SILVER_LIMIT = 25000;
   public static final int GOLD_LIMIT = 75000;
@@ -31,6 +34,15 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   public int getArchiveSize() {
     return members.size();
+  }
+
+  /**
+   * Performs the given action for each element in the member archive.
+   * @param action The action to be performed for each element.
+   */
+  @Override
+  public void forEach(Consumer<? super BonusMember> action) {
+    this.members.values().forEach(action);
   }
 
   /**
@@ -76,7 +88,7 @@ public class MemberArchive implements Iterable<BonusMember>{
     return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 
   }
-  
+
 
   /**
    * Adds the specified number of points to a member.
@@ -286,14 +298,5 @@ public class MemberArchive implements Iterable<BonusMember>{
         currentMember.getPersonals(),
         currentMember.getEnrolledDate(),
         currentMember.getPoints());
-  }
-
-  /**
-   * Performs the given action for each element in the member archive.
-   * @param action The action to be performed for each element.
-   */
-  @Override
-  public void forEach(Consumer<? super BonusMember> action) {
-    this.members.values().forEach(action);
   }
 }
