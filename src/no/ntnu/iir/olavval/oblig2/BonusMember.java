@@ -8,6 +8,7 @@ import java.time.Period;
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
+ * @author mort
  */
 public abstract class BonusMember implements Comparable<BonusMember> {
 

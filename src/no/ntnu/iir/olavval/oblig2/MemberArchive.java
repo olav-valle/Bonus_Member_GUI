@@ -10,7 +10,10 @@ import java.util.stream.Stream;
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
 // QUESTION: Refactor member creation to new class?
 
-
+/**
+ * The archive that holds the collection of all members in the Bonus Member programme.
+ * @author mort
+ */
 public class MemberArchive implements Iterable<BonusMember>{
   public static final int SILVER_LIMIT = 25000;
   public static final int GOLD_LIMIT = 75000;

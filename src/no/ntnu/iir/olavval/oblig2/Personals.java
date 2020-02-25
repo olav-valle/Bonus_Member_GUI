@@ -6,7 +6,7 @@ package no.ntnu.iir.olavval.oblig2;
  * Since a member never changes his/her personals while changing membership level,
  * it is useful to use a separat class to hold this information.
  * The password can be changed, but it then needs to be different than the old
- * passowrd. The Password is not case sensitive.
+ * password. The Password is not case sensitive.
  */
 class Personals {
   private final String surname;

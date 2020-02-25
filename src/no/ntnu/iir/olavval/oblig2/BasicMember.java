@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 /**
  * Represents a Basic level member, the lowest level of Bonus member.
+ * @author mort
  */
 public class BasicMember extends BonusMember {
 

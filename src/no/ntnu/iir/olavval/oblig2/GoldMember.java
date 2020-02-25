@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 /**
  * Represents a Gold level Bonus member.
+ * @author mort
  */
 public class GoldMember extends BonusMember {
 
