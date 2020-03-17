@@ -45,6 +45,8 @@ class BonusMemberTest {
     assertEquals(45000, b1.getPoints());
   }
 
+  // TODO: 11/03/2020 Add testInvalidParametersInConstructor to check exception handling
+
   /**
    * Tests the accuracy of the calculation of points for the basic member Tove,
    * who was registered with basic membership less than 365 days before 10/2-2008,
@@ -76,6 +78,20 @@ class BonusMemberTest {
     assertEquals(0, b4.findQualificationPoints(testDate));
     assertEquals(135000, b4.getPoints());
   }
+
+  /**
+   * Tests for member object creation failure due to invalid arguments being passed to constructor.
+   */
+  @Test
+  public void testExceptionThrowOnInvalidArgument(){
+    try {
+      BonusMember invalidMem = new BasicMember(-1, null, null);
+      fail(); //failure if this runs
+    } catch(IllegalArgumentException e){
+      System.out.println("Exception caught:" + e);
+    }
+  }
+
 
   /**
    * Tests the passwords of both members.

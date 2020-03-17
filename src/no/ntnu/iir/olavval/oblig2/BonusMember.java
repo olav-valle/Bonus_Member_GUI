@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 // TODO: 18/02/2020 Implement hashCode() override 
-// TODO: 18/02/2020 implement an abstract getDescriptionString() method
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
@@ -23,22 +22,34 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @param memberNo     A unique integer representing member number.
    * @param personals    A Personals object containing details regarding the member.
    * @param enrolledDate The date the member was first enrolled in the Bonus program.
+   * @throws IllegalArgumentException for null parameters, or negative value memberNo.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
-    // QUESTION: Should an abstact class still have a constructor that subclasses can use?
-    this.memberNo = memberNo;
-    this.personals = personals;
-    this.enrolledDate = enrolledDate;
+    // TODO: 17/03/2020 change ex to IllegalState since it's constructing an object?
+    if(memberNo < 0 || personals == null || enrolledDate == null){
+      throw new IllegalArgumentException(
+          "Either personals or enrolledDate was null, or memberNo was negative.");
+    }
+    else {
+      this.memberNo = memberNo;
+      this.personals = personals;
+      this.enrolledDate = enrolledDate;
+    }
   }
 
   /**
    * Compares this object with the specified object for order.
-   *
+   * Throws IllegalArgumentException if otheMember parameter is null.
    * @param otherMember the object to be compared
-   * @return     a negative integer, zero, or a positive integer as this object is less than,
+   * @return a negative integer, zero, or a positive integer if this object is less than,
    *        equal to, or greater than the specified object.
+   * @throws IllegalArgumentException for null parameters
+   *
    */
   public int compareTo(BonusMember otherMember){
+    if(otherMember == null){
+      throw new IllegalArgumentException("Parameter cannot be null.");
+    }
     return Integer.compare(this.point, otherMember.point);
   }
 
@@ -50,7 +61,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    */
   @Override
   public boolean equals(Object obj) {
-    // Guard clause,
+    // Guard clause.
+    // (null instanceof Class) is false
     if (!(obj instanceof BonusMember)) {
       return false;
     } else {

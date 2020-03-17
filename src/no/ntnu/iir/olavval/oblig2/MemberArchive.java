@@ -76,16 +76,18 @@ public class MemberArchive implements Iterable<BonusMember>{
    *
    * @param memberNo The users membership number.
    * @param passwd   The users password.
-   * @return Number of points held by the member, or -1 if password or memberNo was invalid.
+   * @return Number of points held by the member.
+   * @throws IllegalArgumentException if member number not found, or password invalid.
    */
   public int findPoints(int memberNo, String passwd) {
     BonusMember member = members.get(memberNo);
 
-    // Guard clause: if member == null, no member matching memberNo exists in collection.
-    if (member == null) return -1;
+    if (member == null) {
+      throw new IllegalArgumentException("No member with number: " + memberNo);
+    } else if (!member.getPersonals().okPassword(passwd)){
+      throw new IllegalArgumentException("Incorrect password.");
+    } else { return member.getPoints();}
 
-    //returns points if password is valid, else -1.
-    return member.getPersonals().okPassword(passwd) ? member.getPoints() : -1;
 
   }
 
@@ -96,18 +98,17 @@ public class MemberArchive implements Iterable<BonusMember>{
    *
    * @param memberNo the membership number of the member.
    * @param points   the number of points to be added to the member.
-   * @return True if points were successfully added to member account,
-   *        false if memberNo was invalid.
+   * @throws IllegalArgumentException if no member is found for memberNo, or if points <0.
    */
-  public boolean registerPoints(int memberNo, int points) {
-
+  public void registerPoints(int memberNo, int points) {
     //sanity check: does member exist in collection, or is points a negative number?
-    if (members.get(memberNo) == null || points < 0) {
-      return false;
+    if (members.get(memberNo) == null ) { // TODO: 17/03/2020 different ex for each case?
+      throw new IllegalArgumentException("No member with number:" + memberNo);
+    } else if(points < 0){
+      throw new IllegalArgumentException("Cannot add negative point value:" + points);
     } else { // member exists and value is positive
       members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
     }
-    return true;
   }
 
   /**
@@ -118,7 +119,6 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   public BonusMember findMember(int memberNo) {
     return members.get(memberNo);
-
   }
 
   /**
@@ -130,6 +130,9 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return the unique membership number of the member, or -1 if creation failed.
    */
   public int addMember(Personals person, LocalDate dateEnrolled) {
+    // TODO: 17/03/2020 Throw ex if person or dateEnrolled are bad objects.
+    //  Maybe passing on the ex from BonusMember constructor is enough?
+
 
     int newMemberNo = -1; // we assume that member creation failed
 
@@ -138,10 +141,17 @@ public class MemberArchive implements Iterable<BonusMember>{
       newMemberNo = findAvailableNo();
 
       // inst. new BasicMember object
-      BonusMember newMember = new BasicMember(newMemberNo, person, dateEnrolled);
+      // TODO: 17/03/2020 try-catch ex from BonusMember constructor
+      BonusMember newMember = null;
+      try {
+        newMember = new BasicMember(newMemberNo, person, dateEnrolled) {
+        };
+      } catch (IllegalArgumentException e){}
 
       //put member object into collection.
+      if (newMember != null){
       putMember(newMember);
+      }
 
     } //if
 
@@ -160,6 +170,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @param newMember the member to add to the list.
    */
   protected void putMember(BonusMember newMember) {
+    // TODO: 17/03/2020 Throw ex if sanity check fails.
     if (newMember != null && !(members.containsKey(newMember.getMemberNo()))) {
       members.put(// add newly created member to collection
           newMember.getMemberNo(), // member number is key
@@ -182,6 +193,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @param replacementMember the new member object that will replace the old one.
    */
   protected void replaceUpgradedMember(BonusMember oldMember, BonusMember replacementMember) {
+    // TODO: 17/03/2020 Throw ex if check fails
     if (replacementMember != null     // confirm that this key-value pair is NOT new
         && (oldMember.getMemberNo() == replacementMember.getMemberNo())
         && members.containsKey(replacementMember.getMemberNo())) {
@@ -198,6 +210,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   public void checkAndUpgradeMembers(LocalDate testDate) {
     if (testDate == null) { // sanity check
+      // TODO: 17/03/2020 throw ex
       return;
     }
 
@@ -234,6 +247,7 @@ public class MemberArchive implements Iterable<BonusMember>{
   private int findAvailableNo() {
     boolean unique = false;
     int newNo = -1;
+    // TODO: 17/03/2020 DANGER! Potentially a very long loop if the RNG lines up right...
     while (!unique) {
       newNo = RANDOM_NUMBER.nextInt((1000000));
 
@@ -254,6 +268,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return true if member is eligible for silver level membership.
    */
   private boolean checkSilverQualification(BonusMember member, LocalDate testDate) {
+    // TODO: 17/03/2020 check params
     return (member.findQualificationPoints(testDate) >= SILVER_LIMIT);
     // should return true if member has enough valid points to be upgraded to silver.
   }
@@ -266,6 +281,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return true if member is eligible for gold level membership.
    */
   private boolean checkGoldQualification(BonusMember member, LocalDate testDate) {
+    // TODO: 17/03/2020 check params
     return (member.findQualificationPoints(testDate) >= GOLD_LIMIT);
     // should return true if member has enough valid points to be upgraded to gold.
   }
@@ -277,7 +293,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return the newly upgraded silver level member.
    */
   private BonusMember upgradeMemberToSilver(BonusMember currentMember) {
-
+// TODO: 17/03/2020 try catch ex from BonusMember constructor
     return new SilverMember(//recycles details from old BasicMember object.
         currentMember.getMemberNo(),
         currentMember.getPersonals(),
@@ -292,7 +308,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return the newly upgraded gold level member.
    */
   private BonusMember upgradeMemberToGold(BonusMember currentMember) {
-
+// TODO: 17/03/2020 try catch ex from BonusMember constructor
     return new GoldMember(//recycles details from old SilverMember or BasicMember object.
         currentMember.getMemberNo(),
         currentMember.getPersonals(),

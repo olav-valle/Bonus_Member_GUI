@@ -1,6 +1,7 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -48,8 +49,12 @@ public class Main {
         printMainMenu();
         switch (input.nextInt()) {
           case ADD_MEMBER: // user wants to add new member.
-            archive.addMember(newPersona(), newDate());
-            System.out.println("Member created.");
+            try{
+              archive.addMember(newPersona(), newDate());
+              System.out.println("Member created.");
+            } catch (IllegalStateException e){
+              System.out.println("Member not created: Invalid inputs.");
+            }
             break;
           case LIST_MEMBERS: // user wants to see list of all members.
             System.out.println("Displaying all registered members.");
@@ -80,17 +85,36 @@ public class Main {
       }
     }
 
+    /**
+     * Requests user input for member number and point value.
+     * If either input is invalid, the user is informed of this, and is asked to retry.
+     * Input validity is determined by exceptions thrown by MemberArchive.registerPoints().
+     */
     private void registerPoints() {
-      System.out.println("Enter membership number: ");
-      int memberNo = input.nextInt();
-      System.out.println("Enter number of points to add: ");
-      int points = input.nextInt();
-      if (archive.registerPoints(memberNo, points)) {
-        System.out.println("Points added successfully.");
-      } else {
-        System.out.println("Points registration aborted: invalid member number or point value.");
-      }
+      boolean success = false;
+      int tries = 0;
+      do {
 
+        System.out.println("Enter membership number: ");
+        int memberNo = input.nextInt();
+        System.out.println("Enter number of points to add: ");
+        int points = input.nextInt();
+
+        try{
+          archive.registerPoints(memberNo, points);
+          success = true;
+          System.out.println("Points added successfully.");
+        } catch(IllegalArgumentException e){
+          System.out.println(e);
+          tries++;
+          System.out.println("Aborting in " + (5 - tries) + "more tries.");
+        }
+
+        if(tries >= 5) {
+          System.out.println("Points registration aborted: invalid member number or point value.");
+        }
+
+      } while(!success && tries < 5);
     }
 
     private void printMainMenu() {
@@ -149,14 +173,54 @@ public class Main {
     }
 
     private LocalDate newDate() {
-      System.out.println("Please enter the date this member was added: ");
-      System.out.println("Year: ");
-      int year = input.nextInt();
-      System.out.println("Month (1 - 12): ");
-      int month = input.nextInt();
-      System.out.println("Day (1 - 31): ");
-      int day = input.nextInt();
 
+      boolean success = false;
+      int year = 0;
+      int month = 0;
+      int day = 0;
+
+      System.out.println("Please enter the date this member was added: ");
+
+     // get the year from user
+      do {
+        try {
+          System.out.println("Year (4 digit): ");
+          year = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          input.next(); //clears the input left behind from the failed call in the try block
+          System.out.println("Please enter the year as a four digit number.");
+        }
+      } while (!success);
+
+      do {
+        success = false;
+        try {
+          System.out.println("Month (1 - 12): ");
+          month = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          input.next(); //clears the input left behind from the failed call in the try block
+          System.out.println("Please enter the month as a number between 1 and 12.");
+        }
+      } while(!success);
+
+      do {
+        success = false;
+        try {
+          System.out.println("Day (1 - 31): ");
+          day = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          input.next(); //clears the input left behind from the failed call in the try block
+          System.out.println("Please enter the year as a four digit number.");
+        }
+      } while(!success);
+
+      if (month == 0 || day == 0) {
+        throw new IllegalStateException(
+            String.format("Date cannot be 1$/2$. Zero is not a valid day or month.", day, month));
+      }
 
       return LocalDate.of(year, month, day);
     }
