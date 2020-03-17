@@ -42,7 +42,6 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   @Override
   public void forEach(Consumer<? super BonusMember> action) {
-    // TODO: 11/03/2020 nullcheck parameter
     this.members.values().forEach(action);
   }
 
@@ -101,10 +100,6 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @param points   the number of points to be added to the member.
    * @throws IllegalArgumentException if no member is found for memberNo, or if points <0.
    */
-    // TODO: 11/03/2020
-    //  e on invalid member no?
-
-    //  or catch e from calling get with invalid memberNo?
   public void registerPoints(int memberNo, int points) {
     //sanity check: does member exist in collection, or is points a negative number?
     if (members.get(memberNo) == null ) { // TODO: 17/03/2020 different ex for each case?
@@ -123,9 +118,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @return the member with specified member number, or null if no member with that number exists.
    */
   public BonusMember findMember(int memberNo) {
-    // TODO: 17/03/2020 Is returning null enough, or do we need to throw exceptions?
     return members.get(memberNo);
-
   }
 
   /**

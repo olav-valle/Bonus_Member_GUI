@@ -3,7 +3,6 @@ package no.ntnu.iir.olavval.oblig2;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.function.DoubleToIntFunction;
 
 /**
  * Main class for Bonus Member app.
@@ -174,41 +173,50 @@ public class Main {
     }
 
     private LocalDate newDate() {
-      int tries = 0;
+
       boolean success = false;
       int year = 0;
       int month = 0;
       int day = 0;
 
       System.out.println("Please enter the date this member was added: ");
-// TODO: 17/03/2020 separate do-while for each number
+
+     // get the year from user
       do {
         try {
-          System.out.println("Year: ");
+          System.out.println("Year (4 digit): ");
           year = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          input.next(); //clears the input left behind from the failed call in the try block
+          System.out.println("Please enter the year as a four digit number.");
+        }
+      } while (!success);
+
+      do {
+        success = false;
+        try {
           System.out.println("Month (1 - 12): ");
           month = input.nextInt();
+          success = true;
+        } catch (InputMismatchException e) {
+          input.next(); //clears the input left behind from the failed call in the try block
+          System.out.println("Please enter the month as a number between 1 and 12.");
+        }
+      } while(!success);
+
+      do {
+        success = false;
+        try {
           System.out.println("Day (1 - 31): ");
           day = input.nextInt();
           success = true;
         } catch (InputMismatchException e) {
           input.next(); //clears the input left behind from the failed call in the try block
           System.out.println("Please enter the year as a four digit number.");
-          tries++;
         }
-        try{
-        } catch (InputMismatchException e) {
-          System.out.println("Please enter the month as a number between 1 and 12.");
-          tries++;
-        }
-        try{
+      } while(!success);
 
-        } catch (InputMismatchException e){
-          System.out.println("Please enter the day as a number between 1 and 31.");
-          tries++;
-        }
-
-      } while (!success && tries < 5);
       if (month == 0 || day == 0) {
         throw new IllegalStateException(
             String.format("Date cannot be 1$/2$. Zero is not a valid day or month.", day, month));

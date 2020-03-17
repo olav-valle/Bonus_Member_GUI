@@ -1,6 +1,7 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
@@ -39,5 +40,9 @@ public class MainView extends Application {
     primaryStage.setScene(scene);
     //show the UI
     primaryStage.show();
+  }
+
+  private Node makeCenterTable(){
+    return null;
   }
 }
