@@ -25,9 +25,7 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @throws IllegalArgumentException for null parameters, or negative value memberNo.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
-    // TODO: 17/03/2020 throw exception if parameters are invalid. Either IllegalArgument,
-    //  or maybe IllegalState since it's constructing an object?
-    // QUESTION: Should an abstact class still have a constructor that subclasses can use?
+    // TODO: 17/03/2020 change ex to IllegalState since it's constructing an object?
     if(memberNo < 0 || personals == null || enrolledDate == null){
       throw new IllegalArgumentException(
           "Either personals or enrolledDate was null, or memberNo was negative.");
@@ -49,12 +47,10 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *
    */
   public int compareTo(BonusMember otherMember){
-    // TODO: 11/03/2020 nullcheck param
     if(otherMember == null){
       throw new IllegalArgumentException("Parameter cannot be null.");
     }
     return Integer.compare(this.point, otherMember.point);
-    // TODO: 17/03/2020 what happens if otherMember == null?
   }
 
   /**
@@ -65,8 +61,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    */
   @Override
   public boolean equals(Object obj) {
-    // TODO: 11/03/2020 nullcheck param
-    // Guard clause
+    // Guard clause.
+    // (null instanceof Class) is false
     if (!(obj instanceof BonusMember)) {
       return false;
     } else {
@@ -123,7 +119,6 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @param points The number of points to be added to the member account.
    */
   public abstract void registerPoints(int points);
-  // TODO: 11/03/2020 add input check
 
   /**
    * Checks if the member has been part of the Bonus program for less than one year, using the
@@ -137,8 +132,6 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *        membership is less than one year old.
    */
   public int findQualificationPoints(LocalDate testDate) {
-    // TODO: 17/03/2020 is the information this method returns enough?
-    //  Would throwing an exception be too much? Probably, yes.
 
     int qualifiedPoints = 0;
 

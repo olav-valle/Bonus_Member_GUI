@@ -151,7 +151,8 @@ public class MemberArchive implements Iterable<BonusMember>{
       // TODO: 17/03/2020 try-catch ex from BonusMember constructor
       BonusMember newMember = null;
       try {
-        newMember = new BasicMember(newMemberNo, person, dateEnrolled);
+        newMember = new BasicMember(newMemberNo, person, dateEnrolled) {
+        };
       } catch (IllegalArgumentException e){}
 
       //put member object into collection.
