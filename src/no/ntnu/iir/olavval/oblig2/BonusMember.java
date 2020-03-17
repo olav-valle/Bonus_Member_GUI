@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 // TODO: 18/02/2020 Implement hashCode() override 
-// TODO: 18/02/2020 implement an abstract getDescriptionString() method
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
@@ -25,6 +24,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @param enrolledDate The date the member was first enrolled in the Bonus program.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
+    // TODO: 17/03/2020 throw exception if parameters are invalid. Either IllegalArgument,
+    //  or maybe IllegalState since it's constructing an object?
     // QUESTION: Should an abstact class still have a constructor that subclasses can use?
     this.memberNo = memberNo;
     this.personals = personals;
@@ -40,6 +41,7 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    */
   public int compareTo(BonusMember otherMember){
     return Integer.compare(this.point, otherMember.point);
+    // TODO: 17/03/2020 what happens if otherMember == null?
   }
 
   /**
@@ -120,6 +122,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *        membership is less than one year old.
    */
   public int findQualificationPoints(LocalDate testDate) {
+    // TODO: 17/03/2020 is the information this method returns enough?
+    //  Would throwing an exception be too much? Probably, yes.
 
     int qualifiedPoints = 0;
 

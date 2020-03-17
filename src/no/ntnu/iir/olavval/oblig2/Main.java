@@ -80,17 +80,36 @@ public class Main {
       }
     }
 
+    /**
+     * Requests user input for member number and point value.
+     * If either input is invalid, the user is informed of this, and is asked to retry.
+     * Input validity is determined by exceptions thrown by MemberArchive.registerPoints().
+     */
     private void registerPoints() {
-      System.out.println("Enter membership number: ");
-      int memberNo = input.nextInt();
-      System.out.println("Enter number of points to add: ");
-      int points = input.nextInt();
-      if (archive.registerPoints(memberNo, points)) {
-        System.out.println("Points added successfully.");
-      } else {
-        System.out.println("Points registration aborted: invalid member number or point value.");
-      }
+      boolean success = false;
+      int tries = 0;
+      do {
 
+        System.out.println("Enter membership number: ");
+        int memberNo = input.nextInt();
+        System.out.println("Enter number of points to add: ");
+        int points = input.nextInt();
+
+        try{
+          archive.registerPoints(memberNo, points);
+          success = true;
+          System.out.println("Points added successfully.");
+        } catch(IllegalArgumentException e){
+          System.out.println(e);
+          tries++;
+          System.out.println("Aborting in " + (5 - tries) + "more tries.");
+        }
+
+        if(tries >= 5) {
+          System.out.println("Points registration aborted: invalid member number or point value.");
+        }
+
+      } while(!success && tries < 5);
     }
 
     private void printMainMenu() {
