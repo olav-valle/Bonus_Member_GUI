@@ -1,16 +1,22 @@
 package no.ntnu.iir.olavval.oblig2;
 
+import java.lang.reflect.Member;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javax.smartcardio.CardChannel;
 
 public class MainView extends Application {
 
-  private static void main(String[] args){
-   launch(MainView.class, args);
+  private MemberArchive archive;
+
+  public static void main(String[] args){
+    launch(args);
   }
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -42,6 +48,9 @@ public class MainView extends Application {
     primaryStage.show();
   }
 
+  private ObservableList<BonusMember> getMemberListWrapper(){
+    return FXCollections.observableArrayList()
+  }
   private Node makeCenterTable(){
     return null;
   }
