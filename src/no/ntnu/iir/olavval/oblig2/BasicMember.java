@@ -21,4 +21,5 @@ public class BasicMember extends BonusMember {
   public void registerPoints(int points) {
     super.point += points;
   }
+  // TODO: 11/03/2020 input check
 }

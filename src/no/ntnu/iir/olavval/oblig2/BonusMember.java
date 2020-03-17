@@ -22,24 +22,37 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @param memberNo     A unique integer representing member number.
    * @param personals    A Personals object containing details regarding the member.
    * @param enrolledDate The date the member was first enrolled in the Bonus program.
+   * @throws IllegalArgumentException for null parameters, or negative value memberNo.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
     // TODO: 17/03/2020 throw exception if parameters are invalid. Either IllegalArgument,
     //  or maybe IllegalState since it's constructing an object?
     // QUESTION: Should an abstact class still have a constructor that subclasses can use?
-    this.memberNo = memberNo;
-    this.personals = personals;
-    this.enrolledDate = enrolledDate;
+    if(memberNo < 0 || personals == null || enrolledDate == null){
+      throw new IllegalArgumentException(
+          "Either personals or enrolledDate was null, or memberNo was negative.");
+    }
+    else {
+      this.memberNo = memberNo;
+      this.personals = personals;
+      this.enrolledDate = enrolledDate;
+    }
   }
 
   /**
    * Compares this object with the specified object for order.
-   *
+   * Throws IllegalArgumentException if otheMember parameter is null.
    * @param otherMember the object to be compared
-   * @return     a negative integer, zero, or a positive integer as this object is less than,
+   * @return a negative integer, zero, or a positive integer if this object is less than,
    *        equal to, or greater than the specified object.
+   * @throws IllegalArgumentException for null parameters
+   *
    */
   public int compareTo(BonusMember otherMember){
+    // TODO: 11/03/2020 nullcheck param
+    if(otherMember == null){
+      throw new IllegalArgumentException("Parameter cannot be null.");
+    }
     return Integer.compare(this.point, otherMember.point);
     // TODO: 17/03/2020 what happens if otherMember == null?
   }
@@ -52,7 +65,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    */
   @Override
   public boolean equals(Object obj) {
-    // Guard clause,
+    // TODO: 11/03/2020 nullcheck param
+    // Guard clause
     if (!(obj instanceof BonusMember)) {
       return false;
     } else {
@@ -109,6 +123,7 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @param points The number of points to be added to the member account.
    */
   public abstract void registerPoints(int points);
+  // TODO: 11/03/2020 add input check
 
   /**
    * Checks if the member has been part of the Bonus program for less than one year, using the

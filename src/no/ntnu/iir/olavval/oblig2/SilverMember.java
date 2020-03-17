@@ -42,4 +42,5 @@ public class SilverMember extends BonusMember {
   public void registerPoints(int points) {
     super.point += ( (int) (FACTOR_SILVER * points) );
   }
+  // TODO: 11/03/2020 input check
 }

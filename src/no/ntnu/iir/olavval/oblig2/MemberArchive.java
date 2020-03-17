@@ -42,6 +42,7 @@ public class MemberArchive implements Iterable<BonusMember>{
    */
   @Override
   public void forEach(Consumer<? super BonusMember> action) {
+    // TODO: 11/03/2020 nullcheck parameter
     this.members.values().forEach(action);
   }
 
@@ -100,6 +101,10 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @param points   the number of points to be added to the member.
    * @throws IllegalArgumentException if no member is found for memberNo, or if points <0.
    */
+    // TODO: 11/03/2020
+    //  e on invalid member no?
+
+    //  or catch e from calling get with invalid memberNo?
   public void registerPoints(int memberNo, int points) {
     //sanity check: does member exist in collection, or is points a negative number?
     if (members.get(memberNo) == null ) { // TODO: 17/03/2020 different ex for each case?
@@ -143,11 +148,16 @@ public class MemberArchive implements Iterable<BonusMember>{
       newMemberNo = findAvailableNo();
 
       // inst. new BasicMember object
-      BonusMember newMember = new BasicMember(newMemberNo, person, dateEnrolled);
       // TODO: 17/03/2020 try-catch ex from BonusMember constructor
+      BonusMember newMember = null;
+      try {
+        newMember = new BasicMember(newMemberNo, person, dateEnrolled);
+      } catch (IllegalArgumentException e){}
 
       //put member object into collection.
+      if (newMember != null){
       putMember(newMember);
+      }
 
     } //if
 
