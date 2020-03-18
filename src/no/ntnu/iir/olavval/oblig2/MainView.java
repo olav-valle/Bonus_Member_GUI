@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -83,44 +84,44 @@ public class MainView extends Application {
 
   private Node makeCenterPane(){
     // TODO: 18/03/2020 add grid view for member details
+    //-- VBox with member table and member details view --
     VBox vBox = new VBox(10);
 
-    //Fetch member table
+    //Fetch member table for top of VBox
     TableView<BonusMember> memberTable = makeMemberTable();
+    // Member table should grow to fill VBox
     VBox.setVgrow(memberTable, Priority.ALWAYS);
-    /* //Anchor pane for center of BorderPane
-    AnchorPane centerPane = new AnchorPane();
-    //Add member table to anchor pane
-    AnchorPane.setTopAnchor(memberTable, 10.0);
-    AnchorPane.setRightAnchor(memberTable, 10.0);
-    AnchorPane.setLeftAnchor(memberTable, 10.0);
-    AnchorPane.setBottomAnchor(memberTable, 10.0);*/
+    VBox.setMargin(memberTable, new Insets(10.0));
 
-    // --GridPane for member details at bottom of AnchorPane--
+    // --GridPane for member details at bottom of VBox--
+    GridPane gridPane = makeMemberDetailGrid();
+    VBox.setVgrow(gridPane, Priority.NEVER);
+    VBox.setMargin(gridPane, new Insets(10.0));
+
+    vBox.getChildren().addAll(memberTable, gridPane);
+
+    return vBox;
+  }
+
+  private GridPane makeMemberDetailGrid(){
     GridPane gridPane = new GridPane();
     gridPane.setHgap(10);
     gridPane.setVgap(10);
-    VBox.setVgrow(gridPane, Priority.NEVER);
+
+    // First Name field
     TextField firstName = new TextField();
     firstName.setPromptText("First name");
-    TextField surname = new TextField();
-    firstName.setPromptText("Surname");
     gridPane.add(new Label("First Name: "), 0, 0);
     gridPane.add(firstName, 1, 0);
+
+    // Surname field
+    TextField surname = new TextField();
+    surname.setPromptText("Surname");
     gridPane.add(new Label("Surname: "), 0, 1);
     gridPane.add(surname, 1, 1);
-    vBox.getChildren().add(gridPane);
-//    Text name = new Text("Name");
-//    name.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 
-    //set anchors for memberDetails grid
-    AnchorPane.setBottomAnchor(vBox, 10.0);
-    AnchorPane.setRightAnchor(vBox, 10.0);
-    AnchorPane.setLeftAnchor(vBox, 10.0);
 
-    centerPane.getChildren().addAll(memberTable, vBox);
-
-    return centerPane;
+    return gridPane;
   }
 
   private TableView<BonusMember> makeMemberTable(){
