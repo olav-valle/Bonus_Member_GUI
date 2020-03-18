@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Main class for Bonus Member app.
  * @author mort
  */
-public class Main {
+public class MainController {
   // TODO: 18/03/2020 refactor this class to be the MainController.
   //  remove inner class UserInterfaceMenu
   //  Keep all methods that call and manipulate MemberArchive and BonusMember.
