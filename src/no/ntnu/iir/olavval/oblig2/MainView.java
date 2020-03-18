@@ -55,8 +55,9 @@ public class MainView extends Application {
   public void start(Stage primaryStage) throws Exception {
     // TODO: 18/03/2020 refactor pane node creations.
     //  separate methods for each of the BorderPane areas:
-    //  center is anchor with member table on top and grid view for details on bottom
-    //
+    //  center is VBox with member table on top and grid view for details on bottom.
+    //  Top is VBox with main menu and toolbar (adding points, creating members).
+    //  Bottom is statusbar.
 
     // BorderPane as scene root
     BorderPane root = new BorderPane();
