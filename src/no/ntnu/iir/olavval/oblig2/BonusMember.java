@@ -102,6 +102,19 @@ public abstract class BonusMember implements Comparable<BonusMember> {
     return personals;
   }
 
+  // TODO: 18/03/2020 javadoc
+  public String getFirstName(){
+    return personals.getFirstname();
+  }
+
+  public String getSurname(){
+    return personals.getSurname();
+  }
+
+  public String getEmail(){
+    return personals.getEMailAddress();
+  }
+
   /**
    * Returns a LocalDate object holding the date this member was enrolled in the Bonus program.
    *

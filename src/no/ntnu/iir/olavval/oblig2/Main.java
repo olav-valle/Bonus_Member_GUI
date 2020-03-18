@@ -9,20 +9,25 @@ import java.util.Scanner;
  * @author mort
  */
 public class Main {
-
+  // TODO: 18/03/2020 refactor this class to be the MainController.
+  //  remove inner class UserInterfaceMenu
+  //  Keep all methods that call and manipulate MemberArchive and BonusMember.
+  //  Reimplement calls to these control methods in MainView,
+  //  since that's our "new" UserInterfaceMenu.
+  //  .
   private static MemberArchive archive;
 
-  /**
-   * Main method of BonusMember program app.
-   *
-   * @param args No arguments.
-   */
-  public static void main(String[] args) {
-
-    UserInterfaceMenu ui = new UserInterfaceMenu();
-    archive = new MemberArchive();
-    ui.showMenu();
-  }
+//  /**
+//   * Main method of BonusMember program app.
+//   *
+//   * @param args No arguments.
+//   */
+//  public static void main(String[] args) {
+//
+//    UserInterfaceMenu ui = new UserInterfaceMenu();
+//    archive = new MemberArchive();
+//    ui.showMenu();
+//  }
 
 
   private static class UserInterfaceMenu {

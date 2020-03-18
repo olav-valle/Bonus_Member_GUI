@@ -1,10 +1,13 @@
 package no.ntnu.iir.olavval.oblig2;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
@@ -52,6 +55,10 @@ public class MemberArchive implements Iterable<BonusMember>{
   @Override
   public Iterator<BonusMember> iterator() {
     return members.values().iterator();
+  }
+
+  public List<BonusMember> getArchiveValuesAsList(){
+    return new ArrayList<>(members.values());
   }
 
   /**
