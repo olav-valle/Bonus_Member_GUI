@@ -1,18 +1,21 @@
 package no.ntnu.iir.olavval.oblig2;
 
-import java.lang.reflect.Member;
 import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javax.smartcardio.CardChannel;
 
 public class MainView extends Application {
 
@@ -57,27 +60,17 @@ public class MainView extends Application {
     // BorderPane as scene root
     BorderPane root = new BorderPane();
 
+    // TODO: 18/03/2020 method for making toolbar and menu for root top
     //HBox for toolbar
     HBox toolBar = new HBox();
+
     root.setTop(toolBar);
 
     //VBox for center view
     VBox vBoxCenter = new VBox();
-    //Fetch member table
-    TableView<BonusMember> memberTable = makeCenterTable();
-    //Anchor pane for center of BorderPane
-    AnchorPane centerPane = new AnchorPane();
-    //Add member table to anchor pane
-    centerPane.getChildren().add(memberTable);
-    AnchorPane.setTopAnchor(memberTable, 10.0);
-    AnchorPane.setRightAnchor(memberTable, 10.0);
-    AnchorPane.setLeftAnchor(memberTable, 10.0);
 
-    //Add table to center VBox
-    //vBoxCenter.getChildren().add(makeCenterTable());
-    // set center VBox as root center view
-
-    root.setCenter(centerPane);
+    // Center of root is an anchor pane with a table and grid view
+    root.setCenter(makeCenterPane());
 
     // Set the scene
     Scene scene = new Scene(root);
@@ -88,10 +81,49 @@ public class MainView extends Application {
     primaryStage.show();
   }
 
-  private ObservableList<BonusMember> getMemberListWrapper(){
-    return FXCollections.observableArrayList(archive.getArchiveValuesAsList());
+  private Node makeCenterPane(){
+    // TODO: 18/03/2020 add grid view for member details
+    VBox vBox = new VBox(10);
+
+    //Fetch member table
+    TableView<BonusMember> memberTable = makeMemberTable();
+    VBox.setVgrow(memberTable, Priority.ALWAYS);
+    /* //Anchor pane for center of BorderPane
+    AnchorPane centerPane = new AnchorPane();
+    //Add member table to anchor pane
+    AnchorPane.setTopAnchor(memberTable, 10.0);
+    AnchorPane.setRightAnchor(memberTable, 10.0);
+    AnchorPane.setLeftAnchor(memberTable, 10.0);
+    AnchorPane.setBottomAnchor(memberTable, 10.0);*/
+
+    // --GridPane for member details at bottom of AnchorPane--
+    GridPane gridPane = new GridPane();
+    gridPane.setHgap(10);
+    gridPane.setVgap(10);
+    VBox.setVgrow(gridPane, Priority.NEVER);
+    TextField firstName = new TextField();
+    firstName.setPromptText("First name");
+    TextField surname = new TextField();
+    firstName.setPromptText("Surname");
+    gridPane.add(new Label("First Name: "), 0, 0);
+    gridPane.add(firstName, 1, 0);
+    gridPane.add(new Label("Surname: "), 0, 1);
+    gridPane.add(surname, 1, 1);
+    vBox.getChildren().add(gridPane);
+//    Text name = new Text("Name");
+//    name.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+
+    //set anchors for memberDetails grid
+    AnchorPane.setBottomAnchor(vBox, 10.0);
+    AnchorPane.setRightAnchor(vBox, 10.0);
+    AnchorPane.setLeftAnchor(vBox, 10.0);
+
+    centerPane.getChildren().addAll(memberTable, vBox);
+
+    return centerPane;
   }
-  private TableView<BonusMember> makeCenterTable(){
+
+  private TableView<BonusMember> makeMemberTable(){
     // Name column
     TableColumn<BonusMember, String> nameCol = new TableColumn<>("First Name");
     nameCol.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
@@ -112,6 +144,10 @@ public class MainView extends Application {
     centerTable.setItems(this.getMemberListWrapper());
     centerTable.getColumns().addAll(memberNoCol, nameCol, surnameCol, pointCol);
     return centerTable;
+  }
+
+  private ObservableList<BonusMember> getMemberListWrapper(){
+    return FXCollections.observableArrayList(archive.getArchiveValuesAsList());
   }
 
   private void addDummies() {
