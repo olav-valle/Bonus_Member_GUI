@@ -1,0 +1,17 @@
+
+esquid:S2184´"HCast one of the operands of this multiplication operation to a "double".(ñ¼¥úúÿÿÿÿ
+`squid:S00107•"BConstructor has 13 parameters, which is greater than 7 authorized.(­Áü‹ûÿÿÿÿ
+osquid:S00117´"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¼¥úúÿÿÿÿ
+@squid:S1659["$Declare "height" on a separate line.(˜¥¢¤øÿÿÿÿ
+9squid:S1659a""Declare "minY" on a separate line.(€ £ó
+9squid:S1659a""Declare "maxX" on a separate line.(€ £ó
+9squid:S1659a""Declare "maxY" on a separate line.(€ £ó
+>squid:S1659g""Declare "minI" on a separate line.(‰²›Òúÿÿÿÿ
+>squid:S1659g""Declare "maxR" on a separate line.(‰²›Òúÿÿÿÿ
+>squid:S1659g""Declare "maxI" on a separate line.(‰²›Òúÿÿÿÿ
+U
+squid:S106Â"9Replace this use of System.out or System.err by a logger.(ğú¿ııÿÿÿÿ
+jsquid:S3776Ø"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ªÕŞ
+7squid:S1659µ"Declare "g" on a separate line.(óîÎú
+7squid:S1659µ"Declare "b" on a separate line.(óîÎú
+asquid:S3358Ç"DExtract this nested ternary operation into an independent statement.(˜İáóşÿÿÿÿ
