@@ -1,5 +1,6 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.test;
 
+import no.ntnu.iir.olavval.oblig2.model.Personals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

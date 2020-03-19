@@ -1,7 +1,12 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import no.ntnu.iir.olavval.oblig2.model.BasicMember;
+import no.ntnu.iir.olavval.oblig2.model.BonusMember;
+import no.ntnu.iir.olavval.oblig2.model.GoldMember;
+import no.ntnu.iir.olavval.oblig2.model.Personals;
+import no.ntnu.iir.olavval.oblig2.model.SilverMember;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

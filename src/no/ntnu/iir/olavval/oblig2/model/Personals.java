@@ -1,4 +1,4 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.model;
 
 /**
  * The Personals-class holds personal information about a member,
@@ -8,7 +8,7 @@ package no.ntnu.iir.olavval.oblig2;
  * The password can be changed, but it then needs to be different than the old
  * password. The Password is not case sensitive.
  */
-class Personals {
+public class Personals {
   private final String surname;
   private final String firstname;
   private final String emailaddress;

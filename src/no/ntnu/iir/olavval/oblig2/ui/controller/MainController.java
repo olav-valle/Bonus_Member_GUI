@@ -1,8 +1,10 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.ui.controller;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
+import no.ntnu.iir.olavval.oblig2.model.Personals;
 
 /**
  * Main class for Bonus Member app.

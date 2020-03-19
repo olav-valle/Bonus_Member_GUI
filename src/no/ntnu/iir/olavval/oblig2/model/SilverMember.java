@@ -1,4 +1,4 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.model;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * Represents a Silver level Bonus member.
  * @author mort
  */
-public class SilverMember extends BonusMember {
+public class SilverMember extends no.ntnu.iir.olavval.oblig2.model.BonusMember {
 
   static final double FACTOR_SILVER = 1.2;
 

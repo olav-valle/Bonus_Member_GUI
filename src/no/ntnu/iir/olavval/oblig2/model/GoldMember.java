@@ -1,4 +1,4 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.model;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?

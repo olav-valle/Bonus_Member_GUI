@@ -4,7 +4,57 @@ top VBox:
         add
         remove
         add points
-        Upgrade member
+        run upgrades on members
+
+Click on user in table to show details.
+Should the detail view always be visible, or only be shown when a member is clicked?
+In other words, should there be a separate method for updating the detail view
+or should the makeMemberDetailGrid method require a memberobject as a parameter?
+
+Problem: I need to find a way to replace the detailsGrid at the bottom of the VBox
+that represents the center of the stage.
+I cannot do this inside a lambda because variables accessed from within lambda/inner class
+needs to be final.
+There must be some way to let the center VBox know that it should update its GridPane child
+with a new one. Maybe there is a way to pass a new object to the VBox.
+
+Maybe we need to let the vbox itself handle the event?
+    if (mouse event was inside the child TableView) {
+        get BonusMember object from table row
+        set values in DetailsGrid to BonusMember values
+        refresh DetailsGrid
+    }
+
+
+There's something called event filters. We can filter the event in the centerPane method,
+and use that to refresh.
+
+We could also add something called a ChangeListener.
+    cmbComponent.valueProperty().addListener((o, ov, nv) -> {
+        Details d = (Details) nv;
+        txtActivity.setText(d.getText());
+    });
+
+    We add the detailsGrid as a listener to the Observable table.
+
+We add a listener to the DetailsGrid, where the new value (nv) is the currently marked
+member in the tableView. If no member is selected, the reference will be null, so we check
+    if (member != null) {
+        set all fields to member details
+    }
+
+Idea: If we make the memberTable method react to clicks on itself, and then catch those events
+in the center box method, the center box should be able to use that event to update
+the details grid.
+
+
+
+Can we pass a null on first creation, and an actual member on subsequent "creations" (updates).
 
 Detail view hooked into selected user
     tableView.setOnMousePressed
+
+Add a toolbar to detail view.
+Add edit and save button to user detail view.
+Put detail view and its toolbar in a vbox, and put that vbox where the gridpane is now.
+

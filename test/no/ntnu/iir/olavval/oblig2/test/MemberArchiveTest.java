@@ -1,5 +1,10 @@
-package no.ntnu.iir.olavval.oblig2;
+package no.ntnu.iir.olavval.oblig2.test;
 
+import no.ntnu.iir.olavval.oblig2.model.BasicMember;
+import no.ntnu.iir.olavval.oblig2.model.GoldMember;
+import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
+import no.ntnu.iir.olavval.oblig2.model.Personals;
+import no.ntnu.iir.olavval.oblig2.model.SilverMember;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -164,8 +169,8 @@ public class MemberArchiveTest {
             b1.getPersonals(), //same 'hood
             b1.getEnrolledDate(),//it's all good
             0); //wipe balance to 0 to eliminate interference from basic level testing
-
-    archive.replaceUpgradedMember(b1, s1); // replaces basic Ole with silver level Ole
+// TODO: 19/03/2020 fix this test. Method is protected, and should absolutely stay so...
+//    archive.replaceUpgradedMember(b1, s1); // replaces basic Ole with silver level Ole
 
     assertFalse(archive.findMember(oleMemberNo) instanceof BasicMember);
     //assert that Ole is not Basic
@@ -193,7 +198,8 @@ public class MemberArchiveTest {
             s1.getPersonals(),
             s1.getEnrolledDate(),
             0); //wipe balance to 0, to eliminate interference from silver level testing
-    archive.replaceUpgradedMember(s1, g1);
+    // TODO: 19/03/2020 Same as above TODO. Fix issue of protected method.
+//    archive.replaceUpgradedMember(s1, g1);
     assertFalse(archive.findMember(oleMemberNo) instanceof SilverMember);
     assertTrue(archive.findMember(oleMemberNo) instanceof GoldMember);
     //check that Ole is now Gold level, and not Silver level.
