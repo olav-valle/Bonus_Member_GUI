@@ -5,8 +5,8 @@ top VBox:
         remove
         add points
         run upgrades on members
-
-Click on user in table to show details.
+__Solution was to set detailsGrid as a listener to memberTable's selected item Observable__
+~~Click on user in table to show details.
 Should the detail view always be visible, or only be shown when a member is clicked?
 In other words, should there be a separate method for updating the detail view
 or should the makeMemberDetailGrid method require a memberobject as a parameter?
@@ -16,10 +16,8 @@ that represents the center of the stage.
 I cannot do this inside a lambda because variables accessed from within lambda/inner class
 needs to be final.
 There must be some way to let the center VBox know that it should update its GridPane child
-with a new one. Maybe there is a way to pass a new object to the VBox.
-
-Maybe we need to let the vbox itself handle the event?
-    if (mouse event was inside the child TableView) {
+with a new one. Maybe there is a way to pass a new object to the VBox.~~
+ be we need to let the vbox itself handle the event?    if (mouse event was inside the child TableView) {
         get BonusMember object from table row
         set values in DetailsGrid to BonusMember values
         refresh DetailsGrid

@@ -76,7 +76,6 @@ public class MainController {
             break;
           case ADD_TEST_MEMBERS:
             System.out.println("Adding test members to archive.");
-            addTestMembers();
             break;
           case SORT_BY_POINTS:
             System.out.println("Listing all members, sorting by points held.");
@@ -232,31 +231,7 @@ public class MainController {
       return LocalDate.of(year, month, day);
     }
 
-    private void addTestMembers() {
-
-      LocalDate oleEnrollDate = LocalDate.of(2006, 2, 15);
-      LocalDate toveEnrollDate = LocalDate.of(2007, 5, 3);
-      LocalDate liseEnrollDate = LocalDate.of(2008, 2, 10);
-      LocalDate jonasEnrollDate = oleEnrollDate; //same date as Ole
-      LocalDate erikEnrollDate = LocalDate.of(2007, 3, 1);
-
-      Personals ole = new Personals("Ole", "Olsen",
-          "ole.olsen@dot.com", "ole");
-      Personals tove = new Personals("Tove", "Hansen",
-          "tove.hansen@dot.com", "tove");
-      Personals lise = new Personals("Lise", "Lisand",
-          "lise@lisand.no", "lise");
-      Personals jonas = new Personals("Jonas", "Johnsen",
-          "jon@johnsen.no", "jonny");
-      Personals erik = new Personals("Erik", "Eriksen",
-          "rikken@eriksen.no", "rikkenrules");
-
-      archive.addMember(ole, oleEnrollDate);
-      archive.addMember(tove, toveEnrollDate);
-      archive.addMember(lise, liseEnrollDate);
-      archive.addMember(jonas, jonasEnrollDate);
-      archive.addMember(erik, erikEnrollDate);
     }
 
   }
-}
+

@@ -87,13 +87,13 @@ public class MainView extends Application {
     //-- VBox with member table and member details view --
     VBox vBox = new VBox(10);
 
-    //Fetch member table for top of VBox
+    //-- Member table for top of VBox --
     TableView<BonusMember> memberTable = makeMemberTable();
-    // Member table should grow to fill VBox
-    VBox.setVgrow(memberTable, Priority.ALWAYS);
+    VBox.setVgrow(memberTable, Priority.ALWAYS); // Member table should grow to fill VBox
     VBox.setMargin(memberTable, new Insets(10.0, 10.0, 0, 10.0));
 
     // --GridPane for member details at bottom of VBox--
+    //Text fields in details grid listen to table view for selected member, so we pass the table.
     VBox memberDetailGrid = makeMemberDetailGrid(memberTable);
     VBox.setVgrow(memberDetailGrid, Priority.NEVER);
 
@@ -115,14 +115,14 @@ public class MainView extends Application {
     surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
 
     // Member ID number column
-    TableColumn<BonusMember, Integer> memberNoCol= new TableColumn<>("ID Number");
+    TableColumn<BonusMember, Integer> memberNoCol= new TableColumn<>("ID");
     memberNoCol.setCellValueFactory(new PropertyValueFactory<>("memberNo"));
 
     TableColumn<BonusMember, Integer> pointCol = new TableColumn<>("Bonus Points");
     pointCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
     // Member level column
-    TableColumn<BonusMember, String> levelCol = new TableColumn<>("Bonus Level");
+    TableColumn<BonusMember, String> levelCol = new TableColumn<>("Level");
     levelCol.setCellValueFactory(new PropertyValueFactory<>("MembershipLevel"));
 
     //TableView for center content
@@ -140,33 +140,33 @@ public class MainView extends Application {
     gridPane.setVgap(10);
 
     // First Name field (0.0) (1.0)
+    gridPane.add(new Label("First Name: "), 0, 0);
     TextField firstName = new TextField();
     firstName.setPromptText("First name");
-    gridPane.add(new Label("First Name: "), 0, 0);
     gridPane.add(firstName, 1, 0);
 
     // Surname field (0.1)(1.1)
+    gridPane.add(new Label("Surname: "), 0, 1);
     TextField surname = new TextField();
     surname.setPromptText("Surname");
-    gridPane.add(new Label("Surname: "), 0, 1);
     gridPane.add(surname, 1, 1);
 
     // Member ID field (0.2)(1.2)
+    gridPane.add(new Label("Member ID Number: "), 0, 2);
     TextField id = new TextField();
     id.setPromptText("Member ID Number");
-    gridPane.add(new Label("Member ID Number: "), 0, 2);
     gridPane.add(id, 1, 2);
 
     // Member level field (0.3)(1.3)
+    gridPane.add(new Label("Membership Level: "), 0, 3);
     TextField level = new TextField();
     level.setPromptText("Membership Level");
-    gridPane.add(new Label("Membership Level: "), 0, 3);
     gridPane.add(level, 1, 3);
 
     // Member points field (0.4)(1.4)
+    gridPane.add(new Label("Bonus Points Balance: "), 0, 4);
     TextField points = new TextField();
     points.setPromptText("Bonus Points Balance");
-    gridPane.add(new Label("Bonus Points Balance: "), 0, 4);
     gridPane.add(points, 1, 4);
 
     // -- GridPane observes TableView for changes in selected element
