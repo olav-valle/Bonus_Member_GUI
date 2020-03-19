@@ -32,7 +32,7 @@ public class MainView extends Application {
    * actual starting of the application.
    */
   @Override
-  public void init(){
+  public void init() {
     archive = new MemberArchive();
     this.addDummies();
   }

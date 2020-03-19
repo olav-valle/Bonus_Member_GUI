@@ -52,6 +52,13 @@ the details grid.
 Can we pass a null on first creation, and an actual member on subsequent "creations" (updates).
 
 Detail view hooked into selected user
+    tableView.setOnMousePressed(mouseEvent -> {
+      if (mouseEvent.isPrimaryButtonDown() && (mouseEvent.getClickCount() == 2)) {
+        Literature selectedLiterature = tableView.getSelectionModel().getSelectedItem();
+        mainController.doShowDetails(selectedLiterature);
+      }
+    });
+
     tableView.setOnMousePressed
 
 Add a toolbar to detail view.
