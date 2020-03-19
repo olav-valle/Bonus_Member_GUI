@@ -3,6 +3,7 @@ package no.ntnu.iir.olavval.oblig2.ui.controller;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import no.ntnu.iir.olavval.oblig2.model.BonusMember;
 import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
 import no.ntnu.iir.olavval.oblig2.model.Personals;
 
@@ -17,20 +18,6 @@ public class MainController {
   //  Reimplement calls to these control methods in MainView,
   //  since that's our "new" UserInterfaceMenu.
   //  .
-  private static MemberArchive archive;
-
-//  /**
-//   * Main method of BonusMember program app.
-//   *
-//   * @param args No arguments.
-//   */
-//  public static void main(String[] args) {
-//
-//    UserInterfaceMenu ui = new UserInterfaceMenu();
-//    archive = new MemberArchive();
-//    ui.showMenu();
-//  }
-
 
   private static class UserInterfaceMenu {
 
@@ -91,15 +78,21 @@ public class MainController {
       }
     }
 
+
     /**
      * Requests user input for member number and point value.
      * If either input is invalid, the user is informed of this, and is asked to retry.
      * Input validity is determined by exceptions thrown by MemberArchive.registerPoints().
      */
-    private void registerPoints() {
+    private void registerPoints(BonusMember member) {
+      // TODO: 19/03/2020 refactor this to control adding points through GUI.
+      //  We can do this by passing the point value and member in question from
+      //  the tableView as a parameter.
+      //  and
       boolean success = false;
       int tries = 0;
       do {
+        // TODO: 19/03/2020 Add modal dialog requesting user input of point value.
 
         System.out.println("Enter membership number: ");
         int memberNo = input.nextInt();
@@ -123,46 +116,12 @@ public class MainController {
       } while(!success && tries < 5);
     }
 
-    private void printMainMenu() {
-      System.out.println(String.format("Please select option 1 through %1$d.", QUIT));
-      System.out.println(String.format("%1$d. Add a new member.", ADD_MEMBER));
-      System.out.println(String.format("%1$d. List all members.", LIST_MEMBERS));
-      System.out.println(String.format("%1$d. Upgrade all qualified members.", UPGRADE_MEMBERS));
-      System.out.println(String.format("%1$d. Add points to a member account.", REGISTER_POINTS));
-      System.out.println(String.format("%1$d. Add test members.", ADD_TEST_MEMBERS));
-      System.out.println(String.format("%1$d. List members sorted by points held.", SORT_BY_POINTS));
-      System.out.println(String.format("%1$d. Quit program.", QUIT));
-
-    }
-
-    private void listAllMembers() {
-      archive
-          .forEach(m ->
-              System.out.println(
-                  m.getMemberNo() + ": \t "
-                      + m.getPersonals().getSurname() + ", "
-                      + m.getPersonals().getFirstname() + "\t "
-                  + m.getMembershipLevel() + " level member: "
-                  + m.getPoints() + " points."));
-    }
-
-    private void printSortedByPoints(){
-      archive
-          .stream()
-          .sorted()
-          .forEachOrdered(m ->
-          System.out.println(
-              m.getMemberNo() + ": \t "
-                  + m.getPersonals().getSurname() + ", "
-                  + m.getPersonals().getFirstname() + "\t "
-                  + m.getMembershipLevel() + " level member: "
-                  + m.getPoints() + " points."));
-    }
-
-
+    // TODO: 19/03/2020 implement method that combines newPersona() and newDate(),
+    //  to create a new member. It should take the archive from MainView as a parameter,
+    //  and add the created member to it. Then it should call updateTableView() in MainView.
 
     private Personals newPersona() {
-
+// TODO: 19/03/2020 refactor for use with GUI
       // TODO: 09/02/2020 Add security and validity checks to user input.
       System.out.println("Please enter the personal details of the member: ");
       System.out.println("First name: ");
@@ -179,7 +138,7 @@ public class MainController {
     }
 
     private LocalDate newDate() {
-
+// TODO: 19/03/2020 refactor for use with gui
       boolean success = false;
       int year = 0;
       int month = 0;

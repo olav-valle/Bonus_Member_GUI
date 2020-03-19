@@ -168,18 +168,19 @@ public class MainView extends Application {
     TextField points = new TextField();
     points.setPromptText("Bonus Points Balance");
     gridPane.add(points, 1, 4);
+    // TODO: 19/03/2020 add email field
 
     // -- GridPane observes TableView for changes in selected element
     // TODO: 19/03/2020 Maybe make this a method and save observer as a class field?
     memberTable.getSelectionModel()
         .selectedItemProperty()
-        .addListener((o, ov, nv) -> {
-          if (nv != null){
-            firstName.setText(nv.getFirstName());
-            surname.setText(nv.getSurname());
-            id.setText(Integer.toString(nv.getMemberNo()));
-            level.setText(nv.getMembershipLevel());
-            points.setText(Integer.toString(nv.getPoints()));
+        .addListener((o, ov, member) -> {
+          if (member != null){
+            firstName.setText(member.getFirstName());
+            surname.setText(member.getSurname());
+            id.setText(Integer.toString(member.getMemberNo()));
+            level.setText(member.getMembershipLevel());
+            points.setText(Integer.toString(member.getPoints()));
           }
         });
 
@@ -198,6 +199,7 @@ public class MainView extends Application {
 
   }
 
+  // TODO: 19/03/2020 implement updateMemberList()
   private ObservableList<BonusMember> getMemberListWrapper(){
     return FXCollections.observableArrayList(archive.getArchiveValuesAsList());
   }
