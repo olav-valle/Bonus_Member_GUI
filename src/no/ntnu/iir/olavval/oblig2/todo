@@ -7,4 +7,9 @@ top VBox:
         Upgrade member
 
 Detail view hooked into selected user
-    tableView.setOnMousePressed
+    tableView.setOnMousePressed(mouseEvent -> {
+      if (mouseEvent.isPrimaryButtonDown() && (mouseEvent.getClickCount() == 2)) {
+        Literature selectedLiterature = tableView.getSelectionModel().getSelectedItem();
+        mainController.doShowDetails(selectedLiterature);
+      }
+    });
