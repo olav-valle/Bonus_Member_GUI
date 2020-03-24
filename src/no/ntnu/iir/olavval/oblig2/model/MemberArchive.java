@@ -110,7 +110,8 @@ public class MemberArchive implements Iterable<BonusMember>{
     //sanity check: does member exist in collection, or is points a negative number?
     if (members.get(memberNo) == null ) { // TODO: 17/03/2020 different ex for each case?
       throw new IllegalArgumentException("No member with number:" + memberNo);
-    } else if(points < 0){
+    } else if (points < 0) {
+
       throw new IllegalArgumentException("Cannot add negative point value:" + points);
     } else { // member exists and value is positive
       members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
@@ -321,4 +322,6 @@ public class MemberArchive implements Iterable<BonusMember>{
         currentMember.getEnrolledDate(),
         currentMember.getPoints());
   }
+
+
 }

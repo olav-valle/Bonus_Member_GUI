@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.time.Period;
 
 // TODO: 18/02/2020 Implement hashCode() override 
+
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
  * There are three subclasses of BonusMember, BasicMember, SilverMember and GoldMember.
+ *
  * @author mort
  */
 public abstract class BonusMember implements Comparable<BonusMember> {
@@ -26,11 +28,10 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
     // TODO: 17/03/2020 change ex to IllegalState since it's constructing an object?
-    if(memberNo < 0 || personals == null || enrolledDate == null){
+    if (memberNo < 0 || personals == null || enrolledDate == null) {
       throw new IllegalArgumentException(
           "Either personals or enrolledDate was null, or memberNo was negative.");
-    }
-    else {
+    } else {
       this.memberNo = memberNo;
       this.personals = personals;
       this.enrolledDate = enrolledDate;
@@ -40,14 +41,14 @@ public abstract class BonusMember implements Comparable<BonusMember> {
   /**
    * Compares this object with the specified object for order.
    * Throws IllegalArgumentException if otheMember parameter is null.
+   *
    * @param otherMember the object to be compared
    * @return a negative integer, zero, or a positive integer if this object is less than,
-   *        equal to, or greater than the specified object.
+   * equal to, or greater than the specified object.
    * @throws IllegalArgumentException for null parameters
-   *
    */
-  public int compareTo(BonusMember otherMember){
-    if(otherMember == null){
+  public int compareTo(BonusMember otherMember) {
+    if (otherMember == null) {
       throw new IllegalArgumentException("Parameter cannot be null.");
     }
     return Integer.compare(this.point, otherMember.point);
@@ -56,6 +57,7 @@ public abstract class BonusMember implements Comparable<BonusMember> {
   /**
    * Indicates whether some other object is "equal to" this object.
    * More specifically, it checks if two members have the same member number.
+   *
    * @param obj the object to compare to.
    * @return True if objects are equal.
    */
@@ -103,15 +105,15 @@ public abstract class BonusMember implements Comparable<BonusMember> {
   }
 
   // TODO: 18/03/2020 javadoc
-  public String getFirstName(){
+  public String getFirstName() {
     return personals.getFirstname();
   }
 
-  public String getSurname(){
+  public String getSurname() {
     return personals.getSurname();
   }
 
-  public String getEmail(){
+  public String getEmail() {
     return personals.getEMailAddress();
   }
 
@@ -141,8 +143,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *
    * @param testDate The date to compare member enrollment date to.
    * @return 0 if membership is more than one year old,
-   *        or the number of points held by the member if
-   *        membership is less than one year old.
+   * or the number of points held by the member if
+   * membership is less than one year old.
    */
   public int findQualificationPoints(LocalDate testDate) {
 

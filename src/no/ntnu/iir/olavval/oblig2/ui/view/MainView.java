@@ -1,10 +1,12 @@
 package no.ntnu.iir.olavval.oblig2.ui.view;
 
+import com.sun.javafx.scene.control.IntegerField;
 import java.time.LocalDate;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,16 +14,29 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
-import javafx.geometry.Insets;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import no.ntnu.iir.olavval.oblig2.model.*;
+import no.ntnu.iir.olavval.oblig2.model.BonusMember;
+import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
+import no.ntnu.iir.olavval.oblig2.model.Personals;
+import no.ntnu.iir.olavval.oblig2.ui.controller.MainController;
 
 public class MainView extends Application {
 
+  private Logger log;
+  private  MainController mainController;
   private MemberArchive archive;
+  private ObservableList<BonusMember> memberListWrapper;
 
-  public static void main(String[] args){
+
+
+  public static void main(String[] args) {
     launch(args);
   }
 
@@ -33,14 +48,18 @@ public class MainView extends Application {
    */
   @Override
   public void init() {
+    this.mainController = new MainController();
+    this.getMemberListWrapper(); // Wrapped observable member list.
     archive = new MemberArchive();
     this.addDummies();
   }
+
 
   /**
    * The main entry point for all JavaFX applications.
    * The start method is called after the init method has returned,
    * and after the system is ready for the application to begin running.
+   *
    * @param primaryStage the primary stage for this application,
    *                     onto which the application scene can be set.
    *                     The primary stage will be embedded in the browser if the
@@ -82,7 +101,11 @@ public class MainView extends Application {
     primaryStage.show();
   }
 
-  private VBox makeCenterPane(){
+  /**
+   *
+   * @return
+   */
+  private VBox makeCenterPane() {
     // TODO: 18/03/2020 add grid view for member details
     //-- VBox with member table and member details view --
     VBox vBox = new VBox(10);
@@ -105,17 +128,17 @@ public class MainView extends Application {
   }
 
 
-  private TableView<BonusMember> makeMemberTable(){
+  private TableView<BonusMember> makeMemberTable() {
     // Name column
     TableColumn<BonusMember, String> nameCol = new TableColumn<>("First Name");
     nameCol.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
 
     // Surname column
-    TableColumn<BonusMember, String> surnameCol= new TableColumn<>("Surname");
+    TableColumn<BonusMember, String> surnameCol = new TableColumn<>("Surname");
     surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
 
     // Member ID number column
-    TableColumn<BonusMember, Integer> memberNoCol= new TableColumn<>("ID");
+    TableColumn<BonusMember, Integer> memberNoCol = new TableColumn<>("ID");
     memberNoCol.setCellValueFactory(new PropertyValueFactory<>("memberNo"));
 
     TableColumn<BonusMember, Integer> pointCol = new TableColumn<>("Bonus Points");
@@ -127,13 +150,13 @@ public class MainView extends Application {
 
     //TableView for center content
     TableView<BonusMember> centerTable = new TableView<>();
-    centerTable.setItems(this.getMemberListWrapper());
+    centerTable.setItems(memberListWrapper);
     centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, /*pointCol,*/ levelCol);
 
     return centerTable;
   }
 
-  private VBox makeMemberDetailGrid(TableView<BonusMember> memberTable){
+  private VBox makeMemberDetailGrid(TableView<BonusMember> memberTable) {
     GridPane gridPane = new GridPane();
 
     gridPane.setHgap(10);
@@ -175,7 +198,7 @@ public class MainView extends Application {
     memberTable.getSelectionModel()
         .selectedItemProperty()
         .addListener((o, ov, member) -> {
-          if (member != null){
+          if (member != null) {
             firstName.setText(member.getFirstName());
             surname.setText(member.getSurname());
             id.setText(Integer.toString(member.getMemberNo()));
@@ -185,48 +208,88 @@ public class MainView extends Application {
         });
 
     // TODO: 19/03/2020 add toolbar with delete, edit options, and change return type to vbox.
-    Button edit = new Button("Edit Member");
-    Button addPoints = new Button("Add Points");
-    Button save = new Button("Save Changes");
-    HBox buttons = new HBox(10, edit, addPoints, save);
+    Button editBtn = new Button("Edit Member");
+    Button addPointsBtn = new Button("Add Points");
+    Button saveChangesBtn = new Button("Save Changes");
+    HBox buttons = new HBox(10, editBtn, addPointsBtn, saveChangesBtn);
     //buttons.setPadding(new Insets(5));
 
     Button delete = new Button("Delete Member");
 
-
+    addPointsBtn.setOnAction(actionEvent ->
+        showAddPointsModal(memberTable.getSelectionModel().getSelectedItem()));
 
     return new VBox(10, buttons, gridPane, delete);
 
   }
 
-  // TODO: 19/03/2020 implement updateMemberList()
-  private ObservableList<BonusMember> getMemberListWrapper(){
+  /**
+   * Displays a modal dialogue for adding points to a member.
+   * @param selectedMember
+   */
+  private void showAddPointsModal(BonusMember selectedMember){
+    Stage addPointsStage = new Stage();
+    addPointsStage.setTitle("Add Points");
+    addPointsStage.initModality(Modality.WINDOW_MODAL);
+
+    VBox vBox = new VBox();
+    Text pointValuePrompt = new Text("Enter value to add:");
+    IntegerField pointInput = new IntegerField();
+    pointInput.setEditable(true);
+    pointInput.setPromptText("Add points...");
+
+
+
+
+
+  }
+
+  /**
+   * Creates an observable version of archive list.
+   * @return
+   */
+  private ObservableList<BonusMember> getMemberListWrapper() {
     return FXCollections.observableArrayList(archive.getArchiveValuesAsList());
   }
 
+  /**
+   * Fetches an updated version of the observable member list.
+   */
+  public void updateMemberListWrapper() {
+    this.memberListWrapper.setAll(this.getMemberListWrapper());
+  }
+
+  /**
+   * Support method for debugging which adds 5 different members to the collection.
+   */
   private void addDummies() {
 
     LocalDate oleEnrollDate = LocalDate.of(2006, 2, 15);
-    LocalDate toveEnrollDate = LocalDate.of(2007, 5, 3);
-    LocalDate liseEnrollDate = LocalDate.of(2008, 2, 10);
-    LocalDate jonasEnrollDate = oleEnrollDate; //same date as Ole
-    LocalDate erikEnrollDate = LocalDate.of(2007, 3, 1);
-
     Personals ole = new Personals("Ole", "Olsen",
         "ole.olsen@dot.com", "ole");
+    archive.addMember(ole, oleEnrollDate);
+
+    LocalDate toveEnrollDate = LocalDate.of(2007, 5, 3);
     Personals tove = new Personals("Tove", "Hansen",
         "tove.hansen@dot.com", "tove");
+    archive.addMember(tove, toveEnrollDate);
+
+    LocalDate liseEnrollDate = LocalDate.of(2008, 2, 10);
     Personals lise = new Personals("Lise", "Lisand",
         "lise@lisand.no", "lise");
+    archive.addMember(lise, liseEnrollDate);
+
+    LocalDate jonasEnrollDate = oleEnrollDate; //same date as Ole
     Personals jonas = new Personals("Jonas", "Johnsen",
         "jon@johnsen.no", "jonny");
+    archive.addMember(jonas, jonasEnrollDate);
+
+    LocalDate erikEnrollDate = LocalDate.of(2007, 3, 1);
     Personals erik = new Personals("Erik", "Eriksen",
         "rikken@eriksen.no", "rikkenrules");
-
-    archive.addMember(ole, oleEnrollDate);
-    archive.addMember(tove, toveEnrollDate);
-    archive.addMember(lise, liseEnrollDate);
-    archive.addMember(jonas, jonasEnrollDate);
     archive.addMember(erik, erikEnrollDate);
+
+
   }
 }
+
