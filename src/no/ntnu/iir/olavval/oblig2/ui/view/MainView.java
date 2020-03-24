@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -98,6 +99,7 @@ public class MainView extends Application {
 
   /**
    * Assembles the node for the center of the border pane.
+   *
    * @return The center node VBox.
    */
   private VBox makeCenterPane() {
@@ -124,6 +126,7 @@ public class MainView extends Application {
 
   /**
    * Assembles the table view that displays the list of members currently in the archive.
+   *
    * @return TableView of members.
    */
   private TableView<BonusMember> makeMemberTable() {
@@ -156,6 +159,7 @@ public class MainView extends Application {
 
   /**
    * Assembles the grid pane that displays member details at the bottom half of the window.
+   *
    * @param memberTable
    * @return VBox set up to display member details.
    */
@@ -230,14 +234,20 @@ public class MainView extends Application {
 
     deleteBtn.setOnAction(actionEvent -> {
       BonusMember member = memberTable.getSelectionModel().getSelectedItem();
-      if (mainController.doShowDeleteMemberConfirmation(member)) {
-        archive.removeMember(member);
-        updateMemberListWrapper();
+      if (member != null) {
+        if (mainController.doShowDeleteMemberConfirmation(member)) {
+          archive.removeMember(member);
+          updateMemberListWrapper();
+        }
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("You must first select which member you want to delete.");
+        alert.showAndWait();
       }
     });
     return new VBox(10, buttons, gridPane, deleteBtn);
   }
-
 
 
   /**

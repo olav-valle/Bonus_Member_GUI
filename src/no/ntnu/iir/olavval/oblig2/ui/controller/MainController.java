@@ -65,26 +65,33 @@ public class MainController {
     Button addBtn = new Button("Add");
     // calls registerPoints when Add is clicked
     addBtn.setOnAction(actionEvent -> {
-      try {
-        Integer pointValue = Integer.parseInt(pointInput.getText());
-        archive.registerPoints(selectedMember.getMemberNo(), pointValue);
-        // If we get here, adding was successful
-        parent.updateMemberListWrapper();
-        addPointsStage.close();
-      } catch (NumberFormatException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid point value.");
-        alert.setHeaderText("You have tried to add an invalid number of points.");
-        alert.setContentText("Please enter a non-negative number.");
-        alert.showAndWait();
-      } catch (NullPointerException e) {
-
+      if (selectedMember != null) {
+        try {
+          Integer pointValue = Integer.parseInt(pointInput.getText());
+          archive.registerPoints(selectedMember.getMemberNo(), pointValue);
+          // If we get here, adding was successful
+          parent.updateMemberListWrapper();
+          addPointsStage.close();
+        } catch (NumberFormatException e) {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Invalid point value.");
+          alert.setHeaderText("You have tried to add an invalid number of points.");
+          alert.setContentText("Please enter a non-negative number.");
+          alert.showAndWait();
+        } catch (NullPointerException e) {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText("Member not found in archive.");
+          alert.showAndWait();
+        }
+      } else {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText("No member with memberNo: " + selectedMember.getMemberNo());
+        alert.setHeaderText("You must first select which member you want to add points to.");
         alert.showAndWait();
       }
     });
+
 
     // The cancel button
     Button cancelBtn = new Button("Cancel");
@@ -115,7 +122,6 @@ public class MainController {
 
     // shortcircuits  if isPresent == false
     return (result.isPresent() && (result.get() == ButtonType.OK));
-
 
 
   }
