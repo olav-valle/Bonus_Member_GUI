@@ -104,17 +104,14 @@ public class MemberArchive implements Iterable<BonusMember>{
    *
    * @param memberNo the membership number of the member.
    * @param points   the number of points to be added to the member.
-   * @throws IllegalArgumentException if no member is found for memberNo, or if points <0.
+   * @throws NumberFormatException if points < 0.
+   * @throws NullPointerException if no member with matching ID exists in collection.
    */
   public void registerPoints(int memberNo, int points) {
-    //sanity check: does member exist in collection, or is points a negative number?
-    if (members.get(memberNo) == null ) { // TODO: 17/03/2020 different ex for each case?
-      throw new IllegalArgumentException("No member with number:" + memberNo);
-    } else if (points < 0) {
-
-      throw new IllegalArgumentException("Cannot add negative point value:" + points);
+    if (points < 0) {
+      throw new NumberFormatException("Cannot add negative point value:" + points);
     } else { // member exists and value is positive
-      members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
+        members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
     }
   }
 
@@ -164,6 +161,14 @@ public class MemberArchive implements Iterable<BonusMember>{
 
     // returns the member number of the new member, or -1 if creation failed.
     return newMemberNo;
+  }
+
+  /**
+   * Removes the specified member from the archive.
+   * @param removedMember The member that is to be removed.
+   */
+  public void removeMember(BonusMember removedMember) {
+    members.remove(removedMember.getMemberNo());
   }
 
   /**

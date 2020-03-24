@@ -2,11 +2,23 @@ package no.ntnu.iir.olavval.oblig2.ui.controller;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.Optional;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import no.ntnu.iir.olavval.oblig2.model.BonusMember;
 import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
 import no.ntnu.iir.olavval.oblig2.model.Personals;
+import no.ntnu.iir.olavval.oblig2.ui.view.MainView;
 
 /**
  * Main class for Bonus Member app.
@@ -22,53 +34,95 @@ public class MainController {
   //  since that's our "new" UserInterfaceMenu.
 
 
-  public MainController(){
+  public MainController() {
     // TODO: 24/03/2020 memberarchive
-
-
   }
-
-
 
   /**
-   * Requests user input for member number and point value.
-   * If either input is invalid, the user is informed of this, and is asked to retry.
-   * Input validity is determined by exceptions thrown by MemberArchive.registerPoints().
+   * Displays a modal dialogue for adding points to a member.
+   *
+   * @param selectedMember
    */
-  private void registerPoints(BonusMember member) {
-    // TODO: 19/03/2020 refactor this to control adding points through GUI.
-    //  We can do this by passing the point value and member in question from
-    //  the tableView as a parameter.
-    boolean success = false;
-    int tries = 0;
-    do {
-      // TODO: 19/03/2020 Add modal dialog requesting user input of point value.
+  public void doShowAddPointsModal(MemberArchive archive, BonusMember selectedMember, MainView parent) {
+    Stage addPointsStage = new Stage();
+    addPointsStage.setTitle("Add Points");
+    addPointsStage.initModality(Modality.WINDOW_MODAL);
 
-      System.out.println("Enter membership number: ");
-      //int memberNo = input.nextInt();
-      System.out.println("Enter number of points to add: ");
-      //int points = input.nextInt();
+    VBox vBox = new VBox();
+    vBox.setAlignment(Pos.CENTER);
+    vBox.setPadding(new Insets(10));
+    vBox.setSpacing(10);
 
+    // -- Text box for point value input
+    Text pointValuePrompt = new Text("Enter value to add:");
+    TextField pointInput = new TextField();
+    pointInput.setEditable(true);
+    pointInput.setPromptText("Add points...");
+    // -- Add and Cancel buttons
+    HBox hBox = new HBox();
+
+    // The "OK" button. Labeled "Add"
+    Button addBtn = new Button("Add");
+    // calls registerPoints when Add is clicked
+    addBtn.setOnAction(actionEvent -> {
       try {
-        //archive.registerPoints(memberNo, points);
-        success = true;
-        System.out.println("Points added successfully.");
-      } catch (IllegalArgumentException e) {
-        System.out.println(e);
-        tries++;
-        System.out.println("Aborting in " + (5 - tries) + "more tries.");
-      }
+        Integer pointValue = Integer.parseInt(pointInput.getText());
+        archive.registerPoints(selectedMember.getMemberNo(), pointValue);
+        // If we get here, adding was successful
+        parent.updateMemberListWrapper();
+        addPointsStage.close();
+      } catch (NumberFormatException e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid point value.");
+        alert.setHeaderText("You have tried to add an invalid number of points.");
+        alert.setContentText("Please enter a non-negative number.");
+        alert.showAndWait();
+      } catch (NullPointerException e) {
 
-      if (tries >= 5) {
-        System.out.println("Points registration aborted: invalid member number or point value.");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("No member with memberNo: " + selectedMember.getMemberNo());
+        alert.showAndWait();
       }
+    });
 
-    } while (!success && tries < 5);
+    // The cancel button
+    Button cancelBtn = new Button("Cancel");
+    // closes modal window if Cancel button is clicked
+    cancelBtn.setOnAction(actionEvent -> addPointsStage.close());
+    hBox.setAlignment(Pos.CENTER);
+    hBox.setSpacing(5);
+    hBox.getChildren().addAll(addBtn, cancelBtn);
+
+
+    vBox.getChildren().addAll(pointValuePrompt, pointInput, hBox);
+    addPointsStage.setScene(new Scene(vBox));
+    addPointsStage.showAndWait();
+
+
   }
+
+  /**
+   * todo: javadoc
+   */
+  public boolean doShowDeleteMemberConfirmation(BonusMember removedMember) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Delete Member");
+    alert.setHeaderText("This action will permanently delete this member");
+    alert.setContentText(removedMember.getFirstName() + " " + removedMember.getSurname() + "\n"
+        + "Member ID: " + removedMember.getMemberNo());
+    Optional<ButtonType> result = alert.showAndWait();
+
+    // shortcircuits  if isPresent == false
+    return (result.isPresent() && (result.get() == ButtonType.OK));
+
+
+
+  }
+
+
   // TODO: 19/03/2020 implement method that combines newPersona() and newDate(),
   //  to create a new member. It should take the archive from MainView as a parameter,
-
-  //  and add the created member to it. Then it should call updateTableView() in MainView.
 
   private Personals newPersona() {
     // TODO: 19/03/2020 refactor for use with GUI
@@ -140,7 +194,6 @@ public class MainController {
 
     return LocalDate.of(year, month, day);
   }
-
 
 
 }

@@ -1,6 +1,5 @@
 package no.ntnu.iir.olavval.oblig2.ui.view;
 
-import com.sun.javafx.scene.control.IntegerField;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -19,8 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import no.ntnu.iir.olavval.oblig2.model.BonusMember;
 import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
@@ -30,10 +27,9 @@ import no.ntnu.iir.olavval.oblig2.ui.controller.MainController;
 public class MainView extends Application {
 
   private Logger log;
-  private  MainController mainController;
+  private MainController mainController;
   private MemberArchive archive;
   private ObservableList<BonusMember> memberListWrapper;
-
 
 
   public static void main(String[] args) {
@@ -49,9 +45,9 @@ public class MainView extends Application {
   @Override
   public void init() {
     this.mainController = new MainController();
-    this.getMemberListWrapper(); // Wrapped observable member list.
     archive = new MemberArchive();
     this.addDummies();
+    memberListWrapper = getMemberListWrapper(); // Wrapped observable member list.
   }
 
 
@@ -66,11 +62,10 @@ public class MainView extends Application {
    *                     application was launched as an applet. Applications may create
    *                     other stages, if needed, but they will not be primary stages
    *                     and will not be embedded in the browser.
-   * @throws Exception
    */
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     // TODO: 18/03/2020 refactor pane node creations.
     //  separate methods for each of the BorderPane areas:
     //  center is VBox with member table on top and grid view for details on bottom.
@@ -102,8 +97,8 @@ public class MainView extends Application {
   }
 
   /**
-   *
-   * @return
+   * Assembles the node for the center of the border pane.
+   * @return The center node VBox.
    */
   private VBox makeCenterPane() {
     // TODO: 18/03/2020 add grid view for member details
@@ -127,7 +122,10 @@ public class MainView extends Application {
     return vBox;
   }
 
-
+  /**
+   * Assembles the table view that displays the list of members currently in the archive.
+   * @return TableView of members.
+   */
   private TableView<BonusMember> makeMemberTable() {
     // Name column
     TableColumn<BonusMember, String> nameCol = new TableColumn<>("First Name");
@@ -156,7 +154,13 @@ public class MainView extends Application {
     return centerTable;
   }
 
+  /**
+   * Assembles the grid pane that displays member details at the bottom half of the window.
+   * @param memberTable
+   * @return VBox set up to display member details.
+   */
   private VBox makeMemberDetailGrid(TableView<BonusMember> memberTable) {
+    // TODO: 24/03/2020 hide detail grid until member is selected from table. How?
     GridPane gridPane = new GridPane();
 
     gridPane.setHgap(10);
@@ -191,7 +195,12 @@ public class MainView extends Application {
     TextField points = new TextField();
     points.setPromptText("Bonus Points Balance");
     gridPane.add(points, 1, 4);
-    // TODO: 19/03/2020 add email field
+
+    // Member email address
+    gridPane.add(new Label("Email Address: "), 0, 5);
+    TextField email = new TextField();
+    points.setPromptText("Email Address");
+    gridPane.add(email, 1, 5);
 
     // -- GridPane observes TableView for changes in selected element
     // TODO: 19/03/2020 Maybe make this a method and save observer as a class field?
@@ -207,45 +216,33 @@ public class MainView extends Application {
           }
         });
 
-    // TODO: 19/03/2020 add toolbar with delete, edit options, and change return type to vbox.
+    // TODO: 19/03/2020 add toolbar with delete, edit options
     Button editBtn = new Button("Edit Member");
     Button addPointsBtn = new Button("Add Points");
     Button saveChangesBtn = new Button("Save Changes");
     HBox buttons = new HBox(10, editBtn, addPointsBtn, saveChangesBtn);
     //buttons.setPadding(new Insets(5));
-
-    Button delete = new Button("Delete Member");
-
     addPointsBtn.setOnAction(actionEvent ->
-        showAddPointsModal(memberTable.getSelectionModel().getSelectedItem()));
+        mainController.doShowAddPointsModal(archive,
+            memberTable.getSelectionModel().getSelectedItem(), this));
 
-    return new VBox(10, buttons, gridPane, delete);
+    Button deleteBtn = new Button("Delete Member");
 
+    deleteBtn.setOnAction(actionEvent -> {
+      BonusMember member = memberTable.getSelectionModel().getSelectedItem();
+      if (mainController.doShowDeleteMemberConfirmation(member)) {
+        archive.removeMember(member);
+        updateMemberListWrapper();
+      }
+    });
+    return new VBox(10, buttons, gridPane, deleteBtn);
   }
 
-  /**
-   * Displays a modal dialogue for adding points to a member.
-   * @param selectedMember
-   */
-  private void showAddPointsModal(BonusMember selectedMember){
-    Stage addPointsStage = new Stage();
-    addPointsStage.setTitle("Add Points");
-    addPointsStage.initModality(Modality.WINDOW_MODAL);
 
-    VBox vBox = new VBox();
-    Text pointValuePrompt = new Text("Enter value to add:");
-    IntegerField pointInput = new IntegerField();
-    pointInput.setEditable(true);
-    pointInput.setPromptText("Add points...");
-
-
-
-
-
-  }
 
   /**
    * Creates an observable version of archive list.
+   *
    * @return
    */
   private ObservableList<BonusMember> getMemberListWrapper() {
