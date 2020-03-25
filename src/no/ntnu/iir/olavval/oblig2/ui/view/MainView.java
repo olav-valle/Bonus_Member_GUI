@@ -33,6 +33,7 @@ public class MainView extends Application {
   private MainController mainController;
   private MemberArchive archive;
   private ObservableList<BonusMember> memberListWrapper;
+  private BonusMember selectedMember;
 
 
   public static void main(String[] args) {
@@ -79,14 +80,16 @@ public class MainView extends Application {
     // BorderPane as scene root
     BorderPane root = new BorderPane();
 
-
     // Center of root is a VBox with a table and grid
     TableView<BonusMember> memberTable = makeMemberTable();
     GridPane memberDetailGrid = makeMemberDetailGrid(memberTable);
     Button deleteMemberButton = makeDeleteMemberButton(memberTable);
-    VBox vBoxCenter = makeCenterPane(memberTable, new VBox(memberDetailGrid, deleteMemberButton));
+    HBox hBoxCenter = makeCenterPane(memberTable, new VBox(memberDetailGrid, deleteMemberButton));
 
-    root.setCenter(vBoxCenter);
+    // Set selected member listener
+    selectedMemberListener(memberTable);
+
+    root.setCenter(hBoxCenter);
 
     // TODO: 18/03/2020 method for making toolbar and menu for root top
     //HBox for toolbar
@@ -109,14 +112,17 @@ public class MainView extends Application {
   private HBox makeTopToolBar(TableView<BonusMember> memberTable) {
 
     // -- Add New Member button
-    Button addMemberBtn = new Button("New Member");
+    Button addMemberBtn = new Button("Add New Member");
     Tooltip.install(addMemberBtn, new Tooltip("Create a new member account."));
     // -- Upgrade all members button.
-    Button upgradeBtn = new Button("Upgrade");
-    Tooltip.install(upgradeBtn, new Tooltip(""));
-
+    Button upgradeBtn = new Button("Run Upgrade Checks");
+    Tooltip.install(upgradeBtn, new Tooltip("Upgrade all members who are eligible."));
+    // -- Edit member details. Unused.
     Button editBtn = new Button("Edit Member");
     Tooltip.install(editBtn, new Tooltip("Edit member details."));
+    // -- Save edits to member details. Unused.
+    Button saveChangesBtn = new Button("Save Changes");
+    Tooltip.install(saveChangesBtn, new Tooltip("Save changes to member."));
 
     // -- Add points button
     Button addPointsBtn = new Button("Add Points");
@@ -134,9 +140,6 @@ public class MainView extends Application {
       }
 
     });// addPointsBtn.setOnAction
-
-    Button saveChangesBtn = new Button("Save Changes");
-    Tooltip.install(saveChangesBtn, new Tooltip("Save changes to member."));
     // -- TooBar --
     ToolBar tb = new ToolBar(addMemberBtn, upgradeBtn, addPointsBtn);
 
@@ -148,10 +151,10 @@ public class MainView extends Application {
    *
    * @return The center node VBox.
    */
-  private VBox makeCenterPane(TableView<BonusMember> memberTable, VBox memberDetailBox) {
+  private HBox makeCenterPane(TableView<BonusMember> memberTable, VBox memberDetailBox) {
     // TODO: 18/03/2020 add grid view for member details
     //-- VBox with member table and member details view --
-    VBox vBox = new VBox(10);
+    HBox hBox = new HBox(10);
 
     //-- Set Member table for top of VBox --
     VBox.setVgrow(memberTable, Priority.ALWAYS); // Member table should grow to fill VBox
@@ -163,9 +166,9 @@ public class MainView extends Application {
 
     VBox.setMargin(memberDetailBox, new Insets(0, 10.0, 10.0, 10.0));
 
-    vBox.getChildren().addAll(memberTable, memberDetailBox);
+    hBox.getChildren().addAll(memberTable, memberDetailBox);
 
-    return vBox;
+    return hBox;
   }
 
   /**
@@ -198,7 +201,7 @@ public class MainView extends Application {
     TableView<BonusMember> centerTable = new TableView<>();
     centerTable.setItems(memberListWrapper);
     centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, levelCol);
-    centerTable.set
+    // TODO: 25/03/2020 set window height.
 
     return centerTable;
   }
@@ -273,14 +276,25 @@ public class MainView extends Application {
   /**
    * todo: javadoc
    */
+  private void selectedMemberListener(TableView<BonusMember> memberTable) {
+    memberTable.getSelectionModel().selectedItemProperty().addListener((oldVal, newVal, member) -> {
+      if (member != null) {
+        this.selectedMember = member;
+      }
+    });
+  }
+
+  /**
+   * todo: javadoc
+   */
   private Button makeDeleteMemberButton(TableView<BonusMember> memberTable) {
     Button deleteBtn = new Button("Delete Member");
     //-- "Delete Member" button action--
     deleteBtn.setOnAction(actionEvent -> {
-      BonusMember member = memberTable.getSelectionModel().getSelectedItem();
-      if (member != null) {
-        if (mainController.doShowDeleteMemberConfirmation(member)) {
-          archive.removeMember(member);
+      //BonusMember member = memberTable.getSelectionModel().getSelectedItem();
+      if (selectedMember != null) {
+        if (mainController.doShowDeleteMemberConfirmation(selectedMember)) {
+          archive.removeMember(selectedMember);
           updateMemberListWrapper();
         }
       } else {
