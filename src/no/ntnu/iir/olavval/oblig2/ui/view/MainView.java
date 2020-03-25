@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -65,6 +67,7 @@ public class MainView extends Application {
    *                     and will not be embedded in the browser.
    */
 
+  @SuppressWarnings("checkstyle:LocalVariableName")
   @Override
   public void start(Stage primaryStage) {
     // TODO: 18/03/2020 refactor pane node creations.
@@ -76,17 +79,20 @@ public class MainView extends Application {
     // BorderPane as scene root
     BorderPane root = new BorderPane();
 
-    // TODO: 18/03/2020 method for making toolbar and menu for root top
-    //HBox for toolbar
-    HBox toolBar = new HBox();
-
-    root.setTop(toolBar);
-
-    //VBox for center view
-    VBox vBoxCenter = makeCenterPane();
 
     // Center of root is a VBox with a table and grid
+    TableView<BonusMember> memberTable = makeMemberTable();
+    GridPane memberDetailGrid = makeMemberDetailGrid(memberTable);
+    Button deleteMemberButton = makeDeleteMemberButton(memberTable);
+    VBox vBoxCenter = makeCenterPane(memberTable, new VBox(memberDetailGrid, deleteMemberButton));
+
     root.setCenter(vBoxCenter);
+
+    // TODO: 18/03/2020 method for making toolbar and menu for root top
+    //HBox for toolbar
+    HBox toolBar = makeTopToolBar(memberTable);
+
+    root.setTop(toolBar);
 
     // Set the scene
     Scene scene = new Scene(root);
@@ -98,28 +104,66 @@ public class MainView extends Application {
   }
 
   /**
+   * todo: javadoc
+   */
+  private HBox makeTopToolBar(TableView<BonusMember> memberTable) {
+
+    // -- Add New Member button
+    Button addMemberBtn = new Button("New Member");
+    Tooltip.install(addMemberBtn, new Tooltip("Create a new member account."));
+    // -- Upgrade all members button.
+    Button upgradeBtn = new Button("Upgrade");
+    Tooltip.install(upgradeBtn, new Tooltip(""));
+
+    Button editBtn = new Button("Edit Member");
+    Tooltip.install(editBtn, new Tooltip("Edit member details."));
+
+    // -- Add points button
+    Button addPointsBtn = new Button("Add Points");
+    Tooltip.install(addPointsBtn, new Tooltip("Add points to currently selected member"));
+    //-- "Add Points" button action--
+    addPointsBtn.setOnAction(actionEvent -> {
+      BonusMember selectedMember = memberTable.getSelectionModel().getSelectedItem();
+      if (selectedMember != null) {
+        mainController.doShowAddPointsModal(archive, selectedMember, this);
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("You must first select which member you want to add points to.");
+        alert.showAndWait();
+      }
+
+    });// addPointsBtn.setOnAction
+
+    Button saveChangesBtn = new Button("Save Changes");
+    Tooltip.install(saveChangesBtn, new Tooltip("Save changes to member."));
+    // -- TooBar --
+    ToolBar tb = new ToolBar(addMemberBtn, upgradeBtn, addPointsBtn);
+
+    return new HBox(tb);
+  }
+
+  /**
    * Assembles the node for the center of the border pane.
    *
    * @return The center node VBox.
    */
-  private VBox makeCenterPane() {
+  private VBox makeCenterPane(TableView<BonusMember> memberTable, VBox memberDetailBox) {
     // TODO: 18/03/2020 add grid view for member details
     //-- VBox with member table and member details view --
     VBox vBox = new VBox(10);
 
-    //-- Member table for top of VBox --
-    TableView<BonusMember> memberTable = makeMemberTable();
+    //-- Set Member table for top of VBox --
     VBox.setVgrow(memberTable, Priority.ALWAYS); // Member table should grow to fill VBox
     VBox.setMargin(memberTable, new Insets(10.0, 10.0, 0, 10.0));
 
-    // --GridPane for member details at bottom of VBox--
+    // --Set GridPane for member details at bottom of VBox--
     //Text fields in details grid listen to table view for selected member, so we pass the table.
-    VBox memberDetailGrid = makeMemberDetailGrid(memberTable);
-    VBox.setVgrow(memberDetailGrid, Priority.NEVER);
+    VBox.setVgrow(memberDetailBox, Priority.NEVER);
 
-    VBox.setMargin(memberDetailGrid, new Insets(0, 10.0, 10.0, 10.0));
+    VBox.setMargin(memberDetailBox, new Insets(0, 10.0, 10.0, 10.0));
 
-    vBox.getChildren().addAll(memberTable, memberDetailGrid);
+    vBox.getChildren().addAll(memberTable, memberDetailBox);
 
     return vBox;
   }
@@ -142,6 +186,7 @@ public class MainView extends Application {
     TableColumn<BonusMember, Integer> memberNoCol = new TableColumn<>("ID");
     memberNoCol.setCellValueFactory(new PropertyValueFactory<>("memberNo"));
 
+    // Unused points column
     TableColumn<BonusMember, Integer> pointCol = new TableColumn<>("Bonus Points");
     pointCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
@@ -152,7 +197,8 @@ public class MainView extends Application {
     //TableView for center content
     TableView<BonusMember> centerTable = new TableView<>();
     centerTable.setItems(memberListWrapper);
-    centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, /*pointCol,*/ levelCol);
+    centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, levelCol);
+    centerTable.set
 
     return centerTable;
   }
@@ -163,7 +209,7 @@ public class MainView extends Application {
    * @param memberTable
    * @return VBox set up to display member details.
    */
-  private VBox makeMemberDetailGrid(TableView<BonusMember> memberTable) {
+  private GridPane makeMemberDetailGrid(TableView<BonusMember> memberTable) {
     // TODO: 24/03/2020 hide detail grid until member is selected from table. How?
     GridPane gridPane = new GridPane();
 
@@ -203,7 +249,7 @@ public class MainView extends Application {
     // Member email address
     gridPane.add(new Label("Email Address: "), 0, 5);
     TextField email = new TextField();
-    points.setPromptText("Email Address");
+    email.setPromptText("Email Address");
     gridPane.add(email, 1, 5);
 
     // -- GridPane observes TableView for changes in selected element
@@ -217,21 +263,19 @@ public class MainView extends Application {
             id.setText(Integer.toString(member.getMemberNo()));
             level.setText(member.getMembershipLevel());
             points.setText(Integer.toString(member.getPoints()));
+            email.setText(member.getEmail());
           }
         });
 
-    // TODO: 19/03/2020 add toolbar with delete, edit options
-    Button editBtn = new Button("Edit Member");
-    Button addPointsBtn = new Button("Add Points");
-    Button saveChangesBtn = new Button("Save Changes");
-    HBox buttons = new HBox(10, editBtn, addPointsBtn, saveChangesBtn);
-    //buttons.setPadding(new Insets(5));
-    addPointsBtn.setOnAction(actionEvent ->
-        mainController.doShowAddPointsModal(archive,
-            memberTable.getSelectionModel().getSelectedItem(), this));
+    return gridPane;
+  }
 
+  /**
+   * todo: javadoc
+   */
+  private Button makeDeleteMemberButton(TableView<BonusMember> memberTable) {
     Button deleteBtn = new Button("Delete Member");
-
+    //-- "Delete Member" button action--
     deleteBtn.setOnAction(actionEvent -> {
       BonusMember member = memberTable.getSelectionModel().getSelectedItem();
       if (member != null) {
@@ -245,8 +289,8 @@ public class MainView extends Application {
         alert.setHeaderText("You must first select which member you want to delete.");
         alert.showAndWait();
       }
-    });
-    return new VBox(10, buttons, gridPane, deleteBtn);
+    });// deleteBtn.setOnAction
+    return deleteBtn;
   }
 
 
