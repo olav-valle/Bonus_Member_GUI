@@ -14,9 +14,10 @@ import java.util.stream.Stream;
 
 /**
  * The archive that holds the collection of all members in the Bonus Member programme.
+ *
  * @author mort
  */
-public class MemberArchive implements Iterable<BonusMember>{
+public class MemberArchive implements Iterable<BonusMember> {
   public static final int SILVER_LIMIT = 25000;
   public static final int GOLD_LIMIT = 75000;
   private static final Random RANDOM_NUMBER = new Random();
@@ -40,6 +41,7 @@ public class MemberArchive implements Iterable<BonusMember>{
 
   /**
    * Performs the given action for each element in the member archive.
+   *
    * @param action The action to be performed for each element.
    */
   @Override
@@ -49,6 +51,7 @@ public class MemberArchive implements Iterable<BonusMember>{
 
   /**
    * Returns an iterator of all member objects in archive.
+   *
    * @return Iterator of all members in archive.
    */
   @Override
@@ -56,12 +59,13 @@ public class MemberArchive implements Iterable<BonusMember>{
     return members.values().iterator();
   }
 
-  public List<BonusMember> getArchiveValuesAsList(){
+  public List<BonusMember> getArchiveValuesAsList() {
     return new ArrayList<>(members.values());
   }
 
   /**
    * Returns a Stream of the elements in the member archive collection.
+   *
    * @return Stream of the elements in the member archive collection.
    */
   public Stream<BonusMember> stream() {
@@ -90,9 +94,11 @@ public class MemberArchive implements Iterable<BonusMember>{
 
     if (member == null) {
       throw new IllegalArgumentException("No member with number: " + memberNo);
-    } else if (!member.getPersonals().okPassword(passwd)){
+    } else if (!member.getPersonals().okPassword(passwd)) {
       throw new IllegalArgumentException("Incorrect password.");
-    } else { return member.getPoints();}
+    } else {
+      return member.getPoints();
+    }
 
 
   }
@@ -105,13 +111,13 @@ public class MemberArchive implements Iterable<BonusMember>{
    * @param memberNo the membership number of the member.
    * @param points   the number of points to be added to the member.
    * @throws NumberFormatException if points < 0.
-   * @throws NullPointerException if no member with matching ID exists in collection.
+   * @throws NullPointerException  if no member with matching ID exists in collection.
    */
   public void registerPoints(int memberNo, int points) {
     if (points < 0) {
       throw new NumberFormatException("Cannot add negative point value:" + points);
     } else { // member exists and value is positive
-        members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
+      members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
     }
   }
 
@@ -150,11 +156,12 @@ public class MemberArchive implements Iterable<BonusMember>{
       try {
         newMember = new BasicMember(newMemberNo, person, dateEnrolled) {
         };
-      } catch (IllegalArgumentException e){}
+      } catch (IllegalArgumentException e) {
+      }
 
       //put member object into collection.
-      if (newMember != null){
-      putMember(newMember);
+      if (newMember != null) {
+        putMember(newMember);
       }
 
     } //if
@@ -165,6 +172,7 @@ public class MemberArchive implements Iterable<BonusMember>{
 
   /**
    * Removes the specified member from the archive.
+   *
    * @param removedMember The member that is to be removed.
    */
   public void removeMember(BonusMember removedMember) {
