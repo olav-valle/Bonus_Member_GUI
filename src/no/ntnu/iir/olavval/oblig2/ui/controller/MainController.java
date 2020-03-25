@@ -46,10 +46,12 @@ public class MainController {
    * @param archive The archive in which the member is located.
    * @param parent The parent of this modal dialogue window.
    */
+  @SuppressWarnings("checkstyle:LocalVariableName")
   public void doShowAddPointsModal(MemberArchive archive,
                                    BonusMember selectedMember,
                                    MainView parent) {
     Stage addPointsStage = new Stage();
+
     addPointsStage.setTitle("Add Points");
     addPointsStage.initModality(Modality.WINDOW_MODAL);
 

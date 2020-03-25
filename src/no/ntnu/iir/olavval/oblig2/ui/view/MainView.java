@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import no.ntnu.iir.olavval.oblig2.model.BonusMember;
 import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
@@ -37,6 +38,7 @@ public class MainView extends Application {
   private ObservableList<BonusMember> memberListWrapper;
   private ObservableObjectValue<BonusMember> observableSelectedMember;
   private LocalDate testDate; // Date object for testing
+  private GridPane memberDetailsGrid;
 
 
   public static void main(String[] args) {
@@ -77,7 +79,7 @@ public class MainView extends Application {
     //  separate methods for each of the BorderPane areas:
     //  center is HBox with member table on top and grid view for details on bottom.
     //  Top is VBox with main menu and toolbar (adding points, creating members).
-    //  Bottom is statusbar.
+    //  Bottom is statusbar with member count and the date of "testDate" object.
 
     // BorderPane as scene root
     BorderPane root = new BorderPane();
@@ -90,8 +92,16 @@ public class MainView extends Application {
     this.observableSelectedMember = memberTable.getSelectionModel().selectedItemProperty();
     // FIXME: 25/03/2020 Find a safer/better solution to this.
 
-    GridPane memberDetailGrid = makeMemberDetailGrid(); // grid of labels and text boxes
-    HBox centerBox = makeCenterPane(memberTable, memberDetailGrid);
+    // TODO: 25/03/2020 Is this making memberDetailsGrid a class field
+    //  a bad solution to the problem of making the grid change when
+    //  in edit and new member modes? Probably
+    // FIXME: 25/03/2020 This thing...
+    memberDetailsGrid = makeMemberDetailGrid();
+
+    HBox centerBox = makeCenterPane(memberTable, memberDetailsGrid);
+
+    centerBox.getChildren().get(1); //to fetch the member detail grid...
+
     centerBox.setPadding(new Insets(5));
     root.setCenter(centerBox);
 
@@ -100,6 +110,19 @@ public class MainView extends Application {
     ToolBar toolBar = makeTopToolBar(memberTable);
     VBox topBox = new VBox(toolBar);
     root.setTop(topBox);
+
+
+    HBox statusBar = new HBox();
+    Pane spacer = new Pane();
+    Text date = new Text("Today's date: " + testDate.toString());
+    Text members = new Text("Total members: " + memberListWrapper.size());
+    statusBar.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #000000");
+    statusBar.setPadding(new Insets(2));
+    statusBar.setSpacing(10);
+    statusBar.getChildren().addAll(members, spacer, date);
+    HBox.setHgrow(spacer, Priority.SOMETIMES);
+    root.setBottom(statusBar);
+
 
     // Set the scene
     Scene scene = new Scene(root);
@@ -152,7 +175,20 @@ public class MainView extends Application {
   /**
    * todo: javadoc
    */
-  private Button makeButtonUpgradeMembers( ) {
+  private Button makeButtonAddMember() {
+    Button addMemberBtn = new Button("Add New Member");
+
+    addMemberBtn.setOnAction(actionEvent -> {
+
+    });
+
+    return addMemberBtn;
+  }
+
+  /**
+   * todo: javadoc
+   */
+  private Button makeButtonUpgradeMembers() {
     Button upgradeBtn = new Button("Run Upgrade Checks");
 
     upgradeBtn.setOnAction(eventAction -> {
@@ -172,7 +208,15 @@ public class MainView extends Application {
    */
   private Button makeButtonAddPoints() {
     Button addPointsBtn = new Button("Add Points");
-
+    addPointsBtn.setDisable(true);
+    // Button enable toggle
+    observableSelectedMember.addListener((obs, ov, nv) -> {
+      if (nv == null) {
+        addPointsBtn.setDisable(true);
+      } else {
+        addPointsBtn.setDisable(false);
+      }
+    });
     //-- "Add Points" button action--
     addPointsBtn.setOnAction(actionEvent -> {
       BonusMember selectedMember = observableSelectedMember.get();
@@ -194,6 +238,16 @@ public class MainView extends Application {
    */
   private Button makeButtonDeleteMember() {
     Button deleteBtn = new Button("Delete Member");
+    deleteBtn.setDisable(true);
+    // Button enable toggle
+    observableSelectedMember.addListener((obs, ov, nv) -> {
+      if (nv == null) {
+        deleteBtn.setDisable(true);
+      } else {
+        deleteBtn.setDisable(false);
+      }
+
+    });
     //-- "Delete Member" button action--
     deleteBtn.setOnAction(actionEvent -> {
       //BonusMember member = memberTable.getSelectionModel().getSelectedItem();
@@ -276,12 +330,12 @@ public class MainView extends Application {
   /**
    * Assembles the grid pane that displays member details at the bottom half of the window.
    *
+   * @param
    * @return GridPane set up to display member details.
    */
   private GridPane makeMemberDetailGrid() {
     // TODO: 24/03/2020 hide detail grid until member is selected from table. How?
     GridPane gridPane = new GridPane();
-
     gridPane.setHgap(10);
     gridPane.setVgap(10);
     gridPane.setPadding(new Insets(5));
@@ -316,12 +370,39 @@ public class MainView extends Application {
     points.setPromptText("Bonus Points Balance");
     gridPane.add(points, 1, 4);
 
-    // Member email address
+    // Member email address (0.5)(1.5)
     gridPane.add(new Label("Email Address: "), 0, 5);
     TextField email = new TextField();
     email.setPromptText("Email Address");
     gridPane.add(email, 1, 5);
 
+    // Enrollment date in three separate fields (yyyy/mm/dd)
+    TextField year = new TextField();
+    year.setPromptText("YYYY");
+    year.setPrefColumnCount(4);
+    TextField month = new TextField();
+    month.setPromptText("MM");
+    month.setPrefColumnCount(2);
+    TextField day = new TextField();
+    day.setPromptText("DD");
+    day.setPrefColumnCount(2);
+    HBox dateBox = new HBox(year, new Text("/"), month, new Text("/"), day);
+    dateBox.setSpacing(2);
+    gridPane.add(new Label("Enroll Date: "), 0, 6);
+    gridPane.add(dateBox, 1, 6);
+
+
+    firstName.setEditable(false);
+    surname.setEditable(false);
+    id.setEditable(false);
+    level.setEditable(false);
+    points.setEditable(false);
+    email.setEditable(false);
+    year.setEditable(false);
+    month.setEditable(false);
+    day.setEditable(false);
+
+    gridPane.getChildren();
     // -- GridPane observes TableView for changes in selected element
     observableSelectedMember
         .addListener((o, ov, member) -> {
@@ -332,12 +413,14 @@ public class MainView extends Application {
             level.setText(member.getMembershipLevel());
             points.setText(Integer.toString(member.getPoints()));
             email.setText(member.getEmail());
+            year.setText(Integer.toString(member.getEnrolledDate().getYear()));
+            month.setText(Integer.toString(member.getEnrolledDate().getMonthValue()));
+            day.setText(Integer.toString(member.getEnrolledDate().getDayOfMonth()));
           }
         });
 
     return gridPane;
   }
-
 
 
   /**
