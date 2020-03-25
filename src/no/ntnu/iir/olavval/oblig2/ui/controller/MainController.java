@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,9 +42,13 @@ public class MainController {
   /**
    * Displays a modal dialogue for adding points to a member.
    *
-   * @param selectedMember
+   * @param selectedMember the BonusMember to add points to.
+   * @param archive The archive in which the member is located.
+   * @param parent The parent of this modal dialogue window.
    */
-  public void doShowAddPointsModal(MemberArchive archive, BonusMember selectedMember, MainView parent) {
+  public void doShowAddPointsModal(MemberArchive archive,
+                                   BonusMember selectedMember,
+                                   MainView parent) {
     Stage addPointsStage = new Stage();
     addPointsStage.setTitle("Add Points");
     addPointsStage.initModality(Modality.WINDOW_MODAL);
@@ -124,6 +129,22 @@ public class MainController {
     return (result.isPresent() && (result.get() == ButtonType.OK));
 
 
+  }
+
+  /**
+   * todo: javadoc
+   */
+  public Boolean doShowUpgradeConfirmDialog( ) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Upgrade Members");
+    alert.setHeaderText("Upgrade all eligible members?");
+    Label dialogText = new Label("This action will check all members for upgrade eligibility."
+        + "\nand automatically upgrade any members that pass.");
+    dialogText.setWrapText(true);
+    alert.getDialogPane().setContent(dialogText);
+    Optional<ButtonType> result = alert.showAndWait();
+
+    return (result.isPresent() && (result.get() == ButtonType.OK));
   }
 
 
