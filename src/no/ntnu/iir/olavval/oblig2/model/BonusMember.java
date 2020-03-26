@@ -3,7 +3,6 @@ package no.ntnu.iir.olavval.oblig2.model;
 import java.time.LocalDate;
 import java.time.Period;
 
-// TODO: 18/02/2020 Implement hashCode() override 
 
 /**
  * Represents a Bonus Member. A member earns bonus points from traveling with the company.
@@ -27,7 +26,6 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    * @throws IllegalArgumentException for null parameters, or negative value memberNo.
    */
   public BonusMember(int memberNo, Personals personals, LocalDate enrolledDate) {
-    // TODO: 17/03/2020 change ex to IllegalState since it's constructing an object?
     if (memberNo < 0 || personals == null || enrolledDate == null) {
       throw new IllegalArgumentException(
           "Either personals or enrolledDate was null, or memberNo was negative.");
@@ -44,7 +42,7 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *
    * @param otherMember the object to be compared
    * @return a negative integer, zero, or a positive integer if this object is less than,
-   * equal to, or greater than the specified object.
+   *        equal to, or greater than the specified object.
    * @throws IllegalArgumentException for null parameters
    */
   public int compareTo(BonusMember otherMember) {
@@ -72,7 +70,11 @@ public abstract class BonusMember implements Comparable<BonusMember> {
       // Only requirement for equality is to have same member number.
       return this.memberNo == other.memberNo;
     }
+  }
 
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 
   /**
@@ -104,7 +106,6 @@ public abstract class BonusMember implements Comparable<BonusMember> {
     return personals;
   }
 
-  // TODO: 18/03/2020 javadoc
   public String getFirstName() {
     return personals.getFirstname();
   }
@@ -143,8 +144,8 @@ public abstract class BonusMember implements Comparable<BonusMember> {
    *
    * @param testDate The date to compare member enrollment date to.
    * @return 0 if membership is more than one year old,
-   * or the number of points held by the member if
-   * membership is less than one year old.
+   *        or the number of points held by the member if
+   *        membership is less than one year old.
    */
   public int findQualificationPoints(LocalDate testDate) {
 

@@ -40,7 +40,6 @@ public class SilverMember extends no.ntnu.iir.olavval.oblig2.model.BonusMember {
    */
   @Override
   public void registerPoints(int points) {
-    super.point += ( (int) (FACTOR_SILVER * points) );
+    super.point += ((int) (FACTOR_SILVER * points));
   }
-  // TODO: 11/03/2020 input check
 }
