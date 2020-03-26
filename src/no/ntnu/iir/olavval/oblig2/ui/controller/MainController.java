@@ -1,8 +1,7 @@
 package no.ntnu.iir.olavval.oblig2.ui.controller;
 
-import java.time.LocalDate;
-import java.util.InputMismatchException;
 import java.util.Optional;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,33 +17,29 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import no.ntnu.iir.olavval.oblig2.model.BonusMember;
 import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
-import no.ntnu.iir.olavval.oblig2.model.Personals;
 import no.ntnu.iir.olavval.oblig2.ui.view.MainView;
 
 /**
  * Main class for Bonus Member app.
  *
- * @author mort
+ * @author Olav Valle
  */
+@SuppressWarnings("CheckStyle")
 public class MainController {
+  private Logger logger;
 
-  // TODO: 18/03/2020 refactor this class to be the MainController.
-  //  remove inner class UserInterfaceMenu
-  //  Keep all methods that call and manipulate MemberArchive and BonusMember.
-  //  Reimplement calls to these control methods in MainView,
-  //  since that's our "new" UserInterfaceMenu.
 
 
   public MainController() {
-    // TODO: 24/03/2020 memberarchive
+    logger = Logger.getLogger(getClass().toString());
   }
 
   /**
    * Displays a modal dialogue for adding points to a member.
    *
    * @param selectedMember the BonusMember to add points to.
-   * @param archive The archive in which the member is located.
-   * @param parent The parent of this modal dialogue window.
+   * @param archive        The archive in which the member is located.
+   * @param parent         The parent of this modal dialogue window.
    */
   @SuppressWarnings("checkstyle:LocalVariableName")
   public void doShowAddPointsModal(MemberArchive archive,
@@ -74,18 +69,22 @@ public class MainController {
     addBtn.setOnAction(actionEvent -> {
       if (selectedMember != null) {
         try {
-          Integer pointValue = Integer.parseInt(pointInput.getText());
+          int pointValue = Integer.parseInt(pointInput.getText());
           archive.registerPoints(selectedMember.getMemberNo(), pointValue);
           // If we get here, adding was successful
           parent.updateMemberListWrapper();
           addPointsStage.close();
         } catch (NumberFormatException e) {
+          logger.warning(String.format("Caught %1$s in %2$s : %3$s",
+              e.getClass(), this.getClass(), e));
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("Invalid point value.");
           alert.setHeaderText("You have tried to add an invalid number of points.");
           alert.setContentText("Please enter a non-negative number.");
           alert.showAndWait();
         } catch (NullPointerException e) {
+          logger.warning(String.format("Caught %1$s in %2$s : %3$s",
+              e.getClass(), this.getClass(), e));
           Alert alert = new Alert(Alert.AlertType.ERROR);
           alert.setTitle("Error");
           alert.setHeaderText("Member not found in archive.");
@@ -117,7 +116,7 @@ public class MainController {
   }
 
   /**
-   * todo: javadoc
+   * Shows the confirmation dialog for deleting a member.
    */
   public boolean doShowDeleteMemberConfirmation(BonusMember removedMember) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -134,9 +133,9 @@ public class MainController {
   }
 
   /**
-   * todo: javadoc
+   * Shows the confirmation dialog for running upgrade check on members.
    */
-  public Boolean doShowUpgradeConfirmDialog( ) {
+  public Boolean doShowUpgradeConfirmDialog() {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Upgrade Members");
     alert.setHeaderText("Upgrade all eligible members?");
@@ -148,83 +147,6 @@ public class MainController {
 
     return (result.isPresent() && (result.get() == ButtonType.OK));
   }
-
-
-  // TODO: 19/03/2020 implement method that combines newPersona() and newDate(),
-  //  to create a new member. It should take the archive from MainView as a parameter,
-
-  private Personals newPersona() {
-    // TODO: 19/03/2020 refactor for use with GUI
-    // TODO: 09/02/2020 Add security and validity checks to user input.
-    System.out.println("Please enter the personal details of the member: ");
-    System.out.println("First name: ");
-//    final String firstName = input.next();
-    System.out.println("Surname: ");
-//    String surname = input.next();
-    System.out.println("Email address: ");
-//    String emailAddress = input.next();
-    System.out.println("Password: ");
-//    String password = input.next();
-
-    // TODO: 18/02/2020 should this try to catch the exception that the Personals constructor can throw?
-//    return new Personals(firstName, surname, emailAddress, password);
-    return null; // FIXME: 24/03/2020 return new Personals()
-  }
-
-  private LocalDate newDate() {
-    // TODO: 19/03/2020 refactor for use with gui
-    boolean success = false;
-    int year = 0;
-    int month = 0;
-    int day = 0;
-
-    System.out.println("Please enter the date this member was added: ");
-
-    // get the year from user
-    do {
-      try {
-        System.out.println("Year (4 digit): ");
-//        year = input.nextInt();
-        success = true;
-      } catch (InputMismatchException e) {
-//        input.next(); //clears the input left behind from the failed call in the try block
-        System.out.println("Please enter the year as a four digit number.");
-      }
-    } while (!success);
-
-    do {
-      success = false;
-      try {
-        System.out.println("Month (1 - 12): ");
-//        month = input.nextInt();
-        success = true;
-      } catch (InputMismatchException e) {
-//        input.next(); //clears the input left behind from the failed call in the try block
-        System.out.println("Please enter the month as a number between 1 and 12.");
-      }
-    } while (!success);
-
-    do {
-      success = false;
-      try {
-        System.out.println("Day (1 - 31): ");
-//        day = input.nextInt();
-        success = true;
-      } catch (InputMismatchException e) {
-//        input.next(); //clears the input left behind from the failed call in the try block
-        System.out.println("Please enter the year as a four digit number.");
-      }
-    } while (!success);
-
-    if (month == 0 || day == 0) {
-      throw new IllegalStateException(
-          String.format("Date cannot be 1$/2$. Zero is not a valid day or month.", day, month));
-    }
-
-    return LocalDate.of(year, month, day);
-  }
-
-
 }
 
 

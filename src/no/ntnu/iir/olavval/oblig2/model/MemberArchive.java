@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 // QUESTION: Refactor upgrade related methods to new UpgradeMembers class?
@@ -22,12 +23,14 @@ public class MemberArchive implements Iterable<BonusMember> {
   public static final int GOLD_LIMIT = 75000;
   private static final Random RANDOM_NUMBER = new Random();
   private HashMap<Integer, BonusMember> members;
+  private Logger logger;
 
   /**
    * Member archive registry.
    */
   public MemberArchive() {
-    members = new HashMap<>();
+    this.logger = Logger.getLogger(getClass().toString());
+    this.members = new HashMap<>();
   }
 
   /**
@@ -117,7 +120,13 @@ public class MemberArchive implements Iterable<BonusMember> {
     if (points < 0) {
       throw new NumberFormatException("Cannot add negative point value:" + points);
     } else { // member exists and value is positive
-      members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
+      try {
+        members.get(memberNo).registerPoints(points); //calls registerPoints method of member object
+      } catch (NullPointerException e) {
+        logger.warning(String.format("Caught %1$s in %2$s : %3$s",
+            e.getClass(), this.getClass(), e));
+        throw new NullPointerException("No member registered with ID " + memberNo);
+      }
     }
   }
 
@@ -140,10 +149,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @return the unique membership number of the member, or -1 if creation failed.
    */
   public int addMember(Personals person, LocalDate dateEnrolled) {
-    // TODO: 17/03/2020 Throw ex if person or dateEnrolled are bad objects.
-    //  Maybe passing on the ex from BonusMember constructor is enough?
-
-
     int newMemberNo = -1; // we assume that member creation failed
 
     if (person != null && dateEnrolled != null) { // requires person and date to be non-null.
@@ -151,12 +156,14 @@ public class MemberArchive implements Iterable<BonusMember> {
       newMemberNo = findAvailableNo();
 
       // inst. new BasicMember object
-      // TODO: 17/03/2020 try-catch ex from BonusMember constructor
       BonusMember newMember = null;
       try {
         newMember = new BasicMember(newMemberNo, person, dateEnrolled) {
         };
       } catch (IllegalArgumentException e) {
+        logger.warning(String.format("Caught %1$s in %2$s : %3$s",
+            e.getClass(), this.getClass(), e));
+
       }
 
       //put member object into collection.
@@ -190,7 +197,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @param newMember the member to add to the list.
    */
   protected void putMember(BonusMember newMember) {
-    // TODO: 17/03/2020 Throw ex if sanity check fails.
     if (newMember != null && !(members.containsKey(newMember.getMemberNo()))) {
       members.put(// add newly created member to collection
           newMember.getMemberNo(), // member number is key
@@ -213,7 +219,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @param replacementMember the new member object that will replace the old one.
    */
   protected void replaceUpgradedMember(BonusMember oldMember, BonusMember replacementMember) {
-    // TODO: 17/03/2020 Throw ex if check fails
     if (replacementMember != null     // confirm that this key-value pair is NOT new
         && (oldMember.getMemberNo() == replacementMember.getMemberNo())
         && members.containsKey(replacementMember.getMemberNo())) {
@@ -230,7 +235,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    */
   public void checkAndUpgradeMembers(LocalDate testDate) {
     if (testDate == null) { // sanity check
-      // TODO: 17/03/2020 throw ex
       return;
     }
 
@@ -267,7 +271,6 @@ public class MemberArchive implements Iterable<BonusMember> {
   private int findAvailableNo() {
     boolean unique = false;
     int newNo = -1;
-    // TODO: 17/03/2020 DANGER! Potentially a very long loop if the RNG lines up right...
     while (!unique) {
       newNo = RANDOM_NUMBER.nextInt((1000000));
 
@@ -288,7 +291,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @return true if member is eligible for silver level membership.
    */
   private boolean checkSilverQualification(BonusMember member, LocalDate testDate) {
-    // TODO: 17/03/2020 check params
     return (member.findQualificationPoints(testDate) >= SILVER_LIMIT);
     // should return true if member has enough valid points to be upgraded to silver.
   }
@@ -301,7 +303,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @return true if member is eligible for gold level membership.
    */
   private boolean checkGoldQualification(BonusMember member, LocalDate testDate) {
-    // TODO: 17/03/2020 check params
     return (member.findQualificationPoints(testDate) >= GOLD_LIMIT);
     // should return true if member has enough valid points to be upgraded to gold.
   }
@@ -313,7 +314,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @return the newly upgraded silver level member.
    */
   private BonusMember upgradeMemberToSilver(BonusMember currentMember) {
-// TODO: 17/03/2020 try catch ex from BonusMember constructor
     return new SilverMember(//recycles details from old BasicMember object.
         currentMember.getMemberNo(),
         currentMember.getPersonals(),
@@ -328,7 +328,6 @@ public class MemberArchive implements Iterable<BonusMember> {
    * @return the newly upgraded gold level member.
    */
   private BonusMember upgradeMemberToGold(BonusMember currentMember) {
-// TODO: 17/03/2020 try catch ex from BonusMember constructor
     return new GoldMember(//recycles details from old SilverMember or BasicMember object.
         currentMember.getMemberNo(),
         currentMember.getPersonals(),

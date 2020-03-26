@@ -1,3 +1,10 @@
+todo 24.03
+- Move model related methods and object instances to MainController.
+Only UI related parts should be present in MainView. MainView holds an instance of MainController,
+while MainController should hold the MemberArchive instance. MemberArchive holds BonusMember collection. 
+
+UI Structure
+-
 - Top: Menu and Toolbar 
     - VBox:
         - main menu
