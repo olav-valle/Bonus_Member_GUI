@@ -1,27 +1,47 @@
 package no.ntnu.iir.olavval.oblig2.ui.view;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
-import javafx.geometry.Insets;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import no.ntnu.iir.olavval.oblig2.model.*;
+import no.ntnu.iir.olavval.oblig2.model.BonusMember;
+import no.ntnu.iir.olavval.oblig2.model.MemberArchive;
+import no.ntnu.iir.olavval.oblig2.model.Personals;
+import no.ntnu.iir.olavval.oblig2.ui.controller.MainController;
 
 public class MainView extends Application {
 
+  private Logger log;
+  private MainController mainController;
   private MemberArchive archive;
+  private ObservableList<BonusMember> memberListWrapper;
+  private ObservableObjectValue<BonusMember> observableSelectedMember;
+  private LocalDate testDate; // Date object for testing
+  private GridPane memberDetailsGrid;
 
-  public static void main(String[] args){
+
+  public static void main(String[] args) {
     launch(args);
   }
 
@@ -33,45 +53,76 @@ public class MainView extends Application {
    */
   @Override
   public void init() {
+    this.mainController = new MainController();
     archive = new MemberArchive();
     this.addDummies();
+    memberListWrapper = getMemberListWrapper(); // Wrapped observable member list.
   }
+
 
   /**
    * The main entry point for all JavaFX applications.
    * The start method is called after the init method has returned,
    * and after the system is ready for the application to begin running.
+   *
    * @param primaryStage the primary stage for this application,
    *                     onto which the application scene can be set.
    *                     The primary stage will be embedded in the browser if the
    *                     application was launched as an applet. Applications may create
    *                     other stages, if needed, but they will not be primary stages
    *                     and will not be embedded in the browser.
-   * @throws Exception
    */
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     // TODO: 18/03/2020 refactor pane node creations.
     //  separate methods for each of the BorderPane areas:
-    //  center is VBox with member table on top and grid view for details on bottom.
+    //  center is HBox with member table on top and grid view for details on bottom.
     //  Top is VBox with main menu and toolbar (adding points, creating members).
-    //  Bottom is statusbar.
+    //  Bottom is statusbar with member count and the date of "testDate" object.
 
     // BorderPane as scene root
     BorderPane root = new BorderPane();
 
-    // TODO: 18/03/2020 method for making toolbar and menu for root top
-    //HBox for toolbar
-    HBox toolBar = new HBox();
+    // Center of root is an HBox with a table and grid
+    TableView<BonusMember> memberTable = makeMemberTable(); // member table
+    // Set selected member listener
+    // !! Crucial that this field is initialized before ANY OTHER UI elements are created. !!
+    // Other UI elements use this Observable, and it must be set to avoid NullPointerExceptions.
+    this.observableSelectedMember = memberTable.getSelectionModel().selectedItemProperty();
+    // FIXME: 25/03/2020 Find a safer/better solution to this.
 
-    root.setTop(toolBar);
+    // TODO: 25/03/2020 Is this making memberDetailsGrid a class field
+    //  a bad solution to the problem of making the grid change when
+    //  in edit and new member modes? Probably
+    // FIXME: 25/03/2020 This thing...
+    memberDetailsGrid = makeMemberDetailGrid();
 
-    //VBox for center view
-    VBox vBoxCenter = makeCenterPane();
+    HBox centerBox = makeCenterPane(memberTable, memberDetailsGrid);
 
-    // Center of root is a VBox with a table and grid
-    root.setCenter(vBoxCenter);
+    centerBox.getChildren().get(1); //to fetch the member detail grid...
+
+    centerBox.setPadding(new Insets(5));
+    root.setCenter(centerBox);
+
+    //VBox for Menu and Toolbar
+    // TODO: 25/03/2020 make menu
+    ToolBar toolBar = makeTopToolBar(memberTable);
+    VBox topBox = new VBox(toolBar);
+    root.setTop(topBox);
+
+
+    HBox statusBar = new HBox();
+    Pane spacer = new Pane();
+    Text date = new Text("Today's date: " + testDate.toString());
+    Text members = new Text("Total members: " + memberListWrapper.size());
+    statusBar.setStyle("-fx-background-color: #a9a9a9; -fx-border-color: #000000");
+    statusBar.setPadding(new Insets(2));
+    statusBar.setSpacing(10);
+    statusBar.getChildren().addAll(members, spacer, date);
+    HBox.setHgrow(spacer, Priority.SOMETIMES);
+    root.setBottom(statusBar);
+
 
     // Set the scene
     Scene scene = new Scene(root);
@@ -82,42 +133,184 @@ public class MainView extends Application {
     primaryStage.show();
   }
 
-  private VBox makeCenterPane(){
+  /**
+   * todo: javadoc
+   */
+  private ToolBar makeTopToolBar(TableView<BonusMember> memberTable) {
+// TODO: 25/03/2020 add icons to buttons
+    // -- Add New Member button
+    Button addMemberBtn = new Button("Add New Member");
+    Tooltip.install(addMemberBtn, new Tooltip("Create a new member account."));
+    // -- Upgrade all members button.
+    Button upgradeBtn = makeButtonUpgradeMembers();
+    Tooltip.install(upgradeBtn, new Tooltip("Upgrade all members who are eligible."));
+    // -- Edit member details. Unused.
+    Button editBtn = new Button("Edit Member");
+    Tooltip.install(editBtn, new Tooltip("Edit member details."));
+    // -- Save edits to member details. Unused.
+    Button saveChangesBtn = new Button("Save Changes");
+    Tooltip.install(saveChangesBtn, new Tooltip("Save changes to member."));
+
+    // -- Add points button
+    Button addPointsBtn = makeButtonAddPoints();
+    Tooltip.install(addPointsBtn, new Tooltip("Add points to currently selected member"));
+
+    // -- Delete Member button
+    Button deleteMemberButton = makeButtonDeleteMember();
+    deleteMemberButton.setStyle("-fx-font-weight: bold; -fx-background-color: #f44336");
+    Tooltip.install(deleteMemberButton, new Tooltip("Delete this member from the registry."));
+
+    Pane spacer = new Pane();
+    HBox.setHgrow(spacer, Priority.SOMETIMES);
+
+    return new ToolBar(
+        addMemberBtn,
+        upgradeBtn,
+        spacer,
+        addPointsBtn,
+        deleteMemberButton
+    );
+  }
+
+  /**
+   * todo: javadoc
+   */
+  private Button makeButtonAddMember() {
+    Button addMemberBtn = new Button("Add New Member");
+
+    addMemberBtn.setOnAction(actionEvent -> {
+
+    });
+
+    return addMemberBtn;
+  }
+
+  /**
+   * todo: javadoc
+   */
+  private Button makeButtonUpgradeMembers() {
+    Button upgradeBtn = new Button("Run Upgrade Checks");
+
+    upgradeBtn.setOnAction(eventAction -> {
+      if (mainController.doShowUpgradeConfirmDialog()) {
+        archive.checkAndUpgradeMembers(testDate);
+        updateMemberListWrapper();
+        // TODO: 25/03/2020 Present list of the members that were upgraded?
+      }
+
+    });
+
+    return upgradeBtn;
+  }
+
+  /**
+   * todo: javadoc
+   */
+  private Button makeButtonAddPoints() {
+    Button addPointsBtn = new Button("Add Points");
+    addPointsBtn.setDisable(true);
+    // Button enable toggle
+    observableSelectedMember.addListener((obs, ov, nv) -> {
+      if (nv == null) {
+        addPointsBtn.setDisable(true);
+      } else {
+        addPointsBtn.setDisable(false);
+      }
+    });
+    //-- "Add Points" button action--
+    addPointsBtn.setOnAction(actionEvent -> {
+      BonusMember selectedMember = observableSelectedMember.get();
+      if (selectedMember != null) {
+        mainController.doShowAddPointsModal(archive, selectedMember, this);
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("You must first select which member you want to add points to.");
+        alert.showAndWait();
+      }
+    });// addPointsBtn.setOnAction
+
+    return addPointsBtn;
+  }
+
+  /**
+   * todo: javadoc
+   */
+  private Button makeButtonDeleteMember() {
+    Button deleteBtn = new Button("Delete Member");
+    deleteBtn.setDisable(true);
+    // Button enable toggle
+    observableSelectedMember.addListener((obs, ov, nv) -> {
+      if (nv == null) {
+        deleteBtn.setDisable(true);
+      } else {
+        deleteBtn.setDisable(false);
+      }
+
+    });
+    //-- "Delete Member" button action--
+    deleteBtn.setOnAction(actionEvent -> {
+      //BonusMember member = memberTable.getSelectionModel().getSelectedItem();
+      BonusMember member = observableSelectedMember.get();
+      if (member != null) {
+        if (mainController.doShowDeleteMemberConfirmation(member)) {
+          archive.removeMember(member);
+          updateMemberListWrapper();
+        }
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("You must first select which member you want to delete.");
+        alert.showAndWait();
+      }
+    });// deleteBtn.setOnAction
+    return deleteBtn;
+  }
+
+  /**
+   * Assembles the node for the center of the border pane.
+   *
+   * @return The center node VBox.
+   */
+  private HBox makeCenterPane(TableView<BonusMember> memberTable, GridPane memberDetailBox) {
     // TODO: 18/03/2020 add grid view for member details
     //-- VBox with member table and member details view --
-    VBox vBox = new VBox(10);
+    HBox hBox = new HBox(10);
 
-    //-- Member table for top of VBox --
-    TableView<BonusMember> memberTable = makeMemberTable();
+    //-- Set Member table for top of VBox --
     VBox.setVgrow(memberTable, Priority.ALWAYS); // Member table should grow to fill VBox
     VBox.setMargin(memberTable, new Insets(10.0, 10.0, 0, 10.0));
 
-    // --GridPane for member details at bottom of VBox--
+    // --Set GridPane for member details at bottom of VBox--
     //Text fields in details grid listen to table view for selected member, so we pass the table.
-    VBox memberDetailGrid = makeMemberDetailGrid(memberTable);
-    VBox.setVgrow(memberDetailGrid, Priority.NEVER);
+    VBox.setVgrow(memberDetailBox, Priority.NEVER);
 
-    VBox.setMargin(memberDetailGrid, new Insets(0, 10.0, 10.0, 10.0));
+    VBox.setMargin(memberDetailBox, new Insets(0, 10.0, 10.0, 10.0));
 
-    vBox.getChildren().addAll(memberTable, memberDetailGrid);
+    hBox.getChildren().addAll(memberTable, memberDetailBox);
 
-    return vBox;
+    return hBox;
   }
 
-
-  private TableView<BonusMember> makeMemberTable(){
+  /**
+   * Assembles the table view that displays the list of members currently in the archive.
+   *
+   * @return TableView of members.
+   */
+  private TableView<BonusMember> makeMemberTable() {
     // Name column
     TableColumn<BonusMember, String> nameCol = new TableColumn<>("First Name");
     nameCol.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
 
     // Surname column
-    TableColumn<BonusMember, String> surnameCol= new TableColumn<>("Surname");
+    TableColumn<BonusMember, String> surnameCol = new TableColumn<>("Surname");
     surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
 
     // Member ID number column
-    TableColumn<BonusMember, Integer> memberNoCol= new TableColumn<>("ID");
+    TableColumn<BonusMember, Integer> memberNoCol = new TableColumn<>("ID");
     memberNoCol.setCellValueFactory(new PropertyValueFactory<>("memberNo"));
 
+    // Unused points column
     TableColumn<BonusMember, Integer> pointCol = new TableColumn<>("Bonus Points");
     pointCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
@@ -127,17 +320,25 @@ public class MainView extends Application {
 
     //TableView for center content
     TableView<BonusMember> centerTable = new TableView<>();
-    centerTable.setItems(this.getMemberListWrapper());
-    centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, /*pointCol,*/ levelCol);
+    centerTable.setItems(memberListWrapper);
+    centerTable.getColumns().addAll(memberNoCol, surnameCol, nameCol, levelCol);
+    // TODO: 25/03/2020 set window width.
 
     return centerTable;
   }
 
-  private VBox makeMemberDetailGrid(TableView<BonusMember> memberTable){
+  /**
+   * Assembles the grid pane that displays member details at the bottom half of the window.
+   *
+   * @param
+   * @return GridPane set up to display member details.
+   */
+  private GridPane makeMemberDetailGrid() {
+    // TODO: 24/03/2020 hide detail grid until member is selected from table. How?
     GridPane gridPane = new GridPane();
-
     gridPane.setHgap(10);
     gridPane.setVgap(10);
+    gridPane.setPadding(new Insets(5));
 
     // First Name field (0.0) (1.0)
     gridPane.add(new Label("First Name: "), 0, 0);
@@ -168,65 +369,109 @@ public class MainView extends Application {
     TextField points = new TextField();
     points.setPromptText("Bonus Points Balance");
     gridPane.add(points, 1, 4);
-    // TODO: 19/03/2020 add email field
 
+    // Member email address (0.5)(1.5)
+    gridPane.add(new Label("Email Address: "), 0, 5);
+    TextField email = new TextField();
+    email.setPromptText("Email Address");
+    gridPane.add(email, 1, 5);
+
+    // Enrollment date in three separate fields (yyyy/mm/dd)
+    TextField year = new TextField();
+    year.setPromptText("YYYY");
+    year.setPrefColumnCount(4);
+    TextField month = new TextField();
+    month.setPromptText("MM");
+    month.setPrefColumnCount(2);
+    TextField day = new TextField();
+    day.setPromptText("DD");
+    day.setPrefColumnCount(2);
+    HBox dateBox = new HBox(year, new Text("/"), month, new Text("/"), day);
+    dateBox.setSpacing(2);
+    gridPane.add(new Label("Enroll Date: "), 0, 6);
+    gridPane.add(dateBox, 1, 6);
+
+
+    firstName.setEditable(false);
+    surname.setEditable(false);
+    id.setEditable(false);
+    level.setEditable(false);
+    points.setEditable(false);
+    email.setEditable(false);
+    year.setEditable(false);
+    month.setEditable(false);
+    day.setEditable(false);
+
+    gridPane.getChildren();
     // -- GridPane observes TableView for changes in selected element
-    // TODO: 19/03/2020 Maybe make this a method and save observer as a class field?
-    memberTable.getSelectionModel()
-        .selectedItemProperty()
+    observableSelectedMember
         .addListener((o, ov, member) -> {
-          if (member != null){
+          if (member != null) {
             firstName.setText(member.getFirstName());
             surname.setText(member.getSurname());
             id.setText(Integer.toString(member.getMemberNo()));
             level.setText(member.getMembershipLevel());
             points.setText(Integer.toString(member.getPoints()));
+            email.setText(member.getEmail());
+            year.setText(Integer.toString(member.getEnrolledDate().getYear()));
+            month.setText(Integer.toString(member.getEnrolledDate().getMonthValue()));
+            day.setText(Integer.toString(member.getEnrolledDate().getDayOfMonth()));
           }
         });
 
-    // TODO: 19/03/2020 add toolbar with delete, edit options, and change return type to vbox.
-    Button edit = new Button("Edit Member");
-    Button addPoints = new Button("Add Points");
-    Button save = new Button("Save Changes");
-    HBox buttons = new HBox(10, edit, addPoints, save);
-    //buttons.setPadding(new Insets(5));
-
-    Button delete = new Button("Delete Member");
-
-
-
-    return new VBox(10, buttons, gridPane, delete);
-
+    return gridPane;
   }
 
-  // TODO: 19/03/2020 implement updateMemberList()
-  private ObservableList<BonusMember> getMemberListWrapper(){
+
+  /**
+   * Creates an observable version of archive list.
+   *
+   * @return
+   */
+  private ObservableList<BonusMember> getMemberListWrapper() {
     return FXCollections.observableArrayList(archive.getArchiveValuesAsList());
   }
 
+  /**
+   * Fetches an updated version of the observable member list.
+   */
+  public void updateMemberListWrapper() {
+    this.memberListWrapper.setAll(this.getMemberListWrapper());
+  }
+
+  /**
+   * Support method for debugging which adds 5 different members to the collection.
+   */
   private void addDummies() {
 
-    LocalDate oleEnrollDate = LocalDate.of(2006, 2, 15);
-    LocalDate toveEnrollDate = LocalDate.of(2007, 5, 3);
-    LocalDate liseEnrollDate = LocalDate.of(2008, 2, 10);
-    LocalDate jonasEnrollDate = oleEnrollDate; //same date as Ole
-    LocalDate erikEnrollDate = LocalDate.of(2007, 3, 1);
+    this.testDate = LocalDate.of(2008, 2, 10);
 
+    LocalDate oleEnrollDate = LocalDate.of(2006, 2, 15);
     Personals ole = new Personals("Ole", "Olsen",
         "ole.olsen@dot.com", "ole");
+    archive.addMember(ole, oleEnrollDate);
+
+    LocalDate toveEnrollDate = LocalDate.of(2007, 5, 3);
     Personals tove = new Personals("Tove", "Hansen",
         "tove.hansen@dot.com", "tove");
+    archive.addMember(tove, toveEnrollDate);
+
+    LocalDate liseEnrollDate = LocalDate.of(2008, 2, 10);
     Personals lise = new Personals("Lise", "Lisand",
         "lise@lisand.no", "lise");
+    archive.addMember(lise, liseEnrollDate);
+
+    LocalDate jonasEnrollDate = oleEnrollDate; //same date as Ole
     Personals jonas = new Personals("Jonas", "Johnsen",
         "jon@johnsen.no", "jonny");
+    archive.addMember(jonas, jonasEnrollDate);
+
+    LocalDate erikEnrollDate = LocalDate.of(2007, 3, 1);
     Personals erik = new Personals("Erik", "Eriksen",
         "rikken@eriksen.no", "rikkenrules");
-
-    archive.addMember(ole, oleEnrollDate);
-    archive.addMember(tove, toveEnrollDate);
-    archive.addMember(lise, liseEnrollDate);
-    archive.addMember(jonas, jonasEnrollDate);
     archive.addMember(erik, erikEnrollDate);
+
+
   }
 }
+
