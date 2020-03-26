@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="MandelbrotSet:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="959a8282-9997-45f9-8d46-4b1748ebc6d9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1ZJ6Z9Xxsh1HbARsy8QSkjKiPHM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.18878505" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="demo.parallel.Main" />
+      <module name="MandelbrotSet" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="demo.parallel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="959a8282-9997-45f9-8d46-4b1748ebc6d9" name="Default Changelist" comment="" />
+      <created>1584544902856</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584544902856</updated>
+      <workItem from="1584544904536" duration="1092000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="789" y="277" width="800" height="684" key="#Project_Structure" timestamp="1584545010112">
+      <screen x="0" y="220" width="2560" height="1440" />
+    </state>
+    <state x="789" y="277" width="800" height="684" key="#Project_Structure/0.220.2560.1440/2560.0.1080.1920@0.220.2560.1440" timestamp="1584545010112" />
+    <state x="708" y="436" width="525" height="434" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1584545360401">
+      <screen x="0" y="220" width="2560" height="1440" />
+    </state>
+    <state x="708" y="436" width="525" height="434" key="#com.intellij.ide.util.TreeClassChooserDialog/0.220.2560.1440/2560.0.1080.1920@0.220.2560.1440" timestamp="1584545360401" />
+    <state x="808" y="446" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584544925942">
+      <screen x="0" y="220" width="2560" height="1440" />
+    </state>
+    <state x="808" y="446" width="293" height="223" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.220.2560.1440/2560.0.1080.1920@0.220.2560.1440" timestamp="1584544925942" />
+    <state x="825" y="329" width="718" height="587" key="FileChooserDialogImpl" timestamp="1584545007078">
+      <screen x="0" y="220" width="2560" height="1440" />
+    </state>
+    <state x="825" y="329" width="718" height="587" key="FileChooserDialogImpl/0.220.2560.1440/2560.0.1080.1920@0.220.2560.1440" timestamp="1584545007078" />
+    <state x="464" y="220" width="1024" height="852" key="SettingsEditor" timestamp="1584545385794">
+      <screen x="0" y="220" width="2560" height="1440" />
+    </state>
+    <state x="464" y="220" width="1024" height="852" key="SettingsEditor/0.220.2560.1440/2560.0.1080.1920@0.220.2560.1440" timestamp="1584545385794" />
+  </component>
+</project>
